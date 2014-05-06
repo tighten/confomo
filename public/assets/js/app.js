@@ -45,7 +45,7 @@ var itemModel = function(items) {
                 data: data,
                 context: this,
                 success: function(returnedData) {
-                    this.items.push(returnedData);
+                    this.items.push(new Item(returnedData));
                     this.itemToAdd("");
                 }
             });
