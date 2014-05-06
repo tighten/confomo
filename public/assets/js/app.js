@@ -34,15 +34,17 @@ var itemModel = function(items ) {
     }.bind(this);
 };
 
-$.getJSON("/friends", function(data) {
-    oldFriends = ko.utils.arrayFilter(data, function(item) {
-        return item.type == 'old';
-    });
-    newFriends = ko.utils.arrayFilter(data, function(item) {
-        return item.type == 'new';
+if ($('#old-friends').length && $('#new-friends').length) {
+    $.getJSON("/friends", function(data) {
+        oldFriends = ko.utils.arrayFilter(data, function(item) {
+            return item.type == 'old';
+        });
+        newFriends = ko.utils.arrayFilter(data, function(item) {
+            return item.type == 'new';
+        });
+
+        ko.applyBindings(new itemModel(oldFriends), document.getElementById('old-friends'));
+        ko.applyBindings(new itemModel(newFriends), document.getElementById('new-friends'));
     });
 
-    ko.applyBindings(new itemModel(oldFriends), document.getElementById('old-friends'));
-    ko.applyBindings(new itemModel(newFriends), document.getElementById('new-friends'));
-});
-
+}

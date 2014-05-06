@@ -1,11 +1,6 @@
-<html>
-<head>
-	<title>m347</title>
-</head>
-<body>
-<h1>m347</h1>
-<hr>
+@extends('layouts.app')
 
+@section('content')
 <div id="old-friends" data-type="old">
 	<h2>Friends I want to Meet at the Conference</h2>
 
@@ -45,15 +40,11 @@
 <br><br><br>
 <h2>@todo</h2>
 <ul>
-	<li>Add user login</li>
+	<li><strike>Add user login</strike></li>
+	<li>Scope tasks to user</li>
 	<li>Allow checking someone off as "met"</li>
 	<li>Add first name, last name, profile pic, other stuff</li>
 	<li>Make it not hideous</li>
 	<li>Add notes for how you met someone</li>
 </ul>
-
-<script src="bower_components/jquery/dist/jquery.js"></script>
-<script src="bower_components/component-knockout-passy/knockout.js"></script>
-<script src="assets/js/app.js"></script>
-</body>
-</html>
+@stop
