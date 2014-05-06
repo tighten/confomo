@@ -87,7 +87,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 
 	// Authority:
-	//app/models/User.php
 	public function roles() {
 		return $this->belongsToMany('Role');
 	}
@@ -106,5 +105,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return false;
 	}
 
+	// Actual app logic
+	public function friends() {
+		return $this->hasMany('Friend');
+	}
 
 }

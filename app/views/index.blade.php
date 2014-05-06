@@ -41,7 +41,7 @@
 <h2>@todo</h2>
 <ul>
 	<li><strike>Add user login</strike></li>
-	<li>Scope tasks to user</li>
+	<li><strike>Scope tasks to user</strike></li>
 	<li>Allow checking someone off as "met"</li>
 	<li>Add first name, last name, profile pic, other stuff</li>
 	<li>Make it not hideous</li>

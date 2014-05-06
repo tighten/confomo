@@ -8,4 +8,9 @@ class Friend extends \Eloquent
 		'twitter',
 		'type'
 	];
+
+	public function friender()
+	{
+		return $this->belongsTo('User');
+	}
 }

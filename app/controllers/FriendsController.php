@@ -9,7 +9,8 @@ class FriendsController extends \BaseController
 	 */
 	public function index()
 	{
-		return Friend::all();
+//		return Friend::all();
+		return Auth::user()->friends;
 	}
 
 	/**
@@ -29,7 +30,9 @@ class FriendsController extends \BaseController
 	 */
 	public function store()
 	{
-		$friend = Friend::create($_POST);
+		$friend = new Friend($_POST);
+		$friend->user_id = Auth::user()->id;
+		$friend->save();
 //		return $friend;
 		// Annoyingly necessary to return *all* fields
 		return Friend::find($friend->id);
@@ -43,7 +46,10 @@ class FriendsController extends \BaseController
 	 */
 	public function show($id)
 	{
-		return Friend::find($id);
+		return Friend
+			::where('user_id', Auth::user()->id)
+			->where('id', $id)
+			->one();
 	}
 
 	/**
@@ -76,7 +82,10 @@ class FriendsController extends \BaseController
 	 */
 	public function destroy($id)
 	{
-		return Friend::destroy($id);
+		return Friend
+			::where('user_id', Auth::user()->id)
+			->where('id', $id)
+			->delete();
 	}
 
 }

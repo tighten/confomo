@@ -12,7 +12,8 @@
 */
 
 Route::get('/', ['as' => 'home', 'before' => 'auth', function() {
-	$friends = Friend::all();
+//	$friends = Friend::all();
+	$friends = Auth::user()->friends;
 	return View::make('index')
 		->with('friends', $friends);
 }]);
