@@ -34,7 +34,6 @@
 		<div class="user-list-actions">
 			<button class="mark-as-met" data-bind="click: markThisItemMet">met</button>
 			<button class="destroy" data-bind="click: $root.remove">x</button>
-			<span data-bind="text: met"></span>
 		</div>
 		<div>
 			<span data-bind="text: first_name + ' ' + last_name"></span>
