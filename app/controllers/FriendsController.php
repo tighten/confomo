@@ -71,7 +71,16 @@ class FriendsController extends \BaseController
 	 */
 	public function update($id)
 	{
-		//
+		$item = Input::all();
+		unset($item['id']);
+		unset($item['user_id']);
+
+		$friend = Friend
+			::where('user_id', Auth::user()->id)
+			->where('id', $id)
+			->first();
+		$friend->fill($item);
+		return $friend->save();
 	}
 
 	/**

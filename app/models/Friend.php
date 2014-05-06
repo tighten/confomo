@@ -6,7 +6,8 @@ class Friend extends \Eloquent
 		'first_name',
 		'last_name',
 		'twitter',
-		'type'
+		'type',
+		'met'
 	];
 
 	public function friender()

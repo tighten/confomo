@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="old-friends" data-type="old">
+<div class="friends-list-container old-friends-list-container" id="old-friends" data-type="old">
 	<h2>Friends I want to Meet at the Conference</h2>
 
 	<ul data-bind="template: { foreach: items, name: 'person-template' }"></ul>
@@ -15,7 +15,7 @@
 	</form>
 </div>
 
-<div id="new-friends" data-type="new">
+<div class="friends-list-container new-friends-list-container" id="new-friends" data-type="new">
 	<h2>Friends I Met at the Conference And Want to Remember</h2>
 
 	<ul data-bind="template: { foreach: items, name: 'person-template' }"></ul>
@@ -30,10 +30,15 @@
 </div>
 
 <script type="text/html" id="person-template">
-	<li>
-		<span data-bind="text: first_name + ' ' + last_name"></span>
-		<a href="#" data-bind="text: '@' + twitter, attr: { href: 'http://twitter.com/' + twitter }"></a>
-		<button class="destroy" data-bind="click: $root.remove">x</button>
+	<li data-bind="css: { 'marked-as-met': met == 1 }">
+		<div class="user-list-actions">
+			<button class="mark-as-met" data-bind="click: $root.markItemMet">met</button>
+			<button class="destroy" data-bind="click: $root.remove">x</button>
+		</div>
+		<div>
+			<span data-bind="text: first_name + ' ' + last_name"></span>
+			<a href="#" data-bind="text: '@' + twitter, attr: { href: 'http://twitter.com/' + twitter }"></a>
+		</div>
 	</li>
 </script>
 

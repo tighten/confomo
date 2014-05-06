@@ -1,12 +1,15 @@
-var itemModel = function(items ) {
+var itemModel = function(items) {
     this.items = ko.observableArray(items);
     this.itemToAdd = ko.observable("");
     this.addItem = function(target) {
-        var type = $(target).closest('div').attr('data-type');
+        var type = $(target).closest('div').attr('data-type'),
+            met = type == 'new' ? '1' : '0';
+
         if (this.itemToAdd() != "") {
             var data = {
                     'twitter': this.itemToAdd(),
-                    'type': type
+                    'type': type,
+                    'met': met
                 };
 
             $.ajax({
@@ -22,6 +25,17 @@ var itemModel = function(items ) {
         }
     }.bind(this);  // Ensure that "this" is always this view model
 
+    this.markItemMet = function(item) {
+        item.met = 1; // @todo: Can we do true/false?
+        $.ajax({
+            url: '/friends/' + item.id,
+            type: 'PUT',
+            data: item,
+            success: function(result) {
+            }
+        });
+    }.bind(this);
+
     this.remove = function (item) {
         $.ajax({
             url: '/friends/' + item.id,
@@ -32,6 +46,12 @@ var itemModel = function(items ) {
             }
         });
     }.bind(this);
+
+//    this.firstName = ko.observable(item.first_name);
+//    this.lastName = ko.observable(item.last_name);
+//    this.fullName = ko.computed(function() {
+//        return this.firstName() + ' ' + this.lastName();
+//    }, this);
 };
 
 if ($('#old-friends').length && $('#new-friends').length) {
