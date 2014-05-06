@@ -60,7 +60,7 @@ return array(
 			'password'  => 'M1UaBBvYtKKh2HOf',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
+			'prefix'    => 'm347_',
 			'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
 		),
 
