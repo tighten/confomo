@@ -1,5 +1,5 @@
 var Item = function(item) {
-    for (prop in item) {
+    for (var prop in item) {
         this[prop] = item[prop];
     }
     this.met = ko.observable(item.met);
@@ -15,14 +15,14 @@ var Item = function(item) {
                 this.met(item.met);
             }
         });
-    }
+    };
 };
 
 var itemModel = function(items) {
     // Convert item arrays to Item objects.. not necessary but
     // hopefully eventually useful
-    in_items = [];
-    for (item in items) {
+    var in_items = [];
+    for (var item in items) {
         in_items.push(new Item(items[item]));
     }
 
