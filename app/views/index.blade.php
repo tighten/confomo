@@ -30,10 +30,11 @@
 </div>
 
 <script type="text/html" id="person-template">
-	<li data-bind="css: { 'marked-as-met': met == 1 }">
+	<li data-bind="css: { 'marked-as-met': met() == 1 }">
 		<div class="user-list-actions">
-			<button class="mark-as-met" data-bind="click: $root.markItemMet">met</button>
+			<button class="mark-as-met" data-bind="click: markThisItemMet">met</button>
 			<button class="destroy" data-bind="click: $root.remove">x</button>
+			<span data-bind="text: met"></span>
 		</div>
 		<div>
 			<span data-bind="text: first_name + ' ' + last_name"></span>
@@ -47,7 +48,7 @@
 <ul>
 	<li><strike>Add user login</strike></li>
 	<li><strike>Scope tasks to user</strike></li>
-	<li>Allow checking someone off as "met"</li>
+	<li><strike>Allow checking someone off as "met"</strike></li>
 	<li>Add first name, last name, profile pic, other stuff</li>
 	<li>Make it not hideous</li>
 	<li>Add notes for how you met someone</li>

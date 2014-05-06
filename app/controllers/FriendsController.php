@@ -80,7 +80,8 @@ class FriendsController extends \BaseController
 			->where('id', $id)
 			->first();
 		$friend->fill($item);
-		return $friend->save();
+
+		$friend->save();
 	}
 
 	/**
