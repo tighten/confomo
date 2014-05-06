@@ -15,27 +15,26 @@ var itemModel = function(items ) {
                 data: data,
                 context: this,
                 success: function(returnedData) {
-                    this.items.push(returnedData); // Adds the item. Writing to the "items" observableArray causes any associated UI to update.
-                    this.itemToAdd(""); // Clears the text box, because it's bound to the "itemToAdd" observable
+                    this.items.push(returnedData);
+                    this.itemToAdd("");
                 }
             });
         }
     }.bind(this);  // Ensure that "this" is always this view model
 
     this.remove = function (item) {
-        this.items.remove(item);
         $.ajax({
             url: '/friends/' + item.id,
             type: 'DELETE',
+            context: this,
             success: function(result) {
-                console.log(result);
+                this.items.remove(item);
             }
         });
     }.bind(this);
 };
 
 $.getJSON("/friends", function(data) {
-//    oldFriendsModel.items(data);
     oldFriends = ko.utils.arrayFilter(data, function(item) {
         return item.type == 'old';
     });
