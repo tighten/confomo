@@ -1,0 +1,17 @@
+{
+  "name": "component-knockout-passy",
+  "version": "3.0.0",
+  "authors": [
+    "Steven Sanderson"
+  ],
+  "description": "Knockout makes it easier to create rich, responsive UIs with JavaScript",
+  "main": "knockout.js",
+  "keywords": [
+    "data-binding"
+  ],
+  "license": "MIT",
+  "homepage": "http://knockoutjs.com/",
+  "ignore": [
+    "*.min.js"
+  ]
+}

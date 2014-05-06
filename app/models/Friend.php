@@ -1,5 +1,9 @@
 <?php
 
 class Friend extends \Eloquent {
-	protected $fillable = [];
+	protected $fillable = [
+		'first_name',
+		'last_name',
+		'twitter'
+	];
 }

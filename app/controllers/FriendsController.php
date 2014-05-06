@@ -29,7 +29,8 @@ class FriendsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$friend = Friend::create($_POST);
+		return $friend;
 	}
 
 	/**
@@ -73,7 +74,7 @@ class FriendsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		return Friend::destroy($id);
 	}
 
 }
