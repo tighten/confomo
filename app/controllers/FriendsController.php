@@ -1,7 +1,7 @@
 <?php
 
-class FriendsController extends \BaseController {
-
+class FriendsController extends \BaseController
+{
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -30,7 +30,9 @@ class FriendsController extends \BaseController {
 	public function store()
 	{
 		$friend = Friend::create($_POST);
-		return $friend;
+//		return $friend;
+		// Annoyingly necessary to return *all* fields
+		return Friend::find($friend->id);
 	}
 
 	/**

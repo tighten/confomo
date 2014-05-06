@@ -18,6 +18,7 @@ Route::get('/', function()
 		->with('friends', $friends);
 });
 
+
 Route::resource('friends', 'FriendsController');
 
 /*

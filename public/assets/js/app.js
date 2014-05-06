@@ -1,26 +1,29 @@
-var SimpleListModel = function(items) {
+var itemModel = function(items ) {
     this.items = ko.observableArray(items);
     this.itemToAdd = ko.observable("");
-    this.addItem = function() {
+    this.addItem = function(target) {
+        var type = $(target).closest('div').attr('data-type');
         if (this.itemToAdd() != "") {
-            var data = { 'twitter': this.itemToAdd() },
-                that = this;
+            var data = {
+                    'twitter': this.itemToAdd(),
+                    'type': type
+                };
 
-            $.post("/friends", data, function(returnedData) {
-                that.items.push({
-                    twitter: that.itemToAdd(),
-                    first_name: '',
-                    last_name: '',
-                    id: returnedData.id
-                }); // Adds the item. Writing to the "items" observableArray causes any associated UI to update.
-                that.itemToAdd(""); // Clears the text box, because it's bound to the "itemToAdd" observable
+            $.ajax({
+                url: '/friends',
+                type: 'POST',
+                data: data,
+                context: this,
+                success: function(returnedData) {
+                    this.items.push(returnedData); // Adds the item. Writing to the "items" observableArray causes any associated UI to update.
+                    this.itemToAdd(""); // Clears the text box, because it's bound to the "itemToAdd" observable
+                }
             });
         }
     }.bind(this);  // Ensure that "this" is always this view model
 
     this.remove = function (item) {
         this.items.remove(item);
-        console.log(item);
         $.ajax({
             url: '/friends/' + item.id,
             type: 'DELETE',
@@ -31,9 +34,16 @@ var SimpleListModel = function(items) {
     }.bind(this);
 };
 
-
 $.getJSON("/friends", function(data) {
-//    SimpleListModel.items(data);
-    ko.applyBindings(new SimpleListModel(data));
+//    oldFriendsModel.items(data);
+    oldFriends = ko.utils.arrayFilter(data, function(item) {
+        return item.type == 'old';
+    });
+    newFriends = ko.utils.arrayFilter(data, function(item) {
+        return item.type == 'new';
+    });
+
+    ko.applyBindings(new itemModel(oldFriends), document.getElementById('old-friends'));
+    ko.applyBindings(new itemModel(newFriends), document.getElementById('new-friends'));
 });
 
