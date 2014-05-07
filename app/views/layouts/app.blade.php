@@ -48,28 +48,31 @@
 	<meta name="viewport" content="width=device-width">
 
 	<style>
+		body {
+			background: #555;
+			font-family: arial;
+			margin: 0;
+			padding: 0;
+		}
 		img {
 			max-width: 100%;
 		}
 		input, input[type="text"], input[type="email"] {
 			font-size: 16px;
 		}
-		.bacon {
-			font-size: 10px;
-			line-height: 1.2;
-			position: absolute;
-			right: 0;
-			text-align: center;
-			top: 0;
-			width: 50px;
+		.container {
+			background: #fff;
+			margin: 0 auto;
+			max-width: 800px;
+			padding: 1rem 2rem;
 		}
-		.bacon a {
-			color: #9999cc;
+		.page-header {
+			background: #eee;
+			margin: -1rem -2rem 1rem;
+			padding: 1rem 2rem 0.5rem;
 		}
-		@media only screen and (min-width: 800px) {
-			.bacon {
-				width: 150px;
-			}
+		.page-title, .slogan {
+			font-family: 'Menlo', 'Courier New', 'Courier';
 		}
 		.page-title {
 			margin: 0;
@@ -79,6 +82,24 @@
 			margin: 0.5rem 0 1rem 0;
 			text-transform: uppercase;
 		}
+		.nav ul {
+			margin: 0;
+			padding: 0;
+		}
+			.nav li {
+				display: inline-block;
+				list-style-type: none;
+				padding: 0;
+				margin: .5rem 1rem;
+			}
+
+		h2 {
+			background: #eee;
+			margin-left: -0.5rem;
+			margin-right: -0.5rem;
+			padding: 0.5rem 0.5rem 0.25rem;
+		}
+
 		.friends-list-container {
 
 		}
@@ -104,13 +125,10 @@
 </head>
 <body>
 <div class="container">
-	<div class="bacon">
-		<img src="/assets/img/bacon.jpg" alt="Jess loves bacon">
-		<a href="https://www.flickr.com/photos/cookbookman/6175755733">(bacon attribution)</a>
-	</div>
-
-	<h1 class="page-title">m347</h1>
-	<p class="slogan">Connecting cyberspace with meatspace, one conference at a time.</p>
+	<header class="page-header">
+		<h1 class="page-title">m347</h1>
+		<p class="slogan">Connecting cyberspace with meatspace, one conference at a time.</p>
+	</header>
 
 	<div class="nav">
 		@if (Auth::check())
