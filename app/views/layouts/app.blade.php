@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
 	<title>M347</title>
+
+	<meta name="description" content="Connecting cyberspace with meatspace, one conference at a time.">
+	<meta name="author" content="Matt Stauffer">
+	<meta name="viewport" content="width=device-width">
+
 	<style>
+		.page-title {
+			margin-bottom: 0;
+		}
+		.slogan {
+			font-style: italic;
+			margin: 0.5rem 0 2rem 0;
+			text-transform: uppercase;
+		}
 		.friends-list-container {
 
 		}
@@ -28,7 +44,9 @@
 </head>
 <body>
 <div class="container">
-	<h1>m347</h1>
+	<h1 class="page-title">m347</h1>
+	<p class="slogan">Connecting cyberspace with meatspace, one conference at a time.</p>
+
 	<div class="nav">
 		@if (Auth::check())
 		<ul>

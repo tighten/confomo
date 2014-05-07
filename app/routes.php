@@ -18,15 +18,15 @@ Route::get('/', ['as' => 'home', 'before' => 'auth', function() {
 		->with('friends', $friends);
 }]);
 
-Route::get('SEEDSUCKA', function() {
-	User::create([
-		'username' => 'matt',
-		'password' => Hash::make('password')
-	]);
-});
+// Route::get('SEEDSUCKA', function() {
+	// User::create([
+		// 'username' => 'matt',
+		// 'password' => Hash::make('password')
+	// ]);
+// });
 
 Route::get('login', ['as' => 'login', function() {
-	return View::make('sessions.login');
+	return View::make('users.login');
 }]);
 
 Route::post('login', function() {
@@ -49,5 +49,39 @@ Route::get('logout', ['as' => 'logout', function() {
 	Auth::logout();
 	return Redirect::route('home');
 }]);
+
+Route::get('signup', ['as' => 'signup', function() {
+	if ( ! Auth::guest()) {
+		return Redirect::route('home');
+	}
+
+	return View::make('users.create');
+}]);
+
+Route::post('signup', function() {
+	if ( ! Auth::guest()) {
+		return Redirect::route('home');
+	}
+
+	// @todo: Verify username uniqueness
+	// @todo: collect email and send verification email
+	// @todo: timeouts/rate limiting
+	$user = User::create([
+		'username' => Input::get('username'),
+		'password' => Hash::make(Input::get('password'))
+	]);
+
+	if (Auth::attempt([
+		'username' => Input::get('username'),
+		'password' => Input::get('password')
+	])) {
+		return Redirect::route('home')
+			->with('flash_notice', 'You have successfully created a user account.');
+	}
+
+	return Redirect::route('signup')
+		->with('flash_error', 'Sorry, but there was a problem signing you up.')
+		->withInput();
+});
 
 Route::resource('friends', 'FriendsController');
