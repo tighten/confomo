@@ -50,6 +50,7 @@
 	<li><strike>Allow checking someone off as "met"</strike></li>
 	<li><strike>Allow users to sign up</strike></li>
 	<li>Add first name, last name, profile pic, other stuff</li>
+	<li>Add some sort of IRC love?</li>
 	<li>Add notes for how you met someone</li>
 	<li>Make it not hideous</li>
 	<li>Add loading graphics</li>

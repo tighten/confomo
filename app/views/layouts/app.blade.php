@@ -6,6 +6,43 @@
 
 	<title>M347</title>
 
+	<!--
+
+	You are here. You are 1337.
+	m347 is for connecting your cyberspace world to the meatspace world by
+	connecting social media/IRC friends with conference co-attendees and vice
+	versa. Because I wanted it for myself, so I built it.
+
+	Matt Stauffer - mattstauffer.co - @stauffermatt
+
+        ____________
+	   /\  ________ \
+      /  \ \______/\ \
+     / /\ \ \  / /\ \ \
+    / / /\ \ \/ / /\ \ \
+   / / /__\ \ \/_/__\_\ \__________
+  / /_/____\ \__________  ________ \
+  \ \ \____/ / ________/\ \______/\ \
+   \ \ \  / / /\ \  / /\ \ \  / /\ \ \
+    \ \ \/ / /\ \ \/ / /\ \ \/ / /\ \ \
+     \ \/ / /__\_\/ / /__\ \ \/_/__\_\ \
+      \  /_/______\/_/____\ \___________\
+      /  \ \______/\ \____/ / ________  /
+     / /\ \ \  / /\ \ \  / / /\ \  / / /
+    / / /\ \ \/ / /\ \ \/ / /\ \ \/ / /
+   / / /__\ \ \/_/__\_\/ / /__\_\/ / /
+  / /_/____\ \_________\/ /______\/ /
+  \ \ \____/ / ________  __________/
+   \ \ \  / / /\ \  / / /
+    \ \ \/ / /\ \ \/ / /
+     \ \/ / /__\_\/ / /
+      \  / /______\/ /
+       \/___________/BvG
+
+       ( via http://www.chris.com/ascii/index.php?art=objects/boxes )
+
+	-->
+
 	<meta name="description" content="Connecting cyberspace with meatspace, one conference at a time.">
 	<meta name="author" content="Matt Stauffer">
 	<meta name="viewport" content="width=device-width">
