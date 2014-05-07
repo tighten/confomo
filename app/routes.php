@@ -48,12 +48,21 @@ Route::get('signup', ['as' => 'signup', 'before' => 'guest', function() {
 }]);
 
 Route::post('signup', ['before' => 'guest', function() {
-	// @todo: Verify email uniqueness
 	// @todo: send verification email
 	// @todo: timeouts/rate limiting
-	if (Input::get('email') == '' || Input::get('password') == '') {
+	$validator = Validator::make(
+		Input::all(),
+		[
+			'email' => 'required|min:5|email|unique:users',
+			'password' => 'required|min:5'
+		]
+	);
+
+	if ($validator->fails())
+	{
 		return Redirect::route('signup')
 			->with('flash_error', 'Sorry, but there was a problem signing you up.')
+			->withErrors($validator)
 			->withInput();
 	}
 

@@ -6,8 +6,13 @@
 @if (Session::has('flash_error'))
 <div class="flash_error">{{ Session::get('flash_error') }}</div>
 @endif
-
-<p>If you just want to see what it does, try {{ HTML::linkAction('login', 'logging in') }} with user <b>matt@matt.com</b> and password <b>password</b>.</p>
+@if($errors->has())
+<ul class="error">
+	@foreach ($errors->all() as $error)
+		<li>{{ $error }}</li>
+	@endforeach
+</ul>
+@endif
 
 {{ Form::open() }}
 

@@ -7,6 +7,8 @@
 <div class="flash_error">{{ Session::get('flash_error') }}</div>
 @endif
 
+<p>If you just want to see what it does, try user <b>matt@matt.com</b> and password <b>password</b>.</p>
+
 {{ Form::open() }}
 
 <p>
