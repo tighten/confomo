@@ -70,4 +70,7 @@ Route::post('signup', ['before' => 'guest', function() {
 		->withInput();
 }]);
 
-Route::resource('friends', 'FriendsController');
+Route::group(array('before' => 'auth'), function()
+{
+	Route::resource('friends', 'FriendsController');
+});

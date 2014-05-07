@@ -19,8 +19,6 @@ var Item = function(item) {
 };
 
 var itemModel = function(items) {
-    // Convert item arrays to Item objects.. not necessary but
-    // hopefully eventually useful
     var in_items = [];
     for (var item in items) {
         in_items.push(new Item(items[item]));
@@ -50,7 +48,7 @@ var itemModel = function(items) {
                 }
             });
         }
-    }.bind(this); // Ensure that "this" is always this view model
+    }.bind(this);
 
     this.remove = function (item) {
         $.ajax({
