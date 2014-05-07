@@ -19,7 +19,7 @@ class FriendsController extends \BaseController
 	 */
 	public function create()
 	{
-		//
+		App::abort(404);
 	}
 
 	/**
@@ -45,10 +45,14 @@ class FriendsController extends \BaseController
 	 */
 	public function show($id)
 	{
-		return Friend
-			::where('user_id', Auth::user()->id)
-			->where('id', $id)
-			->one();
+		try {
+			return Friend
+				::where('user_id', Auth::user()->id)
+				->where('id', $id)
+				->firstOrFail();
+		} catch (Exception $e) {
+			App::abort(404);
+		}
 	}
 
 	/**
@@ -59,7 +63,7 @@ class FriendsController extends \BaseController
 	 */
 	public function edit($id)
 	{
-		//
+		App::abort(404);	
 	}
 
 	/**
@@ -74,10 +78,15 @@ class FriendsController extends \BaseController
 		unset($item['id']);
 		unset($item['user_id']);
 
-		$friend = Friend
-			::where('user_id', Auth::user()->id)
-			->where('id', $id)
-			->first();
+		try {
+			$friend = Friend
+				::where('user_id', Auth::user()->id)
+				->where('id', $id)
+				->firstOrFail();
+		} catch (Exception $e) {
+			App::abort(404);
+		}
+		
 		$friend->fill($item);
 
 		$friend->save();
@@ -91,7 +100,7 @@ class FriendsController extends \BaseController
 	 */
 	public function destroy($id)
 	{
-		return Friend
+		Friend
 			::where('user_id', Auth::user()->id)
 			->where('id', $id)
 			->delete();
