@@ -48,7 +48,7 @@
 	<li><strike>Add user login</strike></li>
 	<li><strike>Scope tasks to user</strike></li>
 	<li><strike>Allow checking someone off as "met"</strike></li>
-	<li>Allow users to sign up</li<
+	<li><strike>Allow users to sign up</strike></li>
 	<li>Add first name, last name, profile pic, other stuff</li>
 	<li>Add notes for how you met someone</li>
 	<li>Make it not hideous</li>
