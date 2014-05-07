@@ -51,11 +51,11 @@ Route::post('signup', ['before' => 'guest', function() {
 	// @todo: Verify email uniqueness
 	// @todo: send verification email
 	// @todo: timeouts/rate limiting
-	// if (Input::get('email') == '' || Input::get('password') == '') {
-		// return Redirect::route('signup')
-			// ->with('flash_error', 'Sorry, but there was a problem signing you up!!')
-			// ->withInput();
-	// }
+	if (Input::get('email') == '' || Input::get('password') == '') {
+		return Redirect::route('signup')
+			->with('flash_error', 'Sorry, but there was a problem signing you up.')
+			->withInput();
+	}
 
 	$user = User::create([
 		'email' => Input::get('email'),
