@@ -11,10 +11,10 @@
 	<meta name="viewport" content="width=device-width">
 
 	<style>
-		input[type="text"], input[type="email"] {
+		input, input[type="text"], input[type="email"] {
 			font-size: 16px;
 		}
-		
+
 		.page-title {
 			margin-bottom: 0;
 		}
