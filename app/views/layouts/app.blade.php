@@ -16,7 +16,7 @@
 		}
 		.slogan {
 			font-style: italic;
-			margin: 0.5rem 0 2rem 0;
+			margin: 0.5rem 0 1rem 0;
 			text-transform: uppercase;
 		}
 		.friends-list-container {
@@ -50,10 +50,11 @@
 	<div class="nav">
 		@if (Auth::check())
 		<ul>
-			<li>{{ HTML::linkAction('logout', 'Logout (' . Auth::user()->username . ')') }}</li>
+			<li>{{ HTML::linkAction('logout', 'Logout (' . Auth::user()->email . ')') }}</li>
 		</ul>
 		@endif
 	</div>
+
 
 	@if(Session::has('flash_notice'))
 	<div class="flash_notice">{{ Session::get('flash_notice') }}</div>

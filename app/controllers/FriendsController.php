@@ -9,7 +9,6 @@ class FriendsController extends \BaseController
 	 */
 	public function index()
 	{
-//		return Friend::all();
 		return Auth::user()->friends;
 	}
 

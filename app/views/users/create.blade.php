@@ -10,8 +10,8 @@
 {{ Form::open() }}
 
 <p>
-	{{ Form::label('username', 'Username') }}<br/>
-	{{ Form::text('username', Input::old('username')) }}
+	{{ Form::label('email', 'Email') }}<br/>
+	{{ Form::email('email', Input::old('email')) }}
 </p>
 
 <p>
@@ -22,4 +22,8 @@
 <p>{{ Form::submit('Sign Up') }}</p>
 
 {{ Form::close() }}
+
+<br>
+
+{{ HTML::linkAction('login', 'Log in') }}
 @stop
