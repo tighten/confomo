@@ -48,12 +48,31 @@
 	<meta name="viewport" content="width=device-width">
 
 	<style>
+		img {
+			max-width: 100%;
+		}
 		input, input[type="text"], input[type="email"] {
 			font-size: 16px;
 		}
-
+		.bacon {
+			font-size: 10px;
+			line-height: 1.2;
+			position: absolute;
+			right: 0;
+			text-align: center;
+			top: 0;
+			width: 50px;
+		}
+		.bacon a {
+			color: #9999cc;
+		}
+		@media only screen and (min-width: 800px) {
+			.bacon {
+				width: 150px;
+			}
+		}
 		.page-title {
-			margin-bottom: 0;
+			margin: 0;
 		}
 		.slogan {
 			font-style: italic;
@@ -85,6 +104,11 @@
 </head>
 <body>
 <div class="container">
+	<div class="bacon">
+		<img src="/assets/img/bacon.jpg" alt="Jess loves bacon">
+		<a href="https://www.flickr.com/photos/cookbookman/6175755733">(bacon attribution)</a>
+	</div>
+
 	<h1 class="page-title">m347</h1>
 	<p class="slogan">Connecting cyberspace with meatspace, one conference at a time.</p>
 

@@ -28,4 +28,5 @@
 <br>
 
 {{ HTML::linkAction('signup', 'Sign up') }}
+
 @stop
