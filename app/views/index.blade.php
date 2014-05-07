@@ -52,5 +52,10 @@
 	<li>Add first name, last name, profile pic, other stuff</li>
 	<li>Add notes for how you met someone</li>
 	<li>Make it not hideous</li>
+	<li>Add loading graphics</li>
+	<li>Force twitter handle to be proper twitter handle</li>
+	<li>Auto-fill details based on twitter handle</li>
+	<li>Make lists public (but notes private?)</li>
+	<li>Some other form of community participation</li>
 </ul>
 @stop
