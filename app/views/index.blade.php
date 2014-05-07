@@ -10,7 +10,7 @@
 
 	<form data-bind="submit: addItem">
 		Add friend by twitter handle:<br>
-		@<input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' />
+		@<input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' type="text" autocorrect="off" autocapitalize="off">
 		<button type="submit" data-bind="enable: itemToAdd().length > 0">Add</button>
 	</form>
 </div>
@@ -24,7 +24,7 @@
 
 	<form data-bind="submit: addItem">
 		Add friend by twitter handle:<br>
-		@<input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' />
+		@<input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' type="text" autocorrect="off" autocapitalize="off">
 		<button type="submit" data-bind="enable: itemToAdd().length > 0">Add</button>
 	</form>
 </div>
