@@ -44,7 +44,6 @@ Route::get('logout', ['as' => 'logout', function() {
 }]);
 
 Route::get('signup', ['as' => 'signup', 'before' => 'guest', function() {
-
 	return View::make('users.create');
 }]);
 
@@ -52,6 +51,12 @@ Route::post('signup', ['before' => 'guest', function() {
 	// @todo: Verify email uniqueness
 	// @todo: send verification email
 	// @todo: timeouts/rate limiting
+	// if (Input::get('email') == '' || Input::get('password') == '') {
+		// return Redirect::route('signup')
+			// ->with('flash_error', 'Sorry, but there was a problem signing you up!!')
+			// ->withInput();
+	// }
+
 	$user = User::create([
 		'email' => Input::get('email'),
 		'password' => Hash::make(Input::get('password'))
