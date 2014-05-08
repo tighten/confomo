@@ -1,22 +1,18 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
-
 Route::get('/', ['as' => 'home', 'before' => 'auth', function() {
 	$friends = Auth::user()->friends;
 
 	return View::make('index')
 		->with('friends', $friends);
 }]);
+
+Route::group(array('before' => 'auth'), function()
+{
+	Route::resource('friends', 'FriendsController');
+});
+
+// Move to user controller
 
 Route::get('login', ['as' => 'login', 'before' => 'guest', function() {
 	return View::make('users.login');
@@ -83,8 +79,3 @@ Route::post('signup', ['before' => 'guest', function() {
 		->with('flash_error', 'Sorry, but there was a problem signing you up.')
 		->withInput();
 }]);
-
-Route::group(array('before' => 'auth'), function()
-{
-	Route::resource('friends', 'FriendsController');
-});

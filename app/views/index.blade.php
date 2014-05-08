@@ -51,6 +51,7 @@
 	<li><strike>Allow users to sign up</strike></li>
 	<li>Add first name, last name, profile pic, other stuff</li>
 	<li>Add some sort of IRC love?</li>
+	<li>Add rate limiting &amp; email address validation</li>
 	<li>Add notes for how you met someone</li>
 	<li>Make it not hideous</li>
 	<li>Add loading graphics</li>

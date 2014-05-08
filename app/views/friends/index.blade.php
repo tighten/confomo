@@ -1,1 +1,0 @@
-/Users/mattstauffer/Sites/m347/app/views/friends/index.blade.php
