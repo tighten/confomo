@@ -44,8 +44,6 @@ Route::get('signup', ['as' => 'signup', 'before' => 'guest', function() {
 }]);
 
 Route::post('signup', ['before' => 'guest', function() {
-	// @todo: send verification email
-	// @todo: timeouts/rate limiting
 	$validator = Validator::make(
 		Input::all(),
 		[

@@ -33,7 +33,8 @@ class FriendsController extends \BaseController
 		$friend->user_id = Auth::user()->id;
 		$friend->save();
 //		return $friend;
-		// Annoyingly necessary to return *all* fields
+
+		// Annoyingly necessary in order to return *all* fields
 		return Friend::find($friend->id);
 	}
 
@@ -69,6 +70,7 @@ class FriendsController extends \BaseController
 	/**
 	 * Update the specified resource in storage.
 	 *
+	 * @todo  Clean up the unset() to be a little less hackable
 	 * @param  int  $id
 	 * @return Response
 	 */

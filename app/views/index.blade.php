@@ -49,6 +49,8 @@
 	<li><strike>Scope tasks to user</strike></li>
 	<li><strike>Allow checking someone off as "met"</strike></li>
 	<li><strike>Allow users to sign up</strike></li>
+	<li>Move @todo to github issues</li>
+	<li>Direct Inject models into controllers so PMJones doesn't make us the next object of his scorn</li>
 	<li>Add first name, last name, profile pic, other stuff</li>
 	<li>Add some sort of IRC love?</li>
 	<li>Add rate limiting &amp; email address validation</li>
@@ -59,5 +61,8 @@
 	<li>Auto-fill details based on twitter handle</li>
 	<li>Make lists public (but notes private?)</li>
 	<li>Some other form of community participation</li>
+	<li>CHORES</li>
+	<li>Consolidate error handling in user create</li>
+	<li>Drop Authority because we're clearly not using it</li>
 </ul>
 @stop
