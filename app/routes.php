@@ -12,6 +12,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::resource('friends', 'FriendsController');
 });
 
+Route::get('users/{user_slug}', 'PublicUsersController@show');
+
 // Move to user controller
 
 Route::get('login', ['as' => 'login', 'before' => 'guest', function() {
