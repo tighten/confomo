@@ -1,3 +1,5 @@
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mattstauffer/confomo/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mattstauffer/confomo/)
+
 ## Confomo
 ### Connecting your online community with the real world, one conference at a time.
 
