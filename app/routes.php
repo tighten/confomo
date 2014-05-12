@@ -1,17 +1,8 @@
 <?php
 
-Route::get('test', function() {
-	$stauffermatt = Friend::find(102);
-	var_dump($stauffermatt->twitterProfile);
-
-	Queue::push(
-		'Confomo\Queue\API\TwitterProfilePic',
-		array(
-			'twitter_handle' => 'stauffermatt',
-			'friend_id' => 102
-		)
-	);
-});
+if (false !== stripos($_SERVER['HTTP_HOST'], 'm347.co')) {
+	header('Location: http://confomo.com/', true, 301);
+}
 
 Route::get('/', ['as' => 'home', 'before' => 'auth', function() {
 	$friends = Auth::user()->friends;
@@ -25,6 +16,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::resource('friends', 'FriendsController');
 });
 
+Route::post("users/{user_slug}/friends/suggested", 'PublicUsersController@suggested');
 Route::get('users/{user_slug}', 'PublicUsersController@show');
 
 // Move to user controller
