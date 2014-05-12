@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(function()
 {
-    return getenv('M347_ENV') ? getenv('M347_ENV') : 'production';
+    return getenv('CONFOMO_ENV') ? getenv('CONFOMO_ENV') : 'production';
 });
 
 /*

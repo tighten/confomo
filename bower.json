@@ -1,5 +1,5 @@
 {
-  "name": "m347",
+  "name": "confomo",
   "version": "0.1.0",
   "dependencies": {
     "component-knockout-passy": "~3.1.0",

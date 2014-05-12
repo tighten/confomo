@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'm347',
+			'database'  => 'confomo',
 			'username'  => 'root',
 			'password'  => 'root',
 			'charset'   => 'utf8',

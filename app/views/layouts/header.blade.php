@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>@yield('title', 'M347')</title>
+	<title>@yield('title', 'Confomo')</title>
 
 	<!--
 
@@ -77,6 +77,10 @@
 		.page-title {
 			margin: 0;
 		}
+			.page-title span {
+				font-size: 1rem;
+				font-style: italic;
+			}
 		.slogan {
 			font-style: italic;
 			margin: 0.5rem 0 1rem 0;
@@ -126,6 +130,6 @@
 <body>
 <div class="container">
 	<header class="page-header">
-		<h1 class="page-title">m347</h1>
+		<h1 class="page-title">Confomo</span></h1>
 		<p class="slogan">Connecting your online community with the real world, one conference at a time.</p>
 	</header>
