@@ -1,5 +1,4 @@
 <?php
-
 Route::get('/', ['as' => 'home', 'before' => 'auth', function() {
 	$friends = Auth::user()->friends;
 
