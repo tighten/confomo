@@ -134,6 +134,13 @@
 		.new-friends-list-container a.mark-as-met {
 			display: none;
 		}
+		.addItem-message {
+			color: #333;
+			font-size: 90%;
+			font-style: italic;
+			height: 1rem;
+			margin-left: 1rem;
+		}
 
 		/* ====== media ====== */
 		.media {
