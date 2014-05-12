@@ -26,7 +26,13 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(function()
 {
-    return getenv('CONFOMO_ENV') ? getenv('CONFOMO_ENV') : 'production';
+	if (getenv('CONFOMO_ENV')) {
+ 		return getenv('CONFOMO_ENV');
+	} elseif(file_exists('../.env_name.php')) {
+		return include('../.env_name.php');
+	} else {
+		return 'production';
+	}
 });
 
 /*
