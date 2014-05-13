@@ -50,7 +50,6 @@
 	<li><strike>Allow checking someone off as "met"</strike></li>
 	<li><strike>Allow users to sign up</strike></li>
 	<li>Move @todo to github issues</li>
-	<li>Direct Inject models into controllers so PMJones doesn't make us the next object of his scorn</li>
 	<li>Add first name, last name, profile pic, other stuff</li>
 	<li>Add some sort of IRC love?</li>
 	<li>Add rate limiting &amp; email address validation</li>
