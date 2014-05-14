@@ -1,10 +1,14 @@
 <?php namespace Confomo\Queue\API;
 
-use Thujohn\Twitter\Twitter;
-use Illuminate\Cache\CacheManager as Cache;
-use TwitterProfile;
 use Friend;
+use Illuminate\Cache\CacheManager as Cache;
+use stdClass;
+use Thujohn\Twitter\Twitter;
+use TwitterProfile;
 
+/**
+ *
+ */
 class TwitterProfilePic
 {
 	protected $twitter;
@@ -12,7 +16,9 @@ class TwitterProfilePic
 	protected $profile;
 	protected $friend;
 
-	// In minutes; 
+	/**
+	 * Local Twitter profile cache length in minutes
+	 */
 	const PULL_CACHE_LENGTH = 10080;
 
 	public function __construct(Twitter $twitter, Cache $cache, TwitterProfile $profile, Friend $friend)
@@ -28,24 +34,7 @@ class TwitterProfilePic
 		$twitter_handle = $data['twitter_handle'];
 		$friend_id = $data['friend_id'];
 
-		// @todo: Look up if we already have a TwitterProfile updated in the last week
-		// (using that for cache; we can't cache by twitter handle because it changes
-		// too often)
-
-		$twitter_profile = $this->twitter->getUsersLookup([
-			'screen_name' => $twitter_handle
-		]);
-
-		if ($twitter_profile === null) {
-			// @todo: Show some type of notice maybe?
-			\App::abort(500);
-		}
-		if ( ! is_array($twitter_profile) && isset($twitter_profile->errors)) {
-			// @todo: return $twitter_profile->errors[0]->message
-			\App::abort(500);
-		}
-
-		$twitter_profile = $twitter_profile[0];
+		$twitter_profile = $this->getTwitterProfileByScreenName($twitter_handle);
 
 		// @todo: Store when last pulled somewhere (is just on the put expiration date maybe?)
 
@@ -53,20 +42,31 @@ class TwitterProfilePic
 
 		$this->linkTwitterProfileToFriend($twitter_profile, $friend_id);
 
-		// @todo: Store twitter user ID with each friend so it doesn't break if they change their username later
 		$this->saveTwitterProfileImageLocally($twitter_profile);
 
 		$job->delete();
 	}
 
-	protected function linkTwitterProfileToFriend(\stdClass $twitter_profile, $friend_id)
+	/**
+	 * Set a `friend` record to point to a `twitter profile`
+	 *
+	 * @todo  Make sure we're doing the linkage correctly; I somewhat suspect we're not
+	 * @param stdClass $twitter_profile
+	 * @param string $friend_id
+	 */
+	protected function linkTwitterProfileToFriend(stdClass $twitter_profile, $friend_id)
 	{
 		$friend = $this->friend->findOrFail($friend_id);
 		$friend->twitter_id = $twitter_profile->id;
 		$friend->save();
 	}
 
-	protected function saveTwitterProfile(\stdClass $twitter_profile)
+	/**
+	 * Save a given twitter profile result to a local Eloquent `twitter_profile`
+	 *
+	 * @param stdClass $twitter_profile Result from ThuJohn/Twitter search
+	 */
+	protected function saveTwitterProfile(stdClass $twitter_profile)
 	{
 		$profile = $this->profile->firstOrCreate([
 			'twitter_id' => $twitter_profile->id
@@ -83,13 +83,53 @@ class TwitterProfilePic
 		$profile->save();
 	}
 
-	protected function saveTwitterProfileImageLocally(\stdClass $twitter_profile)
+	/**
+	 * Pull down a Twitter profile's image and cache locally
+	 *
+	 * @param stdClass $twitter_profile Result from ThuJohn/Twitter search
+	 */
+	protected function saveTwitterProfileImageLocally(stdClass $twitter_profile)
 	{
 		$path_prefix = \App::runningInConsole() ? base_path() . '/public/' : '';
 		copy(
 			$twitter_profile->profile_image_url,
 			$path_prefix . $this->profile->getProfilePictureCachePath() . md5($twitter_profile->id) . '.jpeg'
 		);
+	}
+
+	/**
+	 * Pull Twitter profile for a given twitter handle
+	 */
+	protected function getTwitterProfileByScreenName($twitter_handle)
+	{
+		/* @todo
+		// Look up if we already have a TwitterProfile; if so, update if it's older than  cache time (?)
+		$pulled_twitter_profile = $this->profile->where([
+			'screen_name' => $twitter_handle
+		])->first();
+
+		if ($pulled_twitter_profile) {
+			// check date
+			// update if necessary
+			// return if not necsesary.. but need to prep :/
+			dd($pulled_twitter_profile);
+		}
+		*/
+
+		$twitter_profile = $this->twitter->getUsersLookup([
+			'screen_name' => $twitter_handle
+		]);
+
+		if ($twitter_profile === null) {
+			\App::abort(500, 'No result from Twitter');
+		}
+		if ( ! is_array($twitter_profile) && isset($twitter_profile->errors)) {
+			\App::abort(500, $twitter_profile->errors[0]->message);
+		}
+
+		$twitter_profile = $twitter_profile[0];
+
+		return $twitter_profile;
 	}
 }
 
