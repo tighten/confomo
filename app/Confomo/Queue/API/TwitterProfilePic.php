@@ -34,11 +34,14 @@ class TwitterProfilePic
 
 			$twitter_profile = $this->twitter->getUsersLookup([
 				'screen_name' => $twitter_handle
-			])[0];
+			]);
 
-			if ($twitter_profile == null) {
-				// @todo Handle!
+			if ($twitter_profile === null) {
+				// @todo: Show some type of notice maybe?
+				return;
 			}
+
+			$twitter_profile = $twitter_profile[0];
 
 			// @todo: Store when last pulled somewhere (is just on the put expiration date maybe?)
 			
