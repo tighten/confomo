@@ -134,6 +134,23 @@
 		.new-friends-list-container a.mark-as-met {
 			display: none;
 		}
+		.friends-list-item .approve-suggested {
+			display: none;
+		}
+
+		.friends-list-item {
+			
+		}
+			.friends-list-item.suggested {
+				background: rgba(255, 0, 0, .5);
+			}
+				.friends-list-item.suggested .mark-as-met {
+					display: none;
+				}
+				.friends-list-item.suggested .approve-suggested {
+					display: inline-block;
+				}
+
 		.addItem-message {
 			color: #333;
 			font-size: 90%;

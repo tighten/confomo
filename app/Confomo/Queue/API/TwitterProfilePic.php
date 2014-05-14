@@ -38,7 +38,11 @@ class TwitterProfilePic
 
 			if ($twitter_profile === null) {
 				// @todo: Show some type of notice maybe?
-				return;
+				\App::abort(500);
+			}
+			if ( ! is_array($twitter_profile) && isset($twitter_profile->errors)) {
+				// @todo: return $twitter_profile->errors[0]->message
+				\App::abort(500);
 			}
 
 			$twitter_profile = $twitter_profile[0];

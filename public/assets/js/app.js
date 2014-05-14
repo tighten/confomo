@@ -3,6 +3,7 @@ var Item = function(item) {
         this[prop] = item[prop];
     }
     this.met = ko.observable(item.met);
+    this.type = ko.observable(item.type);
 
     this.markThisItemMet = function() {
         item.met = item.met == 1 ? 0 : 1;
@@ -16,6 +17,21 @@ var Item = function(item) {
             }
         });
     };
+
+    this.approveSuggested = function() {
+        var new_type = item.type.replace(/_suggested/g, '');
+        item.type = new_type;
+
+        $.ajax({
+            url: '/friends/' + item.id,
+            type: 'PUT',
+            data: item,
+            context: this,
+            success: function(result) {
+                this.type(new_type);
+            }
+        });
+    }
 };
 
 var itemModel = function(items) {
@@ -64,11 +80,12 @@ var itemModel = function(items) {
 
 if ($('#old-friends').length && $('#new-friends').length) {
     $.getJSON("/friends", function(data) {
+        // @todo sort to put suggested first
         oldFriends = ko.utils.arrayFilter(data, function(item) {
-            return item.type == 'old';
+            return item.type.indexOf('old') > -1;
         });
         newFriends = ko.utils.arrayFilter(data, function(item) {
-            return item.type == 'new';
+            return item.type.indexOf('new') > -1;
         });
 
         ko.applyBindings(new itemModel(oldFriends), document.getElementById('old-friends'));

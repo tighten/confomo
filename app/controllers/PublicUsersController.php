@@ -21,6 +21,7 @@ class PublicUsersController extends \BaseController
 	 *
 	 * @param  string $username
 	 * @return string json
+	 * @todo  Abstract this creation logic to share between this and the friendscontroller
 	 */
 	public function suggested($username)
 	{
@@ -34,6 +35,14 @@ class PublicUsersController extends \BaseController
 		]);
 		$friend->user_id = $user->id;
 		$friend->save();
+
+		Queue::push(
+			'Confomo\Queue\API\TwitterProfilePic',
+			array(
+				'twitter_handle' => $friend->twitter,
+				'friend_id' => $friend->id
+			)
+		);
 
 		return Response::json(['status' => 'success']);
 	}

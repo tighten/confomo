@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="friends-list-container old-friends-list-container" id="old-friends" data-type="old">
 	<h2>Friends I want to Meet at the Conference</h2>
 
@@ -30,7 +31,7 @@
 </div>
 
 <script type="text/html" id="person-template">
-	<li data-bind="css: { 'marked-as-met': met() == 1 }" class="media friend-list-item">
+	<li data-bind="css: { 'marked-as-met': met() == 1, 'suggested': type().indexOf('suggested') > -1 }" class="media friends-list-item">
 		<div class="media-img">
 			<img data-bind="attr: { src: twitter_profile_pic }">
 		</div>
@@ -40,8 +41,9 @@
 				<a href="#" data-bind="text: '@' + twitter, attr: { href: 'http://twitter.com/' + twitter }"></a>
 			</div><br>
 			<div class="user-list-actions">
+				<a href="#" class="button approve-suggested" data-bind="click: approveSuggested">add suggested</a>
 				<a href="#" class="button mark-as-met" data-bind="click: markThisItemMet">met</a>
-				<a href="#" class="button destroy" data-bind="click: $root.remove">x</a>
+				<a href="#" class="button destroy" data-bind="click: $root.remove">remove</a>
 			</div>
 		</div>
 	</li>
@@ -59,6 +61,7 @@
 	<li><strike>Show twitter profile pic</strike></li>
 	<li>Use real queue for twitter profile pic</li>
 	<li>Optimize twitter pull to not duplicate pulls, re-pull after __ time on cron, etc.</li>
+	<li>Make suggested friend fail ENTIRELY on bad twitter, not just fail to pull profile pic</li>
 	<li>Display first name, last name, other stuff</li>
 	<li>Add some sort of IRC love?</li>
 	<li>Add rate limiting &amp; email address validation</li>

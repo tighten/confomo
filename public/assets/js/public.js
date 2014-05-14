@@ -12,14 +12,17 @@ var itemModel = function() {
 			};
 
 			$.ajax({
-			url: window.location.pathname + '/friends/suggested',
-			type: 'POST',
-			data: data,
-			context: this,
-			success: function(returnedData) {
-				$(target).find('.addItem-message').html('Suggested!');
-				this.itemToAdd("");
-			}
+				url: window.location.pathname + '/friends/suggested',
+				type: 'POST',
+				data: data,
+				context: this,
+				success: function(returnedData) {
+					$(target).find('.addItem-message').html('Suggested!');
+					this.itemToAdd("");
+				},
+				error: function() {
+					$(target).find('.addItem-message').html('There was an error!');
+				}
 			});
 		}
 	}.bind(this);
