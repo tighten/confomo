@@ -107,12 +107,19 @@
 		.friends-list-container {
 
 		}
-			.friends-list-container li {
+			.friends-list-container ul {
 				list-style-type: none;
+				padding-left: 0;
 			}
 				.friends-list-container li div {
 					display: inline-block;
 				}
+
+		@media only screen and (min-width: 500px) {
+			.friends-list-container ul {
+				padding-left: 1em;
+			}
+		}
 		.old-friends-list-container .marked-as-met,
 			.old-friends-list-container .marked-as-met a {
 			color: #999;
@@ -129,10 +136,21 @@
 		}
 
 		/* ====== media ====== */
-		.media {margin:10px;}
-		.media, .media-body {overflow:hidden; _overflow:visible; zoom:1;}
-		.media-img {float:left; margin-right: 10px;}
-		.media-img img{display:block;}
+		.media {
+			margin: 10px;
+		}
+		.media, .media-body {
+			overflow: hidden;
+			_overflow: visible;
+			zoom: 1;
+		}
+		.media-img {
+			float: left;
+			margin-right: 10px;
+		}
+		.media-img img {
+			display: block;
+		}
 		/*.media .imgExt{float:right; margin-left: 10px;}*/
 
 	</style>
