@@ -7,14 +7,6 @@
 	<title>@yield('title', 'Confomo')</title>
 
 	<!--
-
-	You are here. You are 1337.
-	m347 is for connecting your cyberspace world to the meatspace world by
-	connecting social media/IRC friends with conference co-attendees and vice
-	versa. Because I wanted it for myself, so I built it.
-
-	Matt Stauffer - mattstauffer.co - @stauffermatt
-
         ____________
        /\  ________ \
       /  \ \______/\ \
