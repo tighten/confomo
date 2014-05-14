@@ -33,7 +33,9 @@
 <script type="text/html" id="person-template">
 	<li data-bind="css: { 'marked-as-met': met() == 1, 'suggested': type().indexOf('suggested') > -1 }" class="media friends-list-item">
 		<div class="friend-list-item__image">
-			<img data-bind="attr: { src: twitter_profile_pic }" class="friend-list-item__image">
+			<a href="#" data-bind="attr: { href: 'http://twitter.com/' + twitter }">
+				<img data-bind="attr: { src: twitter_profile_pic }" class="friend-list-item__image">
+			</a>
 		</div>
 		<div class="friend-list-item__body">
 			<div>
@@ -69,11 +71,11 @@
 	<li>Make it not hideous</li>
 	<li>Add loading graphics</li>
 	<li>Force twitter handle to be proper twitter handle</li>
-	<li>Auto-fill details based on twitter handle</li>
+	<li><strike>Auto-fill details based on twitter handle</strike></li>
 	<li>Make lists public (but notes private?)</li>
 	<li>Some other form of community participation</li>
 	<li>CHORES</li>
 	<li>Consolidate error handling in user create</li>
-	<li>Drop Authority because we're clearly not using it</li>
+	<li><strike>Drop Authority because we're clearly not using it</strike></li>
 </ul>
 @stop
