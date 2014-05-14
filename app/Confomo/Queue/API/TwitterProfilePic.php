@@ -55,6 +55,8 @@ class TwitterProfilePic
 
 			// @todo: Store twitter user ID with each friend so it doesn't break if they change their username later 
 			$this->saveTwitterProfileImageLocally($twitter_profile);
+
+		    $job->delete();
 		}
 
 		protected function linkTwitterProfileToFriend(\stdClass $twitter_profile, $friend_id)
