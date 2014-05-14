@@ -1,4 +1,18 @@
 <?php
+
+Route::get('test', function() {
+	$stauffermatt = Friend::find(102);
+	var_dump($stauffermatt->twitterProfile);
+
+	Queue::push(
+		'Confomo\Queue\API\TwitterProfilePic',
+		array(
+			'twitter_handle' => 'stauffermatt',
+			'friend_id' => 102
+		)
+	);
+});
+
 Route::get('/', ['as' => 'home', 'before' => 'auth', function() {
 	$friends = Auth::user()->friends;
 

@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"machuga/authority-l4": "2.2.*"
+		"thujohn/twitter": "1.1.*"
 	},
     "require-dev": {
         "way/generators": "2.*",
@@ -19,7 +19,10 @@
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
-		]
+		],
+		"psr-0": {
+			"Confomo": "app"
+		}
 	},
 	"scripts": {
 		"post-install-cmd": [

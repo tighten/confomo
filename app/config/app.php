@@ -119,8 +119,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'Authority\AuthorityL4\AuthorityL4ServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
+		'Thujohn\Twitter\TwitterServiceProvider',
 
 	),
 
@@ -187,7 +187,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-
+		'Twitter'         => 'Thujohn\Twitter\TwitterFacade',
 	),
 
 );

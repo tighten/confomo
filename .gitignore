@@ -6,3 +6,4 @@ composer.phar
 .env_name.php
 .DS_Store
 Thumbs.db
+public/assets/img/cache/twitter_profile_pics/*.jpeg

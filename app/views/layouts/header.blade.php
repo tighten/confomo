@@ -108,22 +108,32 @@
 
 		}
 			.friends-list-container li {
-
+				list-style-type: none;
 			}
 				.friends-list-container li div {
 					display: inline-block;
 				}
 		.old-friends-list-container .marked-as-met,
 			.old-friends-list-container .marked-as-met a {
-			color: #555;
+			color: #999;
 		}
 			.marked-as-met button.mark-as-met {
-				opacity: .4;
+				opacity: 0.4;
+			}
+			.marked-as-met img {
+				opacity: 0.4;
 			}
 
 		.new-friends-list-container button.mark-as-met {
 			display: none;
 		}
+
+		/* ====== media ====== */
+		.media {margin:10px;}
+		.media, .media-body {overflow:hidden; _overflow:visible; zoom:1;}
+		.media-img {float:left; margin-right: 10px;}
+		.media-img img{display:block;}
+		/*.media .imgExt{float:right; margin-left: 10px;}*/
 
 	</style>
 </head>

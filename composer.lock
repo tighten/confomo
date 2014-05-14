@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8323402a72598169fa40607993725c62",
+    "hash": "20eea9f2128924f71ccfe8e6a96bd551",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -341,126 +341,6 @@
             "time": "2014-04-17 17:16:42"
         },
         {
-            "name": "machuga/authority",
-            "version": "2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/machuga/authority.git",
-                "reference": "b5f111d503e32c02aa07693c84a88ee0db3ee5a7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/machuga/authority/zipball/b5f111d503e32c02aa07693c84a88ee0db3ee5a7",
-                "reference": "b5f111d503e32c02aa07693c84a88ee0db3ee5a7",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/events": "~4",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.7.*",
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Authority": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "mit"
-            ],
-            "authors": [
-                {
-                    "name": "Matthew Machuga",
-                    "email": "machuga@gmail.com"
-                },
-                {
-                    "name": "Koen Schmeets",
-                    "email": "hello@koenschmeets.nl"
-                },
-                {
-                    "name": "Jesse O'Brien",
-                    "email": "jesse@jesse-obrien.ca"
-                }
-            ],
-            "description": "A simple and flexible authorization system for PHP",
-            "time": "2014-01-21 05:35:49"
-        },
-        {
-            "name": "machuga/authority-l4",
-            "version": "2.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/machuga/authority-l4.git",
-                "reference": "016ddd3892ec8c07c830f7e34e48bf8c63e022dd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/machuga/authority-l4/zipball/016ddd3892ec8c07c830f7e34e48bf8c63e022dd",
-                "reference": "016ddd3892ec8c07c830f7e34e48bf8c63e022dd",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~4",
-                "machuga/authority": "2.1.*",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.7.*",
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1.x-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "src/migrations"
-                ],
-                "psr-0": {
-                    "Authority\\AuthorityL4": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Matthew Machuga",
-                    "email": "machuga@gmail.com"
-                },
-                {
-                    "name": "Koen Schmeets",
-                    "email": "hello@koenschmeets.nl"
-                },
-                {
-                    "name": "Jesse O'Brien",
-                    "email": "jesse@jesse-obrien.ca"
-                },
-                {
-                    "name": "Conar Welsh",
-                    "email": "conar@welshlabs.com"
-                }
-            ],
-            "description": "A simple and flexible authorization system for PHP",
-            "homepage": "https://github.com/machuga/authority-l4",
-            "keywords": [
-                "Authentication",
-                "Laravel 4",
-                "authorization",
-                "laravel"
-            ],
-            "time": "2014-03-13 16:49:16"
-        },
-        {
             "name": "monolog/monolog",
             "version": "1.9.1",
             "source": {
@@ -530,16 +410,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "21c4cb4301969c7d85aee8a62eefdfa881413af0"
+                "reference": "b94de7192b01d0e80794eae984dcc773220ab0dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/21c4cb4301969c7d85aee8a62eefdfa881413af0",
-                "reference": "21c4cb4301969c7d85aee8a62eefdfa881413af0",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/b94de7192b01d0e80794eae984dcc773220ab0dc",
+                "reference": "b94de7192b01d0e80794eae984dcc773220ab0dc",
                 "shasum": ""
             },
             "require": {
@@ -572,7 +452,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2014-01-07 05:10:44"
+            "time": "2014-05-13 02:29:30"
         },
         {
             "name": "nikic/php-parser",
@@ -620,16 +500,16 @@
         },
         {
             "name": "patchwork/utf8",
-            "version": "v1.1.21",
+            "version": "v1.1.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nicolas-grekas/Patchwork-UTF8.git",
-                "reference": "f45ba8bc7962b7356847724989a6949b68d975a2"
+                "reference": "156e66249f48e439a31df2347290bb9ab1d3d242"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/f45ba8bc7962b7356847724989a6949b68d975a2",
-                "reference": "f45ba8bc7962b7356847724989a6949b68d975a2",
+                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/156e66249f48e439a31df2347290bb9ab1d3d242",
+                "reference": "156e66249f48e439a31df2347290bb9ab1d3d242",
                 "shasum": ""
             },
             "require": {
@@ -667,7 +547,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2014-03-26 10:52:02"
+            "time": "2014-05-06 15:47:10"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -901,25 +781,28 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.1.0",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "748c01c1144713ac0118396935d10b6ceec91b68"
+                "reference": "043e336b871f17a117f76ef8e190eddfc04c8d48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/748c01c1144713ac0118396935d10b6ceec91b68",
-                "reference": "748c01c1144713ac0118396935d10b6ceec91b68",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/043e336b871f17a117f76ef8e190eddfc04c8d48",
+                "reference": "043e336b871f17a117f76ef8e190eddfc04c8d48",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
+            "require-dev": {
+                "mockery/mockery": "~0.9.1"
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.1-dev"
+                    "dev-master": "5.2-dev"
                 }
             },
             "autoload": {
@@ -948,7 +831,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2014-03-18 09:03:27"
+            "time": "2014-05-08 08:11:19"
         },
         {
             "name": "symfony/browser-kit",
@@ -1758,6 +1641,48 @@
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
             "time": "2014-04-18 21:02:05"
+        },
+        {
+            "name": "thujohn/twitter",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thujohn/twitter-l4.git",
+                "reference": "4f1452a6f4b6c1447dc36b2d21e06bff93558d8b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thujohn/twitter-l4/zipball/4f1452a6f4b6c1447dc36b2d21e06bff93558d8b",
+                "reference": "4f1452a6f4b6c1447dc36b2d21e06bff93558d8b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=4.0.0",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Thujohn\\Twitter": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "thujohn",
+                    "email": "jonathan.thuau@gmail.com"
+                }
+            ],
+            "description": "Twitter API for Laravel 4",
+            "keywords": [
+                "laravel",
+                "laravel4",
+                "twitter"
+            ],
+            "time": "2013-10-12 12:19:05"
         }
     ],
     "packages-dev": [

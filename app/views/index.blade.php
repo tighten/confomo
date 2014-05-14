@@ -30,14 +30,19 @@
 </div>
 
 <script type="text/html" id="person-template">
-	<li data-bind="css: { 'marked-as-met': met() == 1 }">
-		<div class="user-list-actions">
-			<button class="mark-as-met" data-bind="click: markThisItemMet">met</button>
-			<button class="destroy" data-bind="click: $root.remove">x</button>
+	<li data-bind="css: { 'marked-as-met': met() == 1 }" class="media">
+		<div class="media-img">
+			<img data-bind="attr: { src: twitter_profile_pic }">
 		</div>
-		<div>
-			<span data-bind="text: first_name + ' ' + last_name"></span>
-			<a href="#" data-bind="text: '@' + twitter, attr: { href: 'http://twitter.com/' + twitter }"></a>
+		<div class="media-body">
+			<div>
+				<span data-bind="text: first_name + ' ' + last_name"></span>
+				<a href="#" data-bind="text: '@' + twitter, attr: { href: 'http://twitter.com/' + twitter }"></a>
+			</div><br>
+			<div class="user-list-actions">
+				<button class="mark-as-met" data-bind="click: markThisItemMet">met</button>
+				<button class="destroy" data-bind="click: $root.remove">x</button>
+			</div>
 		</div>
 	</li>
 </script>
@@ -50,7 +55,11 @@
 	<li><strike>Allow checking someone off as "met"</strike></li>
 	<li><strike>Allow users to sign up</strike></li>
 	<li>Move @todo to github issues</li>
-	<li>Add first name, last name, profile pic, other stuff</li>
+	<li><strike>Pull profile from Twitter</strike></li>
+	<li><strike>Show twitter profile pic</strike></li>
+	<li>Use real queue for twitter profile pic</li>
+	<li>Optimize twitter pull to not duplicate pulls, re-pull after __ time on cron, etc.</li>
+	<li>Display first name, last name, other stuff</li>
 	<li>Add some sort of IRC love?</li>
 	<li>Add rate limiting &amp; email address validation</li>
 	<li>Add notes for how you met someone</li>

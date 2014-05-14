@@ -33,6 +33,14 @@ class FriendsController extends \BaseController
 		$friend->user_id = Auth::user()->id;
 		$friend->save();
 //		return $friend;
+//		
+		Queue::push(
+			'Confomo\Queue\API\TwitterProfilePic',
+			array(
+				'twitter_handle' => $friend->twitter,
+				'friend_id' => $friend->id
+			)
+		);
 
 		// Annoyingly necessary in order to return *all* fields
 		return Friend::find($friend->id);
