@@ -1,6 +1,6 @@
 <?php
 
-if (false !== stripos($_SERVER['HTTP_HOST'], 'm347.co')) {
+if (isset($_SERVER['HTTP_HOST']) && false !== stripos($_SERVER['HTTP_HOST'], 'm347.co')) {
 	header('Location: http://confomo.com/', true, 301);
 }
 
