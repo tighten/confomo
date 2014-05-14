@@ -23,55 +23,55 @@ class TwitterProfilePic
 		$this->friend = $friend;
 	}
 
-		public function fire($job, $data)
-		{
-			$twitter_handle = $data['twitter_handle'];
-			$friend_id = $data['friend_id'];
+	public function fire($job, $data)
+	{
+		$twitter_handle = $data['twitter_handle'];
+		$friend_id = $data['friend_id'];
 
-			// @todo: Look up if we already have a TwitterProfile updated in the last week 
-			// (using that for cache; we can't cache by twitter handle because it changes
-			// too often)
+		// @todo: Look up if we already have a TwitterProfile updated in the last week
+		// (using that for cache; we can't cache by twitter handle because it changes
+		// too often)
 
-			$twitter_profile = $this->twitter->getUsersLookup([
-				'screen_name' => $twitter_handle
-			]);
+		$twitter_profile = $this->twitter->getUsersLookup([
+			'screen_name' => $twitter_handle
+		]);
 
-			if ($twitter_profile === null) {
-				// @todo: Show some type of notice maybe?
-				\App::abort(500);
-			}
-			if ( ! is_array($twitter_profile) && isset($twitter_profile->errors)) {
-				// @todo: return $twitter_profile->errors[0]->message
-				\App::abort(500);
-			}
-
-			$twitter_profile = $twitter_profile[0];
-
-			// @todo: Store when last pulled somewhere (is just on the put expiration date maybe?)
-			
-			$this->saveTwitterProfile($twitter_profile);
-
-			$this->linkTwitterProfileToFriend($twitter_profile, $friend_id);
-
-			// @todo: Store twitter user ID with each friend so it doesn't break if they change their username later 
-			$this->saveTwitterProfileImageLocally($twitter_profile);
-
-		    $job->delete();
+		if ($twitter_profile === null) {
+			// @todo: Show some type of notice maybe?
+			\App::abort(500);
+		}
+		if ( ! is_array($twitter_profile) && isset($twitter_profile->errors)) {
+			// @todo: return $twitter_profile->errors[0]->message
+			\App::abort(500);
 		}
 
-		protected function linkTwitterProfileToFriend(\stdClass $twitter_profile, $friend_id)
-		{
-			$friend = $this->friend->findOrFail($friend_id);
-			$friend->twitter_id = $twitter_profile->id;
-			$friend->save();
-		}
+		$twitter_profile = $twitter_profile[0];
 
-		protected function saveTwitterProfile(\stdClass $twitter_profile)
-		{
-			$profile = $this->profile->firstOrCreate([
-				'twitter_id' => $twitter_profile->id
-			]);
-		
+		// @todo: Store when last pulled somewhere (is just on the put expiration date maybe?)
+
+		$this->saveTwitterProfile($twitter_profile);
+
+		$this->linkTwitterProfileToFriend($twitter_profile, $friend_id);
+
+		// @todo: Store twitter user ID with each friend so it doesn't break if they change their username later
+		$this->saveTwitterProfileImageLocally($twitter_profile);
+
+		$job->delete();
+	}
+
+	protected function linkTwitterProfileToFriend(\stdClass $twitter_profile, $friend_id)
+	{
+		$friend = $this->friend->findOrFail($friend_id);
+		$friend->twitter_id = $twitter_profile->id;
+		$friend->save();
+	}
+
+	protected function saveTwitterProfile(\stdClass $twitter_profile)
+	{
+		$profile = $this->profile->firstOrCreate([
+			'twitter_id' => $twitter_profile->id
+		]);
+
 		$profile->name = $twitter_profile->name;
 		$profile->screen_name = $twitter_profile->screen_name;
 		$profile->location = $twitter_profile->location;
@@ -81,16 +81,16 @@ class TwitterProfilePic
 		$profile->profile_image_url_https = $twitter_profile->profile_image_url_https;
 
 		$profile->save();
-		}
+	}
 
-		protected function saveTwitterProfileImageLocally(\stdClass $twitter_profile)
-		{
-			$path_prefix = \App::runningInConsole() ? base_path() . '/public/' : '';
-			copy(
-				$twitter_profile->profile_image_url,
-				$path_prefix . $this->profile->getProfilePictureCachePath() . md5($twitter_profile->id) . '.jpeg'
-			);
-		}
+	protected function saveTwitterProfileImageLocally(\stdClass $twitter_profile)
+	{
+		$path_prefix = \App::runningInConsole() ? base_path() . '/public/' : '';
+		copy(
+			$twitter_profile->profile_image_url,
+			$path_prefix . $this->profile->getProfilePictureCachePath() . md5($twitter_profile->id) . '.jpeg'
+		);
+	}
 }
 
 

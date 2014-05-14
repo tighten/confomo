@@ -59,7 +59,7 @@
 	<li>Move @todo to github issues</li>
 	<li><strike>Pull profile from Twitter</strike></li>
 	<li><strike>Show twitter profile pic</strike></li>
-	<li>Use real queue for twitter profile pic</li>
+	<li><strike>Use real queue for twitter profile pic</strike></li>
 	<li>Optimize twitter pull to not duplicate pulls, re-pull after __ time on cron, etc.</li>
 	<li>Make suggested friend fail ENTIRELY on bad twitter, not just fail to pull profile pic</li>
 	<li>Display first name, last name, other stuff</li>
