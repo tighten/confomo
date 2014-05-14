@@ -30,7 +30,7 @@
 </div>
 
 <script type="text/html" id="person-template">
-	<li data-bind="css: { 'marked-as-met': met() == 1 }" class="media">
+	<li data-bind="css: { 'marked-as-met': met() == 1 }" class="media friend-list-item">
 		<div class="media-img">
 			<img data-bind="attr: { src: twitter_profile_pic }">
 		</div>
@@ -40,8 +40,8 @@
 				<a href="#" data-bind="text: '@' + twitter, attr: { href: 'http://twitter.com/' + twitter }"></a>
 			</div><br>
 			<div class="user-list-actions">
-				<button class="mark-as-met" data-bind="click: markThisItemMet">met</button>
-				<button class="destroy" data-bind="click: $root.remove">x</button>
+				<a href="#" class="button mark-as-met" data-bind="click: markThisItemMet">met</a>
+				<a href="#" class="button destroy" data-bind="click: $root.remove">x</a>
 			</div>
 		</div>
 	</li>

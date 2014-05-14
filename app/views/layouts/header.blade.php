@@ -131,7 +131,7 @@
 				opacity: 0.4;
 			}
 
-		.new-friends-list-container button.mark-as-met {
+		.new-friends-list-container a.mark-as-met {
 			display: none;
 		}
 
@@ -152,6 +152,23 @@
 			display: block;
 		}
 		/*.media .imgExt{float:right; margin-left: 10px;}*/
+
+		/* ====== button ====== */
+		.button {
+			background: #eee;
+			border: 1px solid #aaa;
+			border-radius: 0.1em;
+			color: #555;
+			display: inline-block;
+			font-size: 0.85em;
+			margin: 0.3em;
+			padding: 0.2em 0.4em;
+			text-decoration: none;
+		}
+			.button:hover {
+				background: #fff;
+				color: #333;
+			}
 
 	</style>
 </head>
