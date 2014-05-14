@@ -1,3 +1,9 @@
+/* http:// nicolasgallagher.com/micro-clearfix-hack */
+.clearfix:before, .clearfix:after, .hlist:before, .hlist:after { content: ""; display: table; }
+.clearfix:after, .hlist:after { clear: both; }
+.clearfix, .hlist { zoom: 1; }
+a.clearfix { display: block; }
+
 body {
     background: #555;
     font-family: arial;
@@ -14,13 +20,22 @@ input, input[type="text"], input[type="email"] {
     background: #fff;
     margin: 0 auto;
     max-width: 800px;
-    padding: 1rem 2rem;
+    /*padding: 1rem;*/
+}
+@media only screen and (min-width: 500px) {
+	.container {
+		padding: 1rem 2rem;
+	}
 }
 .page-header {
     background: #eee;
-    margin: -1rem -2rem 1rem;
     padding: 1rem 2rem 0.5rem;
 }
+	@media only screen and (min-width: 500px) {
+		.page-header {
+			margin: -1rem -2rem 1rem;
+		}
+	}
 .page-title, .slogan {
     font-family: 'Menlo', 'Courier New', 'Courier';
 }
@@ -36,22 +51,23 @@ input, input[type="text"], input[type="email"] {
     margin: 0.5rem 0 1rem 0;
     text-transform: uppercase;
 }
-.nav ul {
-    margin: 0;
-    padding: 0;
-}
-.nav li {
-    display: inline-block;
-    list-style-type: none;
-    padding: 0;
-    margin: .5rem 1rem;
+.logout-link {
+	font-size: 90%;
+	padding: 0.15em;
+	float: right;
 }
 
 h2 {
     background: #eee;
     margin-left: -0.5rem;
     margin-right: -0.5rem;
-    padding: 0.5rem 0.5rem 0.25rem;
+	padding: 0.5rem 1rem;
+}
+
+@media only screen and (min-width: 500px) {
+	h2 {
+		padding: 0.5rem 0.5rem 0.25rem;
+	}
 }
 
 .friends-list-container {
@@ -88,18 +104,73 @@ h2 {
     display: none;
 }
 
-.friends-list-item {
+
+
+.friend-list-item__image, .friend-list-item__body, .friend-list-item__actions {
+	overflow: hidden;
+	_overflow: visible;
+	zoom: 1;
+}
+.friend-list-item__image {
+	float: left;
+	margin-right: 0.5em;
+}
+.friend-list-item__image {
+	height: 4rem;
+	display: block;
+	width: 4rem;
 
 }
-.friends-list-item.suggested {
-    background: rgba(255, 0, 0, .5);
+.friend-list-item__body {
+	display: block;
+	font-size: 0.9rem;
+	padding: 0.25rem;
 }
-.friends-list-item.suggested .mark-as-met {
-    display: none;
+.friend-list-item__actions {
+	/*background: blue;*/
+	/*height: 4rem;*/
+	font-size: 0.9rem;
+	float: right;
 }
-.friends-list-item.suggested .approve-suggested {
-    display: inline-block;
+	/*.friend-list-item__action {*/
+		/*display: block;*/
+		/*height: 4rem;*/
+		/*margin: 0;*/
+	/*}*/
+
+
+.friends-list-item {
+    border-bottom: 1px solid #aaa;
+	clear: both;
+	height: 4rem;
+    margin: 0;
 }
+    .friends-list-item:first-of-type {
+        border-top: 1px solid #aaa;
+    }
+    .friends-list-item.suggested {
+        background: rgba(255, 0, 0, .5);
+    }
+        .friends-list-item.suggested .mark-as-met {
+            display: none;
+        }
+        .friends-list-item.suggested .approve-suggested {
+            display: inline-block;
+        }
+    .friends-list-item a {
+		color: #333;
+		text-decoration: none;
+    }
+		.friends-list-item a:hover {
+			color: #333399;
+		}
+
+.submit-friend {
+	padding: 0.5rem;
+}
+	.submit-friend button, .submit-friend input[type=submit] {
+		padding: 0.5em;
+	}
 
 .addItem-message {
     color: #333;
@@ -109,24 +180,6 @@ h2 {
     margin-left: 1rem;
 }
 
-/* ====== media ====== */
-.media {
-    margin: 10px;
-}
-.media, .media-body {
-    overflow: hidden;
-    _overflow: visible;
-    zoom: 1;
-}
-.media-img {
-    float: left;
-    margin-right: 10px;
-}
-.media-img img {
-    display: block;
-}
-/*.media .imgExt{float:right; margin-left: 10px;}*/
-
 /* ====== button ====== */
 .button {
     background: #eee;
@@ -134,9 +187,9 @@ h2 {
     border-radius: 0.1em;
     color: #555;
     display: inline-block;
-    font-size: 0.85em;
+    font-size: 0.8em;
     margin: 0.3em;
-    padding: 0.2em 0.4em;
+    padding: 0.3em 0.5em;
     text-decoration: none;
 }
 .button:hover {

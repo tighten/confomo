@@ -1,10 +1,8 @@
 @include('layouts.header')
 
-	<div class="nav">
+	<div class="nav clearfix">
 		@if (Auth::check())
-		<ul>
-			<li>{{ HTML::linkAction('logout', 'Logout (' . Auth::user()->email . ')') }}</li>
-		</ul>
+			{{ HTML::linkAction('logout', 'Logout (' . Auth::user()->email . ')', [], ['class' => 'logout-link']) }}
 		@endif
 	</div>
 

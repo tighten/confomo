@@ -35,15 +35,15 @@
 
 	-->
 
-	<meta name="description" content="Connecting cyberspace with meatspace, one conference at a time.">
+	<meta name="description" content="Connecting your online community with the real world, one conference at a time.">
 	<meta name="author" content="Matt Stauffer">
 	<meta name="viewport" content="width=device-width">
 
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 <div class="container">
 	<header class="page-header">
-		<h1 class="page-title">Confomo</span></h1>
+		<h1 class="page-title">ConFOMO</h1>
 		<p class="slogan">Connecting your online community with the real world, one conference at a time.</p>
 	</header>

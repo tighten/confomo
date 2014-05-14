@@ -9,7 +9,7 @@
 
 	<hr>
 
-	<form data-bind="submit: addItem">
+	<form data-bind="submit: addItem" class="submit-friend">
 		Add friend by twitter handle:<br>
 		@<input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' type="text" autocorrect="off" autocapitalize="off">
 		<button type="submit" data-bind="enable: itemToAdd().length > 0">Add</button>
@@ -23,7 +23,7 @@
 
 	<hr>
 
-	<form data-bind="submit: addItem">
+	<form data-bind="submit: addItem" class="submit-friend">
 		Add friend by twitter handle:<br>
 		@<input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' type="text" autocorrect="off" autocapitalize="off">
 		<button type="submit" data-bind="enable: itemToAdd().length > 0">Add</button>
@@ -32,19 +32,19 @@
 
 <script type="text/html" id="person-template">
 	<li data-bind="css: { 'marked-as-met': met() == 1, 'suggested': type().indexOf('suggested') > -1 }" class="media friends-list-item">
-		<div class="media-img">
-			<img data-bind="attr: { src: twitter_profile_pic }">
+		<div class="friend-list-item__image">
+			<img data-bind="attr: { src: twitter_profile_pic }" class="friend-list-item__image">
 		</div>
-		<div class="media-body">
+		<div class="friend-list-item__body">
 			<div>
 				<span data-bind="text: first_name + ' ' + last_name"></span>
 				<a href="#" data-bind="text: '@' + twitter, attr: { href: 'http://twitter.com/' + twitter }"></a>
 			</div><br>
-			<div class="user-list-actions">
-				<a href="#" class="button approve-suggested" data-bind="click: approveSuggested">add suggested</a>
-				<a href="#" class="button mark-as-met" data-bind="click: markThisItemMet">met</a>
-				<a href="#" class="button destroy" data-bind="click: $root.remove">remove</a>
-			</div>
+		</div>
+		<div class="friend-list-item__actions">
+			<a href="#" class="button friend-list-item__action approve-suggested" data-bind="click: approveSuggested">Add Suggested</a>
+			<a href="#" class="button friend-list-item__action mark-as-met" data-bind="click: markThisItemMet">Mark met</a>
+			<a href="#" class="button friend-list-item__action destroy" data-bind="click: $root.remove">Remove</a>
 		</div>
 	</li>
 </script>
