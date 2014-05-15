@@ -180,6 +180,10 @@ h2 {
     margin-left: 1rem;
 }
 
+.public-mark-as-met a {
+    color: #aaa;
+}
+
 /* ====== button ====== */
 .button {
     background: #eee;
