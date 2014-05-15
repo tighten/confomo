@@ -4,6 +4,7 @@ var Item = function(item) {
     }
     this.met = ko.observable(item.met);
     this.type = ko.observable(item.type);
+    this.notes = ko.observable(item.notes);
 
     this.markThisItemMet = function() {
         item.met = item.met == 1 ? 0 : 1;
@@ -31,7 +32,31 @@ var Item = function(item) {
                 this.type(new_type);
             }
         });
-    }
+    };
+
+    this.addNotesPopup = function(targ, e) {
+        var $target = $(e.target);
+        $target.closest('li').find('.add-notes-popover').toggle();
+    };
+
+    this.hideNotesPopup = function(targ, e) {
+        var $target= $(e.target);
+        $target.closest('li').find('.add-notes-popover').toggle();
+    };
+
+    this.addNotes = function(form) {
+        item.notes = this.notes();
+        console.log(item);
+        $.ajax({
+            url: '/friends/' + item.id,
+            type: 'PUT',
+            data: item,
+            context: this,
+            success: function(result) {
+                $(form).closest('.add-notes-popover').toggle();
+            }
+        });
+    };
 };
 
 var itemModel = function(items) {

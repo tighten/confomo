@@ -78,7 +78,6 @@ h2 {
     padding-left: 0;
 }
 .friends-list-container li div {
-    display: inline-block;
 }
 
 @media only screen and (min-width: 500px) {
@@ -107,6 +106,7 @@ h2 {
 
 
 .friend-list-item__image, .friend-list-item__body, .friend-list-item__actions {
+    display: inline-block;
 	overflow: hidden;
 	_overflow: visible;
 	zoom: 1;
@@ -122,15 +122,14 @@ h2 {
 
 }
 .friend-list-item__body {
-	display: block;
 	font-size: 0.9rem;
 	padding: 0.25rem;
 }
 .friend-list-item__actions {
-	/*background: blue;*/
-	/*height: 4rem;*/
 	font-size: 0.9rem;
-	float: right;
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
 }
 	/*.friend-list-item__action {*/
 		/*display: block;*/
@@ -144,6 +143,7 @@ h2 {
 	clear: both;
 	height: 4rem;
     margin: 0;
+    position: relative;
 }
     .friends-list-item:first-of-type {
         border-top: 1px solid #aaa;
@@ -209,4 +209,23 @@ h2 {
 
 ul strike {
 	color: #aaa;
+}
+
+.add-notes-popover {
+    background: #fff;
+    border: 2px solid #333;
+    display: none;
+    position: fixed;
+
+    margin-left: -9rem;
+    left: 50%;
+    top: 50%;
+    margin-top: -2.5rem;
+    
+    padding-top: 1rem;
+    text-align: center;
+    z-index: 1000;
+
+    width: 18rem;
+    height: 5rem;
 }

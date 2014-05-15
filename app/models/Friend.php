@@ -7,6 +7,7 @@ class Friend extends \Eloquent
 		'last_name',
 		'twitter',
 		'type',
+		'notes',
 		'met'
 	];
 

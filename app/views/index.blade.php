@@ -45,11 +45,21 @@
 		</div>
 		<div class="friend-list-item__actions">
 			<a href="#" class="button friend-list-item__action approve-suggested" data-bind="click: approveSuggested">Add Suggested</a>
+			<a href="#" class="button friend-list-item__action add-notes" data-bind="click: addNotesPopup">Notes</a>
 			<a href="#" class="button friend-list-item__action mark-as-met" data-bind="click: markThisItemMet">Mark met</a>
-			<a href="#" class="button friend-list-item__action destroy" data-bind="click: $root.remove">Remove</a>
+			<a href="#" class="button friend-list-item__action destroy" data-bind="click: $root.remove">&nbsp;X&nbsp;</a>
+		</div>
+		<div class="add-notes-popover">
+			<form data-bind="submit: addNotes">
+				<textarea data-bind="value: notes" rows="4" cols="24"></textarea>
+				<div style="float: right">
+					<input type="submit"><br><input type="button" value="Cancel" data-bind="click: hideNotesPopup">
+				</div>
+			</form>
 		</div>
 	</li>
 </script>
+
 
 <br><br><br>
 <h2>@todo</h2>
