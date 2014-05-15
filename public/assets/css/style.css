@@ -180,8 +180,14 @@ h2 {
     margin-left: 1rem;
 }
 
-.public-mark-as-met a {
-    color: #aaa;
+.public-list {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.public-mark-as-met {
+    opacity: 0.4;
 }
 
 /* ====== button ====== */
