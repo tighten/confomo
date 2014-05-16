@@ -115,7 +115,6 @@ class TwitterProfilePic
 			dd($pulled_twitter_profile);
 		}
 		*/
-
 		$twitter_profile = $this->twitter->getUsersLookup([
 			'screen_name' => $twitter_handle
 		]);

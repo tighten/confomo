@@ -69,9 +69,15 @@ var itemModel = function(items) {
     this.itemToAdd = ko.observable("");
     this.addItem = function(target) {
         var type = $(target).closest('div').attr('data-type'),
-            met = type == 'new' ? '1' : '0';
+	    met = type == 'new' ? '1' : '0',
+	    twitter_regex = new RegExp(/(^|[^@\w])@(\w{1,15})\b/);
 
         if (this.itemToAdd() != "") {
+	    if ( ! twitter_regex.test('@' + this.itemToAdd())) {
+		alert('Bad twitter handle');
+		return;
+	    }
+
             var data = {
                     'twitter': this.itemToAdd(),
                     'type': type,
@@ -86,6 +92,9 @@ var itemModel = function(items) {
                 success: function(returnedData) {
                     this.items.push(new Item(returnedData));
                     this.itemToAdd("");
+		},
+		error: function(returnedData) {
+		    alert('There was an error!');
                 }
             });
         }

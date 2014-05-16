@@ -229,3 +229,7 @@ ul strike {
     width: 18rem;
     height: 5rem;
 }
+
+.flash_error {
+    color: red;
+}

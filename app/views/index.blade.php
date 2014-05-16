@@ -77,10 +77,10 @@
 	<li>Display first name, last name, other stuff</li>
 	<li>Add some sort of IRC love?</li>
 	<li>Add rate limiting &amp; email address validation</li>
-	<li>Add notes for how you met someone</li>
+	<li><strike>Add notes for how you met someone</strike></li>
 	<li>Make it not hideous</li>
 	<li>Add loading graphics</li>
-	<li>Force twitter handle to be proper twitter handle</li>
+	<li><strike>Force twitter handle to be proper twitter handle</strike></li>
 	<li><strike>Auto-fill details based on twitter handle</strike></li>
 	<li>Make lists public (but notes private?)</li>
 	<li>Some other form of community participation</li>
