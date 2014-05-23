@@ -4,6 +4,16 @@ if (isset($_SERVER['HTTP_HOST']) && false !== stripos($_SERVER['HTTP_HOST'], 'm3
 	header('Location: http://confomo.com/', true, 301);
 }
 
+Route::get('test', function() {
+return;
+	$twitter = App::make('Thujohn\Twitter\Twitter');
+		$twitter_profile = $twitter->getUsersLookup([
+			'screen_name' => 'mattstauffer'
+		]);
+dd($twitter_profile);
+
+});
+
 Route::get('/', ['as' => 'home', 'before' => 'auth', function() {
 	$friends = Auth::user()->friends;
 
