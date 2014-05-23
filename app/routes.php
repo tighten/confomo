@@ -1,5 +1,13 @@
 <?php
 
+$monolog = Log::getMonolog();
+$syslog = new \Monolog\Handler\SyslogHandler('papertrail');
+$formatter = new \Monolog\Formatter\LineFormatter('%channel%.CONFOMO.%level_name%: %message% %extra%');
+$syslog->setFormatter($formatter);
+
+$monolog->pushHandler($syslog);
+
+
 if (isset($_SERVER['HTTP_HOST']) && false !== stripos($_SERVER['HTTP_HOST'], 'm347.co')) {
 	header('Location: http://confomo.com/', true, 301);
 }

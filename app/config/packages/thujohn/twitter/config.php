@@ -2,8 +2,14 @@
 
 // You can find the keys here : https://dev.twitter.com/
 // Crap, temporary issues with forge
-if (file_exists('../.env.forge.php')) {
-	$env = include('../.env.forge.php');
+if (file_exists('../.env.forge.php') || file_exists('.env.forge.php')) {
+	if (file_exists('../.env.forge.php')) {
+		// From web
+		$env = include('../.env.forge.php');
+	} else {
+		// Command line
+		$env = include('.env.forge.php');
+	}
 	$con_key = $env['TWITTER_CONSUMER_KEY'];
 	$con_secret = $env['TWITTER_CONSUMER_SECRET'];
 	$token = $env['TWITTER_ACCESS_TOKEN'];
