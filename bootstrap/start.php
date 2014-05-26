@@ -23,22 +23,19 @@ $app = new Illuminate\Foundation\Application;
 | given environment, then we will automatically detect it for you.
 |
 */
-/*
+
 $env = $app->detectEnvironment(function()
 {
-	if (getenv('CONFOMO_ENV')) {
- 		return getenv('CONFOMO_ENV');
-	} elseif(file_exists('../.env_name.php')) {
-		return include('../.env_name.php');
-	} elseif(file_exists('.env_name.php')) {
-		return include('.env_name.php');
+	if (file_exists(__DIR__ . '/../.env_name.php')) {
+		return include(__DIR__ . '/../.env_name.php');
 	} else {
 		return 'production';
 	}
 });
-*/
+
 
 /* Attempting to get queue workers working and correctly detecting env */
+/*
 $env = $app->detectEnvironment([
 	'local' => array('cassim'),
 	'forge' => 'clean-winter'
