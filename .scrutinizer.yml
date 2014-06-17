@@ -8,20 +8,9 @@ tools:
         enabled: true
         min_lines: 5
         min_tokens: 70
-        filter:
-            excluded_paths: ['vendor/*']
     php_pdepend:
         enabled: true
-        configuration_file: null
-        suffixes:
-            - php
-        excluded_dirs:
-            - vendor
-        filter:
-            excluded_paths: ['vendor/*']
     php_changetracking:
-        filter:
-            excluded_paths: ['vendor/*']
+        enabled: true
     php_mess_detector:
-        filter:
-            excluded_paths: ['vendor/*']
+        enabled: true
