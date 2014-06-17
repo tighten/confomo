@@ -1,36 +1,36 @@
 
 filter:
     excluded_paths:
-	- 'vendor/*'
-	- 'web/*'
+    - 'vendor/*'
+    - 'web/*'
     paths: {  }
 tools:
     php_cpd:
-	enabled: true
-	command: phpcpd
-	excluded_dirs: {  }
-	names:
-	    - '*.php'
-	min_lines: 5
-	min_tokens: 70
-	filter:
-	    excluded_paths:
-		- 'vendor/*'
-		- 'web/*'
-	    paths: {  }
+    enabled: true
+    command: phpcpd
+    excluded_dirs: {  }
+    names:
+        - '*.php'
+    min_lines: 5
+    min_tokens: 70
+    filter:
+        excluded_paths:
+        - 'vendor/*'
+        - 'web/*'
+        paths: {  }
     php_pdepend:
-	excluded_dirs:
-	    - vendor
-	enabled: true
-	command: pdepend
-	configuration_file: null
-	suffixes:
-	    - php
+    excluded_dirs:
+        - vendor
+    enabled: true
+    command: pdepend
+    configuration_file: null
+    suffixes:
+        - php
     external_code_coverage:
-	timeout: 600 # Timeout in seconds.
+    timeout: 600 # Timeout in seconds.
 changetracking:
     bug_patterns:
-	- '\bfix(?:es|ed)?\b'
+    - '\bfix(?:es|ed)?\b'
     feature_patterns:
-	- '\badd(?:s|ed)?\b'
-	- '\bimplement(?:s|ed)?\b'
+    - '\badd(?:s|ed)?\b'
+    - '\bimplement(?:s|ed)?\b'
