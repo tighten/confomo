@@ -5,5 +5,9 @@ filter:
         - 'web/*'
 tools:
     php_cpd:
+        enabled: true
         min_lines: 5
         min_tokens: 70
+    php_pdepend:
+    php_changetracking:
+    php_mess_detector:
