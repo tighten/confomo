@@ -16,6 +16,8 @@ class TwitterProfilePic
 	protected $profile;
 	protected $friend;
 
+	protected $job;
+
 	/**
 	 * Local Twitter profile cache length in minutes
 	 */
@@ -31,10 +33,18 @@ class TwitterProfilePic
 
 	public function fire($job, $data)
 	{
+		$this->job = $job;
+
 		$twitter_handle = $data['twitter_handle'];
 		$friend_id = $data['friend_id'];
 
+		\Log::info('Pulling twitter profile by screen name for ' . $twitter_handle);
 		$twitter_profile = $this->getTwitterProfileByScreenName($twitter_handle);
+
+		if ( ! $twitter_profile) {
+			// This means we failed getting twitter profile, due to either rate limit or nonexistent user.
+			return;
+		}
 
 		// @todo: Store when last pulled somewhere (is just on the put expiration date maybe?)
 
@@ -123,7 +133,22 @@ class TwitterProfilePic
 			\App::abort(500, 'No result from Twitter');
 		}
 		if ( ! is_array($twitter_profile) && isset($twitter_profile->errors)) {
-			\App::abort(500, $twitter_profile->errors[0]->message);
+			$error = $twitter_profile->errors[0];
+			switch ($error->code) {
+				case 88:
+					\Log::error('Twitter rate limit exceeded.');
+					return;
+					break;
+				case 34:
+					\Log::info('Deleted job to pull profile info for 404ed user ' . $twitter_handle);
+					$this->job->delete();
+					return;
+					break;
+				default:
+					\Log::error('Unexpected Twitter code ' . $error->code . ' received.');
+					return;
+					break;
+			}
 		}
 
 		$twitter_profile = $twitter_profile[0];
