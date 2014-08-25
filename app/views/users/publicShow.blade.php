@@ -8,7 +8,12 @@
 		<i>(Grey = met)</i>
 		<ul class="public-list">
 			@foreach($user->oldFriends as $friend)
-			<li style="clear: both;" class="{{ $friend->met ? 'public-mark-as-met' : '' }}"><img src="/{{ $friend->twitter_profile_pic }}" class="friend-list-item__image"><a href="http://twitter.com/{{ $friend->twitter }}">{{ '@' . $friend->twitter }}</a></li>
+			<li style="clear: both;" class="{{ $friend->met ? 'public-mark-as-met' : '' }}">
+				<img src="/{{ $friend->twitter_profile_pic }}" class="friend-list-item__image">
+				<a href="http://twitter.com/{{ $friend->twitter }}" target="_blank">
+					{{ '@' . $friend->twitter }}
+				</a>
+			</li>
 			@endforeach
 		</ul>
 
