@@ -1,5 +1,6 @@
 <?php namespace Confomo\Queue\API;
 
+use Exception;
 use Friend;
 use Illuminate\Cache\CacheManager as Cache;
 use stdClass;
