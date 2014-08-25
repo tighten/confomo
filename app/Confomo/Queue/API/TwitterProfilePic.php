@@ -38,6 +38,15 @@ class TwitterProfilePic
 		$twitter_handle = $data['twitter_handle'];
 		$friend_id = $data['friend_id'];
 
+		// Ensure Person still exists
+		try {
+			$friend = $this->friend->findOrFail($friend_id);
+		} catch (Exception $e) {
+			$this->job->delete();
+			return;
+		}
+
+		// Pull twitter info
 		\Log::info('Pulling twitter profile by screen name for ' . $twitter_handle);
 		$twitter_profile = $this->getTwitterProfileByScreenName($twitter_handle);
 
@@ -50,7 +59,7 @@ class TwitterProfilePic
 
 		$this->saveTwitterProfile($twitter_profile);
 
-		$this->linkTwitterProfileToFriend($twitter_profile, $friend_id);
+		$this->linkTwitterProfileToFriend($twitter_profile, $friend);
 
 		$this->saveTwitterProfileImageLocally($twitter_profile);
 
@@ -62,11 +71,10 @@ class TwitterProfilePic
 	 *
 	 * @todo  Make sure we're doing the linkage correctly; I somewhat suspect we're not
 	 * @param stdClass $twitter_profile
-	 * @param string $friend_id
+	 * @param Friend $friend
 	 */
-	protected function linkTwitterProfileToFriend(stdClass $twitter_profile, $friend_id)
+	protected function linkTwitterProfileToFriend(stdClass $twitter_profile, $friend)
 	{
-		$friend = $this->friend->findOrFail($friend_id);
 		$friend->twitter_id = $twitter_profile->id;
 		$friend->save();
 	}
