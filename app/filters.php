@@ -78,3 +78,16 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+ * Custom Confomo
+ */
+Route::filter('authConf', function($route, $request)
+{
+	$conference_id = $route->getParameter('conference_id');
+	$conference = \Confomo\Entities\Conference::find($conference_id);
+
+	if ( ! $conference || $conference->user_id != Auth::user()->id) {
+		throw new \Confomo\Exceptions\AccessDeniedException('Conference does not exist or user does not have access to conference.');
+	}
+});

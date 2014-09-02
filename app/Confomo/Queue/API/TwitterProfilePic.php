@@ -1,11 +1,11 @@
 <?php namespace Confomo\Queue\API;
 
 use Exception;
-use Friend;
+use Confomo\Entities\Friend;
 use Illuminate\Cache\CacheManager as Cache;
 use stdClass;
 use Thujohn\Twitter\Twitter;
-use TwitterProfile;
+use Confomo\Entities\TwitterProfile;
 
 /**
  *
@@ -112,7 +112,7 @@ class TwitterProfilePic
 		$path_prefix = \App::runningInConsole() ? base_path() . '/public/' : '';
 		copy(
 			$twitter_profile->profile_image_url,
-			$path_prefix . $this->profile->getProfilePictureCachePath() . md5($twitter_profile->id) . '.jpeg'
+			$path_prefix . ltrim($this->profile->getProfilePictureCachePath(), '/') . md5($twitter_profile->id) . '.jpeg'
 		);
 	}
 
@@ -139,7 +139,14 @@ class TwitterProfilePic
 		]);
 
 		if ($twitter_profile === null) {
-			\App::abort(500, 'No result from Twitter');
+			if (\Config::get('app.offline'))
+			{
+				return;
+			}
+			else
+			{
+				\App::abort(500, 'No result from Twitter');
+			}
 		}
 		if ( ! is_array($twitter_profile) && isset($twitter_profile->errors)) {
 			$error = $twitter_profile->errors[0];

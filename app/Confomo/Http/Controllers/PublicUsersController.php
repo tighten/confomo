@@ -1,18 +1,35 @@
-<?php
+<?php namespace Confomo\Http\Controllers;
 
-class PublicUsersController extends \BaseController
+use App;
+use Confomo\Entities\Conference;
+use Confomo\Entities\Friend;
+use Confomo\Entities\User;
+use Exception;
+use Queue;
+use Response;
+use View;
+
+class PublicUsersController extends BaseController
 {
 	/**
 	 * Display the public page for this user
 	 *
 	 * @param  string  $username
+	 * @param  int     $conference_id
 	 * @return Response
 	 */
-	public function show($username)
+	public function show($username, $conference_id)
 	{
 		$user = $this->getUser($username);
 
+		$conference = Conference::findOrFail($conference_id);
+
+		if ($conference->user_id != $user->id) {
+			App::abort(404);
+		}
+
 		return View::make('users.publicShow')
+			->with('conference', $conference)
 			->with('user', $user);
 	}
 
@@ -20,10 +37,11 @@ class PublicUsersController extends \BaseController
 	 * Add suggested friends for this user
 	 *
 	 * @param  string $username
+	 * @param  int    $conference_id
 	 * @return string json
 	 * @todo  Abstract this creation logic to share between this and the friendscontroller
 	 */
-	public function suggested($username)
+	public function suggested($username, $conference_id)
 	{
 		$this->validateSuggested($_POST);
 
@@ -58,7 +76,6 @@ class PublicUsersController extends \BaseController
 		try {
 			return User
 				::where('username', $username)
-				->where('public_list', true)
 				->firstOrFail();
 		} catch (Exception $e) {
 			App::abort(404);

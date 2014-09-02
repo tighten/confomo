@@ -1,4 +1,4 @@
-<?php
+<?php namespace Confomo\Entities;
 
 class TwitterProfile extends \Eloquent
 {
@@ -6,7 +6,7 @@ class TwitterProfile extends \Eloquent
 		'id'
 	];
 
-	const PROFILE_PICTURE_CACHE_PATH = 'assets/img/cache/twitter_profile_pics/';
+	const PROFILE_PICTURE_CACHE_PATH = '/assets/img/cache/twitter_profile_pics/';
 
 	public function profilePicturePath()
 	{
@@ -20,6 +20,6 @@ class TwitterProfile extends \Eloquent
 
 	public function friend()
 	{
-		return $this->belongstoMany('Friend');
+		return $this->belongstoMany('Confomo\Entities\Friend');
 	}
 }

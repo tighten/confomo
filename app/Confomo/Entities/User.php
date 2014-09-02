@@ -1,10 +1,10 @@
-<?php
+<?php namespace Confomo\Entities;
 
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
-
+class User extends \Eloquent implements UserInterface, RemindableInterface
+{
 	/**
 	 * The database table used by the model.
 	 *
@@ -21,7 +21,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $fillable = [
 		'email',
-		'password'
+		'password',
+		'username'
 	];
 
 	/**
@@ -88,17 +89,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	// Actual app logic
 	public function friends()
 	{
-		return $this->hasMany('Friend');
+		return $this->hasMany('Confomo\Entities\Friend');
 	}
 
 	public function newFriends()
 	{
-		return $this->hasMany('Friend')->where('type', 'new');
+		return $this->hasMany('Confomo\Entities\Friend')->where('type', 'new');
 	}
 
 	public function oldFriends()
 	{
-		return $this->hasMany('Friend')->where('type', 'old');
+		return $this->hasMany('Confomo\Entities\Friend')->where('type', 'old');
 	}
 
+	public function conferences()
+	{
+		return $this->hasMany('Confomo\Entities\Conference');
+	}
 }

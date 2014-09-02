@@ -1,13 +1,13 @@
 @extends('layouts.public')
 
 @section('content')
-	<h2>Public view for user {{ $user->username }}</h2>
+	<h2>Public view for user {{ $user->username }} at conference {{ $conference->name }}</h2>
 
 	<div id="old-friends" data-type="old">
 		<h3>Old friends to meet at conf</h3>
 		<i>(Grey = met)</i>
 		<ul class="public-list">
-			@foreach($user->oldFriends as $friend)
+			@foreach($conference->oldFriends as $friend)
 			<li style="clear: both;" class="{{ $friend->met ? 'public-mark-as-met' : '' }}">
 				<img src="/{{ $friend->twitter_profile_pic }}" class="friend-list-item__image">
 				<a href="http://twitter.com/{{ $friend->twitter }}" target="_blank">
@@ -28,7 +28,7 @@
 	<div id="new-friends" data-type="new">
 		<h3>New friends met at conf</h3>
 		<ul class="public-list">
-			@foreach($user->newFriends as $friend)
+			@foreach($conference->newFriends as $friend)
 			<li style="clear: both;" class="{{ $friend->met ? 'public-mark-as-met' : '' }}"><img src="/{{ $friend->twitter_profile_pic }}" class="friend-list-item__image"><a href="http://twitter.com/{{ $friend->twitter }}">{{ '@' . $friend->twitter }}</a></li>
 			@endforeach
 		</ul>
