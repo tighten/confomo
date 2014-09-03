@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Sign up</h1>
+<h1>Edit Account</h1>
 
 @if (Session::has('flash_error'))
 <div class="flash_error">{{ Session::get('flash_error') }}</div>
@@ -18,7 +18,7 @@
 
 <p>
 	{{ Form::label('email', 'Email') }}<br/>
-	{{ Form::email('email', Input::old('email')) }}
+	{{ Form::email('email', $user->email) }}
 </p>
 
 <p>
@@ -28,14 +28,11 @@
 
 <p>
 	{{ Form::label('username', 'Username (for URL use in public list sharing)') }}<br/>
-	{{ Form::text('username', Input::old('username')) }}
+	{{ Form::text('username', $user->username) }}
 </p>
 
-<p>{{ Form::submit('Sign Up') }}</p>
+<p>{{ Form::submit('Edit Account') }}</p>
 
 {{ Form::close() }}
 
-<br>
-
-{{ HTML::linkAction('login', 'Log in') }}
 @stop

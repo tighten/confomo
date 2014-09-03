@@ -1,3 +1,6 @@
+var conferenceId = $('[data-conference-id]').data('conference-id'),
+	confRoutePrefix = '/api/conferences/' + conferenceId + '/friends/';
+
 var Item = function(item) {
     for (var prop in item) {
         this[prop] = item[prop];
@@ -9,7 +12,7 @@ var Item = function(item) {
     this.markThisItemMet = function() {
         item.met = item.met == 1 ? 0 : 1;
         $.ajax({
-            url: '/friends/' + item.id,
+            url: confRoutePrefix + item.id,
             type: 'PUT',
             data: item,
             context: this,
@@ -24,7 +27,7 @@ var Item = function(item) {
         item.type = new_type;
 
         $.ajax({
-            url: '/friends/' + item.id,
+            url: confRoutePrefix + item.id,
             type: 'PUT',
             data: item,
             context: this,
@@ -48,7 +51,7 @@ var Item = function(item) {
         item.notes = this.notes();
         console.log(item);
         $.ajax({
-            url: '/friends/' + item.id,
+            url: confRoutePrefix + item.id,
             type: 'PUT',
             data: item,
             context: this,
@@ -85,7 +88,7 @@ var itemModel = function(items) {
                 };
 
             $.ajax({
-                url: '/friends',
+                url: confRoutePrefix,
                 type: 'POST',
                 data: data,
                 context: this,
@@ -102,7 +105,7 @@ var itemModel = function(items) {
 
     this.remove = function (item) {
         $.ajax({
-            url: '/friends/' + item.id,
+            url: confRoutePrefix + item.id,
             type: 'DELETE',
             context: this,
             success: function(result) {
@@ -113,7 +116,7 @@ var itemModel = function(items) {
 };
 
 if ($('#old-friends').length && $('#new-friends').length) {
-    $.getJSON("/friends", function(data) {
+    $.getJSON(confRoutePrefix, function(data) {
         // @todo sort to put suggested first
         oldFriends = ko.utils.arrayFilter(data, function(item) {
             return item.type.indexOf('old') > -1;

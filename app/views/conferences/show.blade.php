@@ -2,6 +2,13 @@
 
 @section('content')
 
+<h1 data-conference-id="{{ $conference->id }}">{{ $conference->title }}</h1>
+
+@if ($conference->list_is_public)
+	<i>Public:</i> {{ link_to($public_url, $public_url) }}
+@else
+	<i>Not public</i>
+@endif
 <div class="friends-list-container old-friends-list-container" id="old-friends" data-type="old">
 	<h2>Friends I want to Meet at the Conference</h2>
 
@@ -60,32 +67,4 @@
 	</li>
 </script>
 
-
-<br><br><br>
-<h2>@todo</h2>
-<ul>
-	<li><strike>Add user login</strike></li>
-	<li><strike>Scope tasks to user</strike></li>
-	<li><strike>Allow checking someone off as "met"</strike></li>
-	<li><strike>Allow users to sign up</strike></li>
-	<li>Move @todo to github issues</li>
-	<li><strike>Pull profile from Twitter</strike></li>
-	<li><strike>Show twitter profile pic</strike></li>
-	<li><strike>Use real queue for twitter profile pic</strike></li>
-	<li>Optimize twitter pull to not duplicate pulls, re-pull after __ time on cron, etc.</li>
-	<li>Make suggested friend fail ENTIRELY on bad twitter, not just fail to pull profile pic</li>
-	<li>Display first name, last name, other stuff</li>
-	<li>Add some sort of IRC love?</li>
-	<li>Add rate limiting &amp; email address validation</li>
-	<li><strike>Add notes for how you met someone</strike></li>
-	<li>Make it not hideous</li>
-	<li>Add loading graphics</li>
-	<li><strike>Force twitter handle to be proper twitter handle</strike></li>
-	<li><strike>Auto-fill details based on twitter handle</strike></li>
-	<li>Make lists public (but notes private?)</li>
-	<li>Some other form of community participation</li>
-	<li>CHORES</li>
-	<li>Consolidate error handling in user create</li>
-	<li><strike>Drop Authority because we're clearly not using it</strike></li>
-</ul>
 @stop

@@ -1,6 +1,9 @@
-<?php
+<?php namespace Confomo\Http\Controllers\API;
 
-class FriendsController extends \BaseController
+use App;
+use Auth;
+
+class ConferencesController extends \Confomo\Http\Controllers\BaseController
 {
 	/**
 	 * Display a listing of the resource.
@@ -9,7 +12,7 @@ class FriendsController extends \BaseController
 	 */
 	public function index()
 	{
-		return Auth::user()->friends;
+		return Auth::user()->conferences;
 	}
 
 	/**
@@ -29,21 +32,14 @@ class FriendsController extends \BaseController
 	 */
 	public function store()
 	{
+		/*
 		$friend = new Friend($_POST);
 		$friend->user_id = Auth::user()->id;
 		$friend->save();
-//		return $friend;
-//		
-		Queue::push(
-			'Confomo\Queue\API\TwitterProfilePic',
-			array(
-				'twitter_handle' => $friend->twitter,
-				'friend_id' => $friend->id
-			)
-		);
 
 		// Annoyingly necessary in order to return *all* fields
 		return Friend::find($friend->id);
+		*/
 	}
 
 	/**
@@ -54,6 +50,7 @@ class FriendsController extends \BaseController
 	 */
 	public function show($id)
 	{
+		/*
 		try {
 			return Friend
 				::where('user_id', Auth::user()->id)
@@ -62,6 +59,7 @@ class FriendsController extends \BaseController
 		} catch (Exception $e) {
 			App::abort(404);
 		}
+		*/
 	}
 
 	/**
@@ -72,7 +70,7 @@ class FriendsController extends \BaseController
 	 */
 	public function edit($id)
 	{
-		App::abort(404);	
+		App::abort(404);
 	}
 
 	/**
@@ -84,6 +82,7 @@ class FriendsController extends \BaseController
 	 */
 	public function update($id)
 	{
+		/*
 		$item = Input::all();
 		unset($item['id']);
 		unset($item['user_id']);
@@ -100,6 +99,7 @@ class FriendsController extends \BaseController
 		$friend->fill($item);
 
 		$friend->save();
+		*/
 	}
 
 	/**
@@ -110,10 +110,12 @@ class FriendsController extends \BaseController
 	 */
 	public function destroy($id)
 	{
+		/*
 		Friend
 			::where('user_id', Auth::user()->id)
 			->where('id', $id)
 			->delete();
+		*/
 	}
 
 }

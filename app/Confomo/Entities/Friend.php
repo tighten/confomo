@@ -1,4 +1,4 @@
-<?php
+<?php namespace Confomo\Entities;
 
 class Friend extends \Eloquent
 {
@@ -27,7 +27,7 @@ class Friend extends \Eloquent
 
 	public function twitterProfile()
 	{
-		return $this->belongsTo('TwitterProfile', 'twitter_id', 'twitter_id');
+		return $this->belongsTo('Confomo\Entities\TwitterProfile', 'twitter_id', 'twitter_id');
 	}
 
 	public function getTwitterProfilePicAttribute()
@@ -35,5 +35,10 @@ class Friend extends \Eloquent
 		// @todo: How can we refactor this? statics & ugliness..
 		$file_name = $this->twitter_id ? md5($this->twitter_id) . '.jpeg' : 'blank.jpg';
 		return TwitterProfile::PROFILE_PICTURE_CACHE_PATH . $file_name;
+	}
+
+	public function scopeFromConference($query, $conference_id)
+	{
+		return $query->where('conference_id', $conference_id);
 	}
 }

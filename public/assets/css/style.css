@@ -22,8 +22,19 @@ input, input[type="text"], input[type="email"] {
     max-width: 800px;
     /*padding: 1rem;*/
 }
+.footer {
+	margin: 0 auto;
+	max-width: 800px;
+	text-align: right;
+}
+	.footer a {
+		color: #fff;
+	}
 @media only screen and (min-width: 500px) {
 	.container {
+		padding: 1rem 2rem;
+	}
+	.footer {
 		padding: 1rem 2rem;
 	}
 }
@@ -51,10 +62,13 @@ input, input[type="text"], input[type="email"] {
     margin: 0.5rem 0 1rem 0;
     text-transform: uppercase;
 }
+.nav {
+	float: right;
+}
 .logout-link {
 	font-size: 90%;
 	padding: 0.15em;
-	float: right;
+	/*float: right;*/
 }
 
 h2 {
