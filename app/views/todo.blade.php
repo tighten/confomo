@@ -34,6 +34,7 @@
 	<li>move monolog binding to a service provider</li>
 	<li>Extract all Closure routes to controllers</li>
 	<li>Convert the whole thing to Angular for easier Ionic-ization</li>
+	<li>Get the friggin façades out of the domain already</li>
 </ul>
 
 @stop
