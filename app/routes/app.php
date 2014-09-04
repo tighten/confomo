@@ -53,6 +53,30 @@ Route::group(['prefix' => 'conferences', 'before' => 'auth'], function() {
 			->with('conference', $conference)
 			->with('public_url', $public_url);
 	}]);
+
+	Route::get('{conference_id}/edit', ['as' => 'conferences.edit', 'before' => 'authConf', function($conference_id) {
+		$conference = \Confomo\Entities\Conference::findOrFail($conference_id);
+
+		return View::make('conferences.edit')
+			->with('conference', $conference);
+	}]);
+
+	Route::post('{conference_id}/edit', ['as' => 'conferences.update', 'before' => 'authConf', function($conference_id) {
+		try
+		{
+			$conference = \Confomo\Entities\Conference::findOrFail($conference_id);
+		}
+		catch (Exception $e)
+		{
+			exit('Havent programmed this page yet.');
+		}
+
+		$conference->name = Input::get('name');
+		$conference->list_is_public = Input::get('list_is_public');
+		$conference->save();
+
+		return Redirect::route('conferences.index');
+	}]);
 });
 
 /** Public view */
