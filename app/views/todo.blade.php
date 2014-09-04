@@ -31,7 +31,7 @@
 	<li><strike>Allow users to set their own usernames</strike></li>
 	<li><strike>Allow users to toggle which conference lists are public</strike></li>
 	<li><strike>Allow users to edit conference name and is-public status after creation</strike></li>
-	<li>move monolog binding to a service provider</li>
+	<li><strike>move monolog binding to a service provider</strike></li>
 	<li>Extract all Closure routes to controllers</li>
 	<li>Convert the whole thing to Angular for easier Ionic-ization</li>
 	<li>Get the friggin façades out of the domain already</li>

@@ -121,7 +121,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Thujohn\Twitter\TwitterServiceProvider',
-
+		'Confomo\Providers\PapertrailServiceProvider',
 	),
 
 	/*
