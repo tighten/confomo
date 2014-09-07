@@ -1,5 +1,4 @@
 <?php
-// Move to user controller
 
 Route::get('login', ['as' => 'login', 'before' => 'guest', 'uses' => 'Confomo\Http\Controllers\UsersController@login']);
 
