@@ -1,21 +1,59 @@
 <?php namespace Confomo\Http\Controllers;
 
+use App;
 use Auth;
+use Cache;
 use Confomo\Entities\User;
 use Input;
+use Log;
 use Redirect;
+use Request;
 use Validator;
 use View;
 
 class UsersController extends BaseController
 {
+	protected $throttle_key;
+	protected $throttle_max_requests;
+	protected $throttle_duration;
+
+	public function __construct()
+	{
+		$this->throttle_key = sprintf('loginThrottle:%s', Request::getClientIp());
+		$this->throttle_max_requests = 15;
+		$this->throttle_duration = 15;
+	}
+
 	public function login()
 	{
 		return View::make('users.login');
 	}
 
+	protected function guardRateLimit()
+	{
+		if (Cache::get($this->throttle_key) > $this->throttle_max_requests)
+		{
+			Log::error('User hit failed login rate limit.', ['ip' =>  Request::getClientIp(), 'email' => Input::get('email')]);
+			App::abort(429);
+		}
+	}
+
+	protected function incrementRateLimitGuard()
+	{
+		Cache::add($this->throttle_key, 0, $this->throttle_duration);
+
+		// Manually increment (file can't increment)
+		$prev = Cache::get($this->throttle_key);
+		$new = $prev + 1;
+
+		// Add to count. Bummer is that this extends the previous throttle
+		Cache::put($this->throttle_key, $new, $this->throttle_duration);
+	}
+
 	public function postLogin()
 	{
+		$this->guardRateLimit();
+
 		$user = array(
 			'email' => Input::get('email'),
 			'password' => Input::get('password')
@@ -25,6 +63,8 @@ class UsersController extends BaseController
 			return Redirect::route('home')
 				->with('flash_notice', 'You are successfully logged in.');
 		}
+
+		$this->incrementRateLimitGuard();
 
 		return Redirect::route('login')
 			->with('flash_error', 'Your email/password combination was incorrect.')
