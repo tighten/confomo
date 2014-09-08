@@ -3,12 +3,33 @@
 use Illuminate\Cache\CacheManager;
 
 /**
- * Simple implementation of a rate-limit style throttler.
+ * Simple implementation of a rate-limit style throttler. The purpose is to
+ * limit the amount of times a particular IP address can have a failed login.
+ *
  * Explicitly available for cache systems with no `increment` method.
  *
  * Note: Each increment increases the expiration time of the throttling, so
  *       it's not "15 request in 15 minutes" but "15 requests in the time period
  *       extending to 15 minutes after the last request"
+ *
+ * <code>
+ * public function controllerPostLogin()
+ * {
+ *     $client_ip_address = $_SERVER['REMOTE_ADDR']; // Or something more capable
+ *
+ *     if ($this->rateLimit->rateLimitExceeded($client_ip_address)
+ *     {
+ *         exit('Quit hacking me son');
+ *     }
+ *
+ *     // Check for actual login
+ *
+ *     if ($login_failed)
+ *     {
+ *         $this->rateLimit->incrementRateLimit($client_ip_address);
+ *     }
+ * }
+ * </code>
  *
  * @todo    Replace CacheManager dependency to use Illuminate Cache Contract once 4.3 is out
  * @package Confomo\Authentication
@@ -20,7 +41,7 @@ class RateLimit
 	 *
 	 * @var int
 	 */
-	protected $max_requests = 15;
+	protected $maxRequests = 15;
 
 	/**
 	 * Duration of the given period in minutes
@@ -34,7 +55,7 @@ class RateLimit
 	 *
 	 * @var string
 	 */
-	protected $default_key_prefix = 'loginThrottle';
+	protected $defaultKeyPrefix = 'loginThrottle';
 
 	/**
 	 * @var CacheManager
@@ -54,7 +75,7 @@ class RateLimit
 	 */
 	public function getThrottleKey($ip, $prefix = null)
 	{
-		$prefix ?: $this->default_key_prefix;
+		$prefix ?: $this->defaultKeyPrefix;
 		return sprintf('%s:%s', $prefix, $ip);
 	}
 
@@ -67,7 +88,7 @@ class RateLimit
 	 */
 	public function rateLimitExceeded($ip, $prefix = null)
 	{
-		return ($this->cache->get($this->getThrottleKey($ip, $prefix)) > $this->max_requests);
+		return ($this->cache->get($this->getThrottleKey($ip, $prefix)) > $this->maxRequests);
 	}
 
 	/**
@@ -89,11 +110,11 @@ class RateLimit
 	/**
 	 * Set number of requests to throttle to
 	 *
-	 * @param int $max_requests
+	 * @param int $maxRequests
 	 */
-	public function setMaxRequests($max_requests)
+	public function setMaxRequests($maxRequests)
 	{
-		$this->max_requests = $max_requests;
+		$this->maxRequests = $maxRequests;
 	}
 
 	/**
@@ -109,10 +130,10 @@ class RateLimit
 	/**
 	 * Set default throttle key prefix
 	 *
-	 * @param string $default_key_prefix
+	 * @param string $defaultKeyPrefix
 	 */
-	public function setDefaultKeyPrefix($default_key_prefix)
+	public function setDefaultKeyPrefix($defaultKeyPrefix)
 	{
-		$this->default_key_prefix = $default_key_prefix;
+		$this->defaultKeyPrefix = $defaultKeyPrefix;
 	}
 }
