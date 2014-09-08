@@ -31,11 +31,23 @@ use Illuminate\Cache\CacheManager;
  * }
  * </code>
  *
- * @todo    Replace CacheManager dependency to use Illuminate Cache Contract once 4.3 is out
+ * @todo    Replace CacheManager dependency to use Illuminate Cache Contract once 4.3 is out, and PSR cache when it's available
  * @package Confomo\Authentication
  */
 class RateLimit
 {
+	/**
+	 * Number of attempts after which to start sleeping each attempt
+	 *
+	 * After this many failed attempts, each attempt will get a sleep for
+	 * (# attempts - $sleep_after) seconds (to avoid brute force attacks)
+	 *
+	 * Set to a negative number to disable
+	 *
+	 * @var int (?)
+	 */
+	protected $sleepAfter = 5;
+
 	/**
 	 * Maximum number of requests allowed during the given period
 	 *
@@ -105,6 +117,21 @@ class RateLimit
 
 		// Add to count
 		$this->cache->put($this->getThrottleKey($ip, $prefix), $count, $this->duration);
+
+		$this->doSleep($count);
+	}
+
+	/**
+	 * Sleep for ($this->sleepAfter - $count) seconds
+	 *
+	 * @param int $count
+	 */
+	protected function doSleep($count)
+	{
+		if ($this->sleepAfter > 0 && $count > $this->sleepAfter)
+		{
+			sleep($count - $this->sleepAfter);
+		}
 	}
 
 	/**
@@ -135,5 +162,15 @@ class RateLimit
 	public function setDefaultKeyPrefix($defaultKeyPrefix)
 	{
 		$this->defaultKeyPrefix = $defaultKeyPrefix;
+	}
+
+	/**
+	 * Set the number of attempts after which to start sleeping each request
+	 *
+	 * @param int $sleepAfter
+	 */
+	public function setSleepAfter($sleepAfter)
+	{
+		$this->sleepAfter = $sleepAfter;
 	}
 }
