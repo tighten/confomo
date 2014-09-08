@@ -27,14 +27,14 @@ class RateLimit
 	 *
 	 * @var int
 	 */
-	protected $throttle_duration = 15;
+	protected $duration = 15;
 
 	/**
 	 * Prefix for the cache key
 	 *
 	 * @var string
 	 */
-	protected $throttle_key_prefix = 'loginThrottle';
+	protected $default_key_prefix = 'loginThrottle';
 
 	/**
 	 * @var CacheManager
@@ -54,7 +54,7 @@ class RateLimit
 	 */
 	public function getThrottleKey($ip, $prefix = null)
 	{
-		$prefix ?: $this->throttle_key_prefix;
+		$prefix ?: $this->default_key_prefix;
 		return sprintf('%s:%s', $prefix, $ip);
 	}
 
@@ -83,36 +83,36 @@ class RateLimit
 		$count++;
 
 		// Add to count
-		$this->cache->put($this->getThrottleKey($ip, $prefix), $count, $this->throttle_duration);
+		$this->cache->put($this->getThrottleKey($ip, $prefix), $count, $this->duration);
 	}
 
 	/**
 	 * Set number of requests to throttle to
 	 *
-	 * @param int $throttle_max_requests
+	 * @param int $max_requests
 	 */
-	public function setThrottleMaxRequests($throttle_max_requests)
+	public function setMaxRequests($max_requests)
 	{
-		$this->throttle_max_requests = $throttle_max_requests;
+		$this->max_requests = $max_requests;
 	}
 
 	/**
 	 * Set length of time (in minutes) to limit throttle
 	 *
-	 * @param int $throttle_duration
+	 * @param int $duration
 	 */
-	public function setThrottleDuration($throttle_duration)
+	public function setDuration($duration)
 	{
-		$this->throttle_duration = $throttle_duration;
+		$this->duration = $duration;
 	}
 
 	/**
-	 * Set throttle key prefix
+	 * Set default throttle key prefix
 	 *
-	 * @param string $throttle_key_prefix
+	 * @param string $default_key_prefix
 	 */
-	public function setThrottleKeyPrefix($throttle_key_prefix)
+	public function setDefaultKeyPrefix($default_key_prefix)
 	{
-		$this->throttle_key_prefix = $throttle_key_prefix;
+		$this->default_key_prefix = $default_key_prefix;
 	}
 }
