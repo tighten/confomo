@@ -20,7 +20,7 @@ class RateLimit
 	 *
 	 * @var int
 	 */
-	protected $throttle_max_requests = 15;
+	protected $max_requests = 15;
 
 	/**
 	 * Duration of the given period in minutes
@@ -67,7 +67,7 @@ class RateLimit
 	 */
 	public function rateLimitExceeded($ip, $prefix = null)
 	{
-		return ($this->cache->get($this->getThrottleKey($ip, $prefix)) > $this->throttle_max_requests);
+		return ($this->cache->get($this->getThrottleKey($ip, $prefix)) > $this->max_requests);
 	}
 
 	/**
