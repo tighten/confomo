@@ -89,7 +89,7 @@ class RateLimit
 	/**
 	 * Set number of requests to throttle to
 	 *
-	 * @param $throttle_max_requests
+	 * @param int $throttle_max_requests
 	 */
 	public function setThrottleMaxRequests($throttle_max_requests)
 	{
@@ -99,10 +99,20 @@ class RateLimit
 	/**
 	 * Set length of time (in minutes) to limit throttle
 	 *
-	 * @param $throttle_duration
+	 * @param int $throttle_duration
 	 */
 	public function setThrottleDuration($throttle_duration)
 	{
 		$this->throttle_duration = $throttle_duration;
+	}
+
+	/**
+	 * Set throttle key prefix
+	 *
+	 * @param string $throttle_key_prefix
+	 */
+	public function setThrottleKeyPrefix($throttle_key_prefix)
+	{
+		$this->throttle_key_prefix = $throttle_key_prefix;
 	}
 }
