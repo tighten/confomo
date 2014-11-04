@@ -5,6 +5,7 @@ use Auth;
 use Cache;
 use Confomo\Authentication\RateLimit;
 use Confomo\Entities\User;
+use Hash;
 use Input;
 use Log;
 use Redirect;
@@ -124,26 +125,28 @@ class UsersController extends BaseController
 
 		if ($validator->fails())
 		{
+			dd('valid failed');
 			return Redirect::route('signup')
 				->with('flash_error', 'Sorry, but there was a problem signing you up.')
 				->withErrors($validator)
 				->withInput();
 		}
 
-		$user = User::create([
+		User::create([
 			'email' => Input::get('email'),
-			'password' => Hash::make(Input::get('password'))
+			'password' => Hash::make(Input::get('password')),
+			'username' => Input::get('username')
 		]);
 
 		if (Auth::attempt([
 			'email' => Input::get('email'),
-			'password' => Input::get('password'),
-			'username' => Input::get('username')
+			'password' => Input::get('password')
 		])) {
 			return Redirect::route('home')
 				->with('flash_notice', 'You have successfully created a user account.');
 		}
 
+		dd('made it past');
 		return Redirect::route('signup')
 			->with('flash_error', 'Sorry, but there was a problem signing you up.')
 			->withInput();

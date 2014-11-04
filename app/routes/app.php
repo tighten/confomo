@@ -4,6 +4,14 @@ Route::get('/', ['as' => 'home', 'before' => 'auth', function() {
 	return Redirect::to('conferences');
 }]);
 
+//
+//Route::get('/xdebug', function ()
+//{
+//	$a = array();
+//
+//	echo 'test';
+//});
+
 /** Conferences */
 Route::group(['prefix' => 'conferences', 'before' => 'auth'], function() {
 	Route::get('/', ['as' => 'conferences.index', 'uses' => 'Confomo\Http\Controllers\ConferencesController@index']);
