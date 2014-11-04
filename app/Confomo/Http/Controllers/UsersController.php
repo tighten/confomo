@@ -125,7 +125,6 @@ class UsersController extends BaseController
 
 		if ($validator->fails())
 		{
-			dd('valid failed');
 			return Redirect::route('signup')
 				->with('flash_error', 'Sorry, but there was a problem signing you up.')
 				->withErrors($validator)
@@ -146,7 +145,6 @@ class UsersController extends BaseController
 				->with('flash_notice', 'You have successfully created a user account.');
 		}
 
-		dd('made it past');
 		return Redirect::route('signup')
 			->with('flash_error', 'Sorry, but there was a problem signing you up.')
 			->withInput();
