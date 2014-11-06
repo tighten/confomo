@@ -2,7 +2,7 @@
 
 return array(
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Default Authentication Driver
 	|--------------------------------------------------------------------------
@@ -15,9 +15,9 @@ return array(
 	|
 	*/
 
-	'driver' => 'eloquent',
+    'driver' => 'eloquent',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Authentication Model
 	|--------------------------------------------------------------------------
@@ -28,9 +28,9 @@ return array(
 	|
 	*/
 
-	'model' => 'Confomo\Entities\User',
+    'model' => 'Confomo\Entities\User',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Authentication Table
 	|--------------------------------------------------------------------------
@@ -41,9 +41,9 @@ return array(
 	|
 	*/
 
-	'table' => 'users',
+    'table' => 'users',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Password Reminder Settings
 	|--------------------------------------------------------------------------
@@ -58,14 +58,14 @@ return array(
 	|
 	*/
 
-	'reminder' => array(
+    'reminder' => array(
 
-		'email' => 'emails.auth.reminder',
+        'email' => 'emails.auth.reminder',
 
-		'table' => 'password_reminders',
+        'table' => 'password_reminders',
 
-		'expire' => 60,
+        'expire' => 60,
 
-	),
+    ),
 
 );

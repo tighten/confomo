@@ -1,5 +1,5 @@
-<?php  namespace Confomo\Exceptions; 
+<?php  namespace Confomo\Exceptions;
 
 class AccessDeniedException extends BaseException
 {
-} 
+}

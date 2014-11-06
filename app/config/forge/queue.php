@@ -2,7 +2,7 @@
 
 return array(
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Default Queue Driver
 	|--------------------------------------------------------------------------
@@ -15,9 +15,9 @@ return array(
 	|
 	*/
 
-	'default' => 'beanstalkd',
+    'default' => 'beanstalkd',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Queue Connections
 	|--------------------------------------------------------------------------
@@ -28,22 +28,22 @@ return array(
 	|
 	*/
 
-	'connections' => array(
+    'connections' => array(
 
-		'sync' => array(
-			'driver' => 'sync',
-		),
+        'sync' => array(
+            'driver' => 'sync',
+        ),
 
-		'beanstalkd' => array(
-			'driver' => 'beanstalkd',
-			'host'   => 'localhost',
-			'queue'  => 'default',
-			'ttr'    => 60,
-		),
+        'beanstalkd' => array(
+            'driver' => 'beanstalkd',
+            'host'   => 'localhost',
+            'queue'  => 'default',
+            'ttr'    => 60,
+        ),
 
-	),
+    ),
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Failed Queue Jobs
 	|--------------------------------------------------------------------------
@@ -54,10 +54,10 @@ return array(
 	|
 	*/
 
-	'failed' => array(
+    'failed' => array(
 
-		'database' => 'mysql', 'table' => 'failed_jobs',
+        'database' => 'mysql', 'table' => 'failed_jobs',
 
-	),
+    ),
 
 );

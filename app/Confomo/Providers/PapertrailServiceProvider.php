@@ -7,17 +7,17 @@ use Monolog\Handler\SyslogHandler;
 
 class PapertrailServiceProvider extends ServiceProvider
 {
-	public function register()
-	{
-	}
+    public function register()
+    {
+    }
 
-	public function boot()
-	{
-		$monolog = Log::getMonolog();
-		$syslog = new SyslogHandler('papertrail');
-		$formatter = new LineFormatter('%channel%.CONFOMO.%level_name%: %message% %extra%');
-		$syslog->setFormatter($formatter);
+    public function boot()
+    {
+        $monolog = Log::getMonolog();
+        $syslog = new SyslogHandler('papertrail');
+        $formatter = new LineFormatter('%channel%.CONFOMO.%level_name%: %message% %extra%');
+        $syslog->setFormatter($formatter);
 
-		$monolog->pushHandler($syslog);
-	}
+        $monolog->pushHandler($syslog);
+    }
 }
