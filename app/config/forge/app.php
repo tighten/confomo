@@ -2,7 +2,7 @@
 
 return array(
 
-	'debug' => false,
+    'debug' => false,
 
-	'url' => 'http://confomo.com/'
+    'url' => 'http://confomo.com/'
 );

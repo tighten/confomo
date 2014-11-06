@@ -12,116 +12,116 @@ use Confomo\Entities\TwitterProfile;
  */
 class TwitterProfilePic
 {
-	protected $twitter;
-	protected $cache;
-	protected $profile;
-	protected $friend;
+    protected $twitter;
+    protected $cache;
+    protected $profile;
+    protected $friend;
 
-	protected $job;
+    protected $job;
 
-	/**
+    /**
 	 * Local Twitter profile cache length in minutes
 	 */
-	const PULL_CACHE_LENGTH = 10080;
+    const PULL_CACHE_LENGTH = 10080;
 
-	public function __construct(Twitter $twitter, Cache $cache, TwitterProfile $profile, Friend $friend)
-	{
-		$this->twitter = $twitter;
-		$this->cache = $cache;
-		$this->profile = $profile;
-		$this->friend = $friend;
-	}
+    public function __construct(Twitter $twitter, Cache $cache, TwitterProfile $profile, Friend $friend)
+    {
+        $this->twitter = $twitter;
+        $this->cache = $cache;
+        $this->profile = $profile;
+        $this->friend = $friend;
+    }
 
-	public function fire($job, $data)
-	{
-		$this->job = $job;
+    public function fire($job, $data)
+    {
+        $this->job = $job;
 
-		$twitter_handle = $data['twitter_handle'];
-		$friend_id = $data['friend_id'];
+        $twitter_handle = $data['twitter_handle'];
+        $friend_id = $data['friend_id'];
 
-		// Ensure Person still exists
-		try {
-			$friend = $this->friend->findOrFail($friend_id);
-		} catch (Exception $e) {
-			$this->job->delete();
-			return;
-		}
+        // Ensure Person still exists
+        try {
+            $friend = $this->friend->findOrFail($friend_id);
+        } catch (Exception $e) {
+            $this->job->delete();
+            return;
+        }
 
-		// Pull twitter info
-		\Log::info('Pulling twitter profile by screen name for ' . $twitter_handle);
-		$twitter_profile = $this->getTwitterProfileByScreenName($twitter_handle);
+        // Pull twitter info
+        \Log::info('Pulling twitter profile by screen name for ' . $twitter_handle);
+        $twitter_profile = $this->getTwitterProfileByScreenName($twitter_handle);
 
-		if ( ! $twitter_profile) {
-			// This means we failed getting twitter profile, due to either rate limit or nonexistent user.
-			return;
-		}
+        if ( ! $twitter_profile) {
+            // This means we failed getting twitter profile, due to either rate limit or nonexistent user.
+            return;
+        }
 
-		// @todo: Store when last pulled somewhere (is just on the put expiration date maybe?)
+        // @todo: Store when last pulled somewhere (is just on the put expiration date maybe?)
 
-		$this->saveTwitterProfile($twitter_profile);
+        $this->saveTwitterProfile($twitter_profile);
 
-		$this->linkTwitterProfileToFriend($twitter_profile, $friend);
+        $this->linkTwitterProfileToFriend($twitter_profile, $friend);
 
-		$this->saveTwitterProfileImageLocally($twitter_profile);
+        $this->saveTwitterProfileImageLocally($twitter_profile);
 
-		$job->delete();
-	}
+        $job->delete();
+    }
 
-	/**
+    /**
 	 * Set a `friend` record to point to a `twitter profile`
 	 *
 	 * @todo  Make sure we're doing the linkage correctly; I somewhat suspect we're not
 	 * @param stdClass $twitter_profile
 	 * @param Friend $friend
 	 */
-	protected function linkTwitterProfileToFriend(stdClass $twitter_profile, $friend)
-	{
-		$friend->twitter_id = $twitter_profile->id;
-		$friend->save();
-	}
+    protected function linkTwitterProfileToFriend(stdClass $twitter_profile, $friend)
+    {
+        $friend->twitter_id = $twitter_profile->id;
+        $friend->save();
+    }
 
-	/**
+    /**
 	 * Save a given twitter profile result to a local Eloquent `twitter_profile`
 	 *
 	 * @param stdClass $twitter_profile Result from ThuJohn/Twitter search
 	 */
-	protected function saveTwitterProfile(stdClass $twitter_profile)
-	{
-		$profile = $this->profile->firstOrCreate([
-			'twitter_id' => $twitter_profile->id
-		]);
+    protected function saveTwitterProfile(stdClass $twitter_profile)
+    {
+        $profile = $this->profile->firstOrCreate([
+            'twitter_id' => $twitter_profile->id
+        ]);
 
-		$profile->name = $twitter_profile->name;
-		$profile->screen_name = $twitter_profile->screen_name;
-		$profile->location = $twitter_profile->location;
-		$profile->description = $twitter_profile->description;
-		$profile->url = $twitter_profile->url;
-		$profile->profile_image_url = $twitter_profile->profile_image_url;
-		$profile->profile_image_url_https = $twitter_profile->profile_image_url_https;
+        $profile->name = $twitter_profile->name;
+        $profile->screen_name = $twitter_profile->screen_name;
+        $profile->location = $twitter_profile->location;
+        $profile->description = $twitter_profile->description;
+        $profile->url = $twitter_profile->url;
+        $profile->profile_image_url = $twitter_profile->profile_image_url;
+        $profile->profile_image_url_https = $twitter_profile->profile_image_url_https;
 
-		$profile->save();
-	}
+        $profile->save();
+    }
 
-	/**
+    /**
 	 * Pull down a Twitter profile's image and cache locally
 	 *
 	 * @param stdClass $twitter_profile Result from ThuJohn/Twitter search
 	 */
-	protected function saveTwitterProfileImageLocally(stdClass $twitter_profile)
-	{
-		$path_prefix = \App::runningInConsole() ? base_path() . '/public/' : '';
-		copy(
-			$twitter_profile->profile_image_url,
-			$path_prefix . ltrim($this->profile->getProfilePictureCachePath(), '/') . md5($twitter_profile->id) . '.jpeg'
-		);
-	}
+    protected function saveTwitterProfileImageLocally(stdClass $twitter_profile)
+    {
+        $path_prefix = \App::runningInConsole() ? base_path() . '/public/' : '';
+        copy(
+            $twitter_profile->profile_image_url,
+            $path_prefix . ltrim($this->profile->getProfilePictureCachePath(), '/') . md5($twitter_profile->id) . '.jpeg'
+        );
+    }
 
-	/**
+    /**
 	 * Pull Twitter profile for a given twitter handle
 	 */
-	protected function getTwitterProfileByScreenName($twitter_handle)
-	{
-		/* @todo
+    protected function getTwitterProfileByScreenName($twitter_handle)
+    {
+        /* @todo
 		// Look up if we already have a TwitterProfile; if so, update if it's older than  cache time (?)
 		$pulled_twitter_profile = $this->profile->where([
 			'screen_name' => $twitter_handle
@@ -134,43 +134,40 @@ class TwitterProfilePic
 			dd($pulled_twitter_profile);
 		}
 		*/
-		$twitter_profile = $this->twitter->getUsersLookup([
-			'screen_name' => $twitter_handle
-		]);
+        $twitter_profile = $this->twitter->getUsersLookup([
+            'screen_name' => $twitter_handle
+        ]);
 
-		if ($twitter_profile === null) {
-			if (\Config::get('app.offline'))
-			{
-				return;
-			}
-			else
-			{
-				\App::abort(500, 'No result from Twitter');
-			}
-		}
-		if ( ! is_array($twitter_profile) && isset($twitter_profile->errors)) {
-			$error = $twitter_profile->errors[0];
-			switch ($error->code) {
-				case 88:
-					\Log::error('Twitter rate limit exceeded.');
-					return;
-					break;
-				case 34:
-					\Log::info('Deleted job to pull profile info for 404ed user ' . $twitter_handle);
-					$this->job->delete();
-					return;
-					break;
-				default:
-					\Log::error('Unexpected Twitter code ' . $error->code . ' received.');
-					return;
-					break;
-			}
-		}
+        if ($twitter_profile === null) {
+            if (\Config::get('app.offline')) {
+                return;
+            } else {
+                \App::abort(500, 'No result from Twitter');
+            }
+        }
+        if ( ! is_array($twitter_profile) && isset($twitter_profile->errors)) {
+            $error = $twitter_profile->errors[0];
+            switch ($error->code) {
+                case 88:
+                    \Log::error('Twitter rate limit exceeded.');
+                    return;
+                    break;
+                case 34:
+                    \Log::info('Deleted job to pull profile info for 404ed user ' . $twitter_handle);
+                    $this->job->delete();
+                    return;
+                    break;
+                default:
+                    \Log::error('Unexpected Twitter code ' . $error->code . ' received.');
+                    return;
+                    break;
+            }
+        }
 
-		$twitter_profile = $twitter_profile[0];
+        $twitter_profile = $twitter_profile[0];
 
-		return $twitter_profile;
-	}
+        return $twitter_profile;
+    }
 }
 
 

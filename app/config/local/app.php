@@ -2,7 +2,7 @@
 
 return array(
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode
 	|--------------------------------------------------------------------------
@@ -13,8 +13,8 @@ return array(
 	|
 	*/
 
-	'debug' => true,
-	// Enables working offline and disables Exceptions related to Twitter API, etc.
-	'offline' => true
+    'debug' => true,
+    // Enables working offline and disables Exceptions related to Twitter API, etc.
+    'offline' => true
 
 );
