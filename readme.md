@@ -5,6 +5,9 @@
 
 Built in 4 hours to help me track who I wanted to meet at Laracon 2014, and who I met there who I didn't know yet.
 
+### Contributing
+Submit an issue for bugs or feature requests, or submit a PR against the `development` branch.
+
 ### License
 
 Not sure. Don't steal it? @todo.
