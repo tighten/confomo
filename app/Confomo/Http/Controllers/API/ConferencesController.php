@@ -6,30 +6,30 @@ use Auth;
 class ConferencesController extends \Confomo\Http\Controllers\BaseController
 {
     /**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
     public function index()
     {
         return Auth::user()->conferences;
     }
 
     /**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
     public function create()
     {
         App::abort(404);
     }
 
     /**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
     public function store()
     {
         /*
@@ -43,11 +43,11 @@ class ConferencesController extends \Confomo\Http\Controllers\BaseController
     }
 
     /**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
     public function show($id)
     {
         /*
@@ -63,23 +63,23 @@ class ConferencesController extends \Confomo\Http\Controllers\BaseController
     }
 
     /**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
     public function edit($id)
     {
         App::abort(404);
     }
 
     /**
-	 * Update the specified resource in storage.
-	 *
-	 * @todo  Clean up the unset() to be a little less hackable
-	 * @param  int  $id
-	 * @return Response
-	 */
+     * Update the specified resource in storage.
+     *
+     * @todo  Clean up the unset() to be a little less hackable
+     * @param  int  $id
+     * @return Response
+     */
     public function update($id)
     {
         /*
@@ -103,11 +103,11 @@ class ConferencesController extends \Confomo\Http\Controllers\BaseController
     }
 
     /**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
     public function destroy($id)
     {
         /*

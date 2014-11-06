@@ -15,32 +15,32 @@ class FriendsController extends BaseController
     }
 
     /**
-	 * Display a listing of the resource.
-	 *
-	 * @param int $conference_id
-	 * @return Response
-	 */
+     * Display a listing of the resource.
+     *
+     * @param int $conference_id
+     * @return Response
+     */
     public function index($conference_id)
     {
         return Auth::user()->friends()->fromConference($conference_id)->get();
     }
 
     /**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
     public function create()
     {
         App::abort(404);
     }
 
     /**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param int $conference_id
-	 * @return Response
-	 */
+     * Store a newly created resource in storage.
+     *
+     * @param int $conference_id
+     * @return Response
+     */
     public function store($conference_id)
     {
         $friend = new Friend($_POST);
@@ -61,12 +61,12 @@ class FriendsController extends BaseController
     }
 
     /**
-	 * Display the specified resource.
-	 *
-	 * @param  int $conference_id
-	 * @param  int  $id
-	 * @return Response
-	 */
+     * Display the specified resource.
+     *
+     * @param  int $conference_id
+     * @param  int  $id
+     * @return Response
+     */
     public function show($conference_id, $id)
     {
         try {
@@ -81,25 +81,25 @@ class FriendsController extends BaseController
     }
 
     /**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $conference_id
-	 * @param  int  $id
-	 * @return Response
-	 */
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $conference_id
+     * @param  int  $id
+     * @return Response
+     */
     public function edit($conference_id, $id)
     {
         App::abort(404);
     }
 
     /**
-	 * Update the specified resource in storage.
-	 *
-	 * @todo  Clean up the unset() to be a little less hackable
-	 * @param  int  $conference_id
-	 * @param  int  $id
-	 * @return Response
-	 */
+     * Update the specified resource in storage.
+     *
+     * @todo  Clean up the unset() to be a little less hackable
+     * @param  int  $conference_id
+     * @param  int  $id
+     * @return Response
+     */
     public function update($conference_id, $id)
     {
         $item = Input::all();
@@ -122,12 +122,12 @@ class FriendsController extends BaseController
     }
 
     /**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $conference_id
-	 * @param  int  $id
-	 * @return Response
-	 */
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $conference_id
+     * @param  int  $id
+     * @return Response
+     */
     public function destroy($conference_id, $id)
     {
         Friend

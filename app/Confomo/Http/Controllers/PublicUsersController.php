@@ -12,12 +12,12 @@ use View;
 class PublicUsersController extends BaseController
 {
     /**
-	 * Display the public page for this user
-	 *
-	 * @param  string  $username
-	 * @param  int     $conference_id
-	 * @return Response
-	 */
+     * Display the public page for this user
+     *
+     * @param  string  $username
+     * @param  int     $conference_id
+     * @return Response
+     */
     public function show($username, $conference_id)
     {
         $user = $this->getUser($username);
@@ -34,13 +34,13 @@ class PublicUsersController extends BaseController
     }
 
     /**
-	 * Add suggested friends for this user
-	 *
-	 * @param  string $username
-	 * @param  int    $conference_id
-	 * @return string json
-	 * @todo  Abstract this creation logic to share between this and the friendscontroller
-	 */
+     * Add suggested friends for this user
+     *
+     * @param  string $username
+     * @param  int    $conference_id
+     * @return string json
+     * @todo  Abstract this creation logic to share between this and the friendscontroller
+     */
     public function suggested($username, $conference_id)
     {
         $this->validateSuggested($_POST);
@@ -66,11 +66,11 @@ class PublicUsersController extends BaseController
     }
 
     /**
-	 * Get the user for the current user based on username
-	 *
-	 * @param  username $username
-	 * @return User
-	 */
+     * Get the user for the current user based on username
+     *
+     * @param  username $username
+     * @return User
+     */
     protected function getUser($username)
     {
         try {
@@ -83,13 +83,13 @@ class PublicUsersController extends BaseController
     }
 
     /**
-	 * Validate suggested post
-	 *
-	 * @param  array $post $_POST
-	 * @throws Exception If Invalid post type
-	 * @throws Exception If Invalid post property submitted
-	 * @return boolean
-	 */
+     * Validate suggested post
+     *
+     * @param  array $post $_POST
+     * @throws Exception If Invalid post type
+     * @throws Exception If Invalid post property submitted
+     * @return boolean
+     */
     protected function validateSuggested($post)
     {
         // @todo Make a real validation lazy

@@ -12,10 +12,10 @@ class Friend extends \Eloquent
     ];
 
     /**
-	 * Add to toArray
-	 *
-	 * @var array
-	 */
+     * Add to toArray
+     *
+     * @var array
+     */
     protected $appends = [
         'twitter_profile_pic'
     ];

@@ -37,41 +37,41 @@ use Illuminate\Cache\CacheManager;
 class RateLimit
 {
     /**
-	 * Number of attempts after which to start sleeping each attempt
-	 *
-	 * After this many failed attempts, each attempt will get a sleep for
-	 * (# attempts - $sleep_after) seconds (to avoid brute force attacks)
-	 *
-	 * Set to a negative number to disable
-	 *
-	 * @var int (?)
-	 */
+     * Number of attempts after which to start sleeping each attempt
+     *
+     * After this many failed attempts, each attempt will get a sleep for
+     * (# attempts - $sleep_after) seconds (to avoid brute force attacks)
+     *
+     * Set to a negative number to disable
+     *
+     * @var int (?)
+     */
     protected $sleepAfter = 5;
 
     /**
-	 * Maximum number of requests allowed during the given period
-	 *
-	 * @var int
-	 */
+     * Maximum number of requests allowed during the given period
+     *
+     * @var int
+     */
     protected $maxRequests = 15;
 
     /**
-	 * Duration of the given period in minutes
-	 *
-	 * @var int
-	 */
+     * Duration of the given period in minutes
+     *
+     * @var int
+     */
     protected $duration = 15;
 
     /**
-	 * Prefix for the cache key
-	 *
-	 * @var string
-	 */
+     * Prefix for the cache key
+     *
+     * @var string
+     */
     protected $defaultKeyPrefix = 'loginThrottle';
 
     /**
-	 * @var CacheManager
-	 */
+     * @var CacheManager
+     */
     private $cache;
 
     public function __construct(CacheManager $cache)
@@ -80,11 +80,11 @@ class RateLimit
     }
 
     /**
-	 * Get the cache key for this throttle
-	 *
-	 * @param string $ip
-	 * @return string
-	 */
+     * Get the cache key for this throttle
+     *
+     * @param string $ip
+     * @return string
+     */
     public function getThrottleKey($ip, $prefix = null)
     {
         $prefix ?: $this->defaultKeyPrefix;
@@ -92,23 +92,23 @@ class RateLimit
     }
 
     /**
-	 * Return whether or not this IP address has been rate limited
-	 *
-	 * @param string $ip     IP address
-	 * @param string $prefix Optional manual cache key prefix
-	 * @return bool
-	 */
+     * Return whether or not this IP address has been rate limited
+     *
+     * @param string $ip     IP address
+     * @param string $prefix Optional manual cache key prefix
+     * @return bool
+     */
     public function rateLimitExceeded($ip, $prefix = null)
     {
         return ($this->cache->get($this->getThrottleKey($ip, $prefix)) > $this->maxRequests);
     }
 
     /**
-	 * Increment throttle count
-	 *
-	 * @param string $ip     IP address
-	 * @param string $prefix Optional manual cache key prefix
-	 */
+     * Increment throttle count
+     *
+     * @param string $ip     IP address
+     * @param string $prefix Optional manual cache key prefix
+     */
     public function incrementRateLimit($ip, $prefix = null)
     {
         // Manually increment (file can't auto-increment)
@@ -122,10 +122,10 @@ class RateLimit
     }
 
     /**
-	 * Sleep for ($this->sleepAfter - $count) seconds
-	 *
-	 * @param int $count
-	 */
+     * Sleep for ($this->sleepAfter - $count) seconds
+     *
+     * @param int $count
+     */
     protected function doSleep($count)
     {
         if ($this->sleepAfter > 0 && $count > $this->sleepAfter) {
@@ -134,40 +134,40 @@ class RateLimit
     }
 
     /**
-	 * Set number of requests to throttle to
-	 *
-	 * @param int $maxRequests
-	 */
+     * Set number of requests to throttle to
+     *
+     * @param int $maxRequests
+     */
     public function setMaxRequests($maxRequests)
     {
         $this->maxRequests = $maxRequests;
     }
 
     /**
-	 * Set length of time (in minutes) to limit throttle
-	 *
-	 * @param int $duration
-	 */
+     * Set length of time (in minutes) to limit throttle
+     *
+     * @param int $duration
+     */
     public function setDuration($duration)
     {
         $this->duration = $duration;
     }
 
     /**
-	 * Set default throttle key prefix
-	 *
-	 * @param string $defaultKeyPrefix
-	 */
+     * Set default throttle key prefix
+     *
+     * @param string $defaultKeyPrefix
+     */
     public function setDefaultKeyPrefix($defaultKeyPrefix)
     {
         $this->defaultKeyPrefix = $defaultKeyPrefix;
     }
 
     /**
-	 * Set the number of attempts after which to start sleeping each request
-	 *
-	 * @param int $sleepAfter
-	 */
+     * Set the number of attempts after which to start sleeping each request
+     *
+     * @param int $sleepAfter
+     */
     public function setSleepAfter($sleepAfter)
     {
         $this->sleepAfter = $sleepAfter;

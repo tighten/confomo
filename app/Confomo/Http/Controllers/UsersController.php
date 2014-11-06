@@ -16,8 +16,8 @@ use View;
 class UsersController extends BaseController
 {
     /**
-	 * @var RateLimit
-	 */
+     * @var RateLimit
+     */
     protected $rateLimit;
 
     public function __construct(RateLimit $rateLimit)
