@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 class GrabTwitterProfilePicsCommand extends Command
 {
@@ -20,11 +18,11 @@ class GrabTwitterProfilePicsCommand extends Command
 	 */
 	protected $description = 'Grab Twitter Profile Pics.';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
+    /**
+     * Create a new command instance.
+     *
+     * @return self
+     */
 	public function __construct()
 	{
 		parent::__construct();
@@ -40,10 +38,10 @@ class GrabTwitterProfilePicsCommand extends Command
 		// @todo: Can we make this be null, not 0? ugh.
 		foreach (Friend::where('twitter_id', 0)->get() as $friend) {
 			Queue::push(
-				'Confomo\Queue\API\TwitterProfilePic',
+				'Confomo\Twitter\SyncProfile',
 				array(
-					'twitter_handle' => $friend->twitter,
-					'friend_id' => $friend->id
+					'twitterHandle' => $friend->twitter,
+					'friendId' => $friend->id
 				)
 			);
 

@@ -1,5 +1,5 @@
 var conferenceId = $('[data-conference-id]').data('conference-id'),
-	confRoutePrefix = '/api/conferences/' + conferenceId + '/friends/';
+    confRoutePrefix = '/api/conferences/' + conferenceId + '/friends/';
 
 var Item = function(item) {
     for (var prop in item) {
@@ -72,20 +72,20 @@ var itemModel = function(items) {
     this.itemToAdd = ko.observable("");
     this.addItem = function(target) {
         var type = $(target).closest('div').attr('data-type'),
-	    met = type == 'new' ? '1' : '0',
-	    twitter_regex = new RegExp(/(^|[^@\w])@(\w{1,15})\b/);
+            met = type == 'new' ? '1' : '0',
+            twitter_regex = new RegExp(/(^|[^@\w])@(\w{1,15})\b/);
 
         if (this.itemToAdd() != "") {
-	    if ( ! twitter_regex.test('@' + this.itemToAdd())) {
-		alert('Bad twitter handle');
-		return;
-	    }
+            if ( ! twitter_regex.test('@' + this.itemToAdd())) {
+                alert('Bad twitter handle');
+                return;
+            }
 
             var data = {
-                    'twitter': this.itemToAdd(),
-                    'type': type,
-                    'met': met
-                };
+                'twitter': this.itemToAdd(),
+                'type': type,
+                'met': met
+            };
 
             $.ajax({
                 url: confRoutePrefix,
@@ -95,9 +95,16 @@ var itemModel = function(items) {
                 success: function(returnedData) {
                     this.items.push(new Item(returnedData));
                     this.itemToAdd("");
-		},
-		error: function(returnedData) {
-		    alert('There was an error!');
+                },
+                error: function(returnedData) {
+                    var response = JSON.parse(returnedData.responseText),
+                        message;
+
+                    if (response.error.type == 'Confomo\\Twitter\\TwitterUserDoesNotExistException') {
+                        alert('There is no Twitter user with that screen name.')
+                    } else {
+                        alert('There was an error!');
+                    }
                 }
             });
         }
