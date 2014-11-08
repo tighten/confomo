@@ -18,7 +18,7 @@ class TwitterProfile extends \Eloquent
 		return self::PROFILE_PICTURE_CACHE_PATH;
 	}
 
-	public function friend()
+	public function friends()
 	{
 		return $this->belongstoMany('Confomo\Entities\Friend');
 	}

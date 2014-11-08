@@ -49,10 +49,10 @@ class FriendsController extends BaseController
 		$friend->save();
 
 		Queue::push(
-			'Confomo\Queue\API\TwitterProfilePic',
+			'Confomo\Twitter\SyncProfile',
 			array(
-				'twitter_handle' => $friend->twitter,
-				'friend_id' => $friend->id
+				'twitterHandle' => $friend->twitter,
+				'friendId' => $friend->id
 			)
 		);
 

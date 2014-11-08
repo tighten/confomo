@@ -27,7 +27,7 @@ class Friend extends \Eloquent
 
 	public function twitterProfile()
 	{
-		return $this->belongsTo('Confomo\Entities\TwitterProfile', 'twitter_id', 'twitter_id');
+		return $this->hasOne('Confomo\Entities\TwitterProfile', 'twitter_id', 'twitter_id');
 	}
 
 	public function getTwitterProfilePicAttribute()
