@@ -8,8 +8,6 @@ use Illuminate\Foundation\Application;
  *
  * Download Twitter images
  *
- * @todo Make it so this can be
- *
  * @package Confomo\Twitter\Images
  */
 class Downloader

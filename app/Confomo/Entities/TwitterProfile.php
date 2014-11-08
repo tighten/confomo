@@ -1,21 +1,21 @@
 <?php namespace Confomo\Entities;
 
+use Confomo\Twitter\Images\Namer;
+
 class TwitterProfile extends \Eloquent
 {
     protected $guarded = [
         'id'
     ];
 
-    const PROFILE_PICTURE_CACHE_PATH = '/assets/img/cache/twitter_profile_pics/';
-
     public function profilePicturePath()
     {
-        self::PROFILE_PICTURE_CACHE_PATH . md5($this->twitter_id) . '.jpeg';
+        Namer::getProfilePictureCachePath() . md5($this->twitter_id) . '.jpeg';
     }
 
     public function getProfilePictureCachePath()
     {
-        return self::PROFILE_PICTURE_CACHE_PATH;
+        return Namer::getProfilePictureCachePath();
     }
 
     public function friends()

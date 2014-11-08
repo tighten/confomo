@@ -1,5 +1,7 @@
 <?php namespace Confomo\Entities;
 
+use Confomo\Twitter\Images\Namer;
+
 class Friend extends \Eloquent
 {
     protected $fillable = [
@@ -32,9 +34,7 @@ class Friend extends \Eloquent
 
     public function getTwitterProfilePicAttribute()
     {
-        // @todo: How can we refactor this? statics & ugliness..
-        $file_name = $this->twitter_id ? md5($this->twitter_id) . '.jpeg' : 'blank.jpg';
-        return TwitterProfile::PROFILE_PICTURE_CACHE_PATH . $file_name;
+        return Namer::getProfilePictureByTwitterId($this->twitter_id);
     }
 
     public function scopeFromConference($query, $conference_id)
