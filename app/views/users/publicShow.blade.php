@@ -9,7 +9,7 @@
 		<ul class="public-list">
 			@foreach($conference->oldFriends as $friend)
 			<li style="clear: both;" class="{{ $friend->met ? 'public-mark-as-met' : '' }}">
-				<img src="/{{ $friend->twitter_profile_pic }}" class="friend-list-item__image">
+				<img src="{{ $friend->twitter_profile_pic }}" class="friend-list-item__image">
 				<a href="http://twitter.com/{{ $friend->twitter }}" target="_blank">
 					{{ '@' . $friend->twitter }}
 				</a>
@@ -29,7 +29,7 @@
 		<h3>New friends met at conf</h3>
 		<ul class="public-list">
 			@foreach($conference->newFriends as $friend)
-			<li style="clear: both;" class="{{ $friend->met ? 'public-mark-as-met' : '' }}"><img src="/{{ $friend->twitter_profile_pic }}" class="friend-list-item__image"><a href="http://twitter.com/{{ $friend->twitter }}">{{ '@' . $friend->twitter }}</a></li>
+			<li style="clear: both;" class="{{ $friend->met ? 'public-mark-as-met' : '' }}"><img src="{{ $friend->twitter_profile_pic }}" class="friend-list-item__image"><a href="http://twitter.com/{{ $friend->twitter }}">{{ '@' . $friend->twitter }}</a></li>
 			@endforeach
 		</ul>
 
