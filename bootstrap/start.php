@@ -24,13 +24,12 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(function()
-{
-	if (file_exists(__DIR__ . '/../.env_name.php')) {
-		return include(__DIR__ . '/../.env_name.php');
-	} else {
-		return 'production';
-	}
+$env = $app->detectEnvironment(function () {
+    if (file_exists(__DIR__ . '/../.env_name.php')) {
+        return include(__DIR__ . '/../.env_name.php');
+    } else {
+        return 'production';
+    }
 });
 
 

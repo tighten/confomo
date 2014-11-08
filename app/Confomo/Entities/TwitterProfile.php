@@ -2,24 +2,24 @@
 
 class TwitterProfile extends \Eloquent
 {
-	protected $guarded = [
-		'id'
-	];
+    protected $guarded = [
+        'id'
+    ];
 
-	const PROFILE_PICTURE_CACHE_PATH = '/assets/img/cache/twitter_profile_pics/';
+    const PROFILE_PICTURE_CACHE_PATH = '/assets/img/cache/twitter_profile_pics/';
 
-	public function profilePicturePath()
-	{
-		self::PROFILE_PICTURE_CACHE_PATH . md5($this->twitter_id) . '.jpeg';
-	}
+    public function profilePicturePath()
+    {
+        self::PROFILE_PICTURE_CACHE_PATH . md5($this->twitter_id) . '.jpeg';
+    }
 
-	public function getProfilePictureCachePath()
-	{
-		return self::PROFILE_PICTURE_CACHE_PATH;
-	}
+    public function getProfilePictureCachePath()
+    {
+        return self::PROFILE_PICTURE_CACHE_PATH;
+    }
 
-	public function friends()
-	{
-		return $this->belongstoMany('Confomo\Entities\Friend');
-	}
+    public function friends()
+    {
+        return $this->belongstoMany('Confomo\Entities\Friend');
+    }
 }

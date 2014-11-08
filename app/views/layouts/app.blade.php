@@ -1,8 +1,7 @@
 @include('layouts.header')
 
 	<div class="nav clearfix">
-		@if (Auth::check())
-			{{ HTML::linkAction('conferences.index', 'Conferences') }} |
+		@if (Auth::check()) {{ HTML::linkAction('conferences.index', 'Conferences') }} |
 			{{ HTML::linkAction('account', 'Account') }} |
 			{{ HTML::linkAction('logout', 'Logout (' . Auth::user()->email . ')', [], ['class' => 'logout-link']) }}
 		@endif
