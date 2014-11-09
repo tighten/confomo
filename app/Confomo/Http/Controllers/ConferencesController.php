@@ -35,15 +35,13 @@ class ConferencesController extends BaseController
     public function show($conference_id)
     {
         $conference = Conference::findOrFail($conference_id);
-        $public_url = URL::to('/users/' . Auth::user()->username . '/conferences/' . $conference->id . '/');
 
         if ($conference->list_is_public && Auth::user()->username == '') {
             throw new Exception('User must have username to make conference public.');
         }
 
         return View::make('conferences.show')
-            ->with('conference', $conference)
-            ->with('public_url', $public_url);
+            ->with('conference', $conference);
     }
 
     public function edit($conference_id)
@@ -59,7 +57,7 @@ class ConferencesController extends BaseController
         try {
             $conference = Conference::findOrFail($conference_id);
         } catch (Exception $e) {
-            exit('Havent programmed this page yet.');
+            exit("Haven't programmed this page yet.");
         }
 
         $conference->name = Input::get('name');

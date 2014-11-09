@@ -10,7 +10,7 @@ class TwitterProfile extends \Eloquent
 
     public function profilePicturePath()
     {
-        Namer::getProfilePictureCachePath() . md5($this->twitter_id) . '.jpeg';
+        return Namer::getProfilePictureByTwitterId($this->twitter_id);
     }
 
     public function getProfilePictureCachePath()

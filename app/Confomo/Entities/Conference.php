@@ -27,4 +27,9 @@ class Conference extends \Eloquent
     {
         return $this->hasMany('Confomo\Entities\Friend')->where('type', 'old');
     }
+
+    public function publicUrl()
+    {
+        return \URL::to('/users/' . \Auth::user()->username . '/conferences/' . $this->id . '/');
+    }
 }

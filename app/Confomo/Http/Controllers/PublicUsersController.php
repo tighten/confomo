@@ -90,15 +90,15 @@ class PublicUsersController extends BaseController
      * @throws Exception If Invalid post property submitted
      * @return boolean
      */
-    protected function validateSuggested($post)
+    protected function validateSuggested(array $post)
     {
         // @todo Make a real validation lazy
         // Validate type
         if ( ! in_array($post['type'], ['new', 'old'])) {
-            throw new Exception('Invalid post type');
+            throw new Exception('Invalid post type ' . $post['type']);
         }
 
-        foreach ($_POST as $key => $value) {
+        foreach ($post as $key => $value) {
             if ( ! in_array($key, ['twitter', 'type'])) {
                 throw new Exception('Invalid key ' . $key);
             }
@@ -106,6 +106,4 @@ class PublicUsersController extends BaseController
 
         return true;
     }
-
-    // @todo: Allow turning on for each user (and creating username)
 }

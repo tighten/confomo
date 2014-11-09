@@ -5,7 +5,7 @@
 <h1 data-conference-id="{{ $conference->id }}">{{ $conference->title }}</h1>
 
 @if ($conference->list_is_public)
-	<i>Public:</i> {{ link_to($public_url, $public_url) }}
+	<i>Public:</i> {{ link_to($conference->publicUrl(), $conference->publicUrl()) }}
 @else
 	<i>Not public</i>
 @endif

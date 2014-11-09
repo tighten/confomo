@@ -1,5 +1,5 @@
 <?php  namespace Confomo\Twitter;
 
-class TwitterUserDoesNotExistException extends \Exception
+class TwitterUserDoesNotExistException extends \Confomo\Exceptions\BaseException
 {
 } 

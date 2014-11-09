@@ -56,7 +56,6 @@ class FriendsController extends BaseController
             )
         );
 
-        // Annoyingly necessary in order to return *all* fields
         return Friend::find($friend->id);
     }
 

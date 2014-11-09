@@ -30,7 +30,7 @@ class UsersController extends BaseController
         return View::make('users.login');
     }
 
-    protected function guardRateLimit()
+    private function guardRateLimit()
     {
         if ($this->rateLimit->rateLimitExceeded(Request::getClientIp())) {
             Log::error('User hit failed login rate limit.', ['ip' =>  Request::getClientIp(), 'email' => Input::get('email')]);

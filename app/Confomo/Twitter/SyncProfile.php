@@ -82,7 +82,7 @@ class SyncProfile
 
         $this->job->delete();
     }
-
+    
     /**
      * Guard against invalid job data
      *
