@@ -2,21 +2,26 @@
 
 use Illuminate\Console\Command;
 
-class GrabTwitterProfilePicsCommand extends Command
+/**
+ * Class GrabTwitterProfilesCommand
+ *
+ * Grab Twitter profiles for any friends with no linked Twitter profile
+ */
+class GrabTwitterProfilesCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'twitter:grabpics';
+    protected $name = 'twitter:grabprofiles';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Grab Twitter Profile Pics.';
+    protected $description = 'Grab Twitter Profiles.';
 
     /**
      * Create a new command instance.
@@ -35,7 +40,6 @@ class GrabTwitterProfilePicsCommand extends Command
      */
     public function fire()
     {
-        // @todo: Can we make this be null, not 0? ugh.
         foreach (Friend::where('twitter_id', 0)->get() as $friend) {
             Queue::push(
                 'Confomo\Twitter\SyncProfile',
@@ -48,27 +52,4 @@ class GrabTwitterProfilePicsCommand extends Command
             $this->info('Queued profile pull for @' . $friend->twitter);
         }
     }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return array(
-        );
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return array(
-        );
-    }
-
 }

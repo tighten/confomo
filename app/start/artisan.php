@@ -12,4 +12,4 @@
 */
 
 
-Artisan::add(new GrabTwitterProfilePicsCommand);
+Artisan::add(new GrabTwitterProfilesCommand);
