@@ -1,6 +1,7 @@
 <?php  namespace Confomo\Twitter\Images; 
 
 use Confomo\Entities\TwitterProfile;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
 
 /**
@@ -16,10 +17,15 @@ class Downloader
      * @var Application
      */
     private $app;
+    /**
+     * @var Filesystem
+     */
+    private $filesystem;
 
-    public function __construct(Application $app)
+    public function __construct(Application $app, Filesystem $filesystem)
     {
         $this->app = $app;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -29,11 +35,20 @@ class Downloader
      */
     public function cacheProfilePic(TwitterProfile $profile)
     {
+        $this->filesystem->copy(
+            $profile->profile_image_url,
+            $this->getProfilePicLocalPath($profile)
+        );
+    }
+
+    /**
+     * @param TwitterProfile $profile
+     * @return string
+     */
+    public function getProfilePicLocalPath(TwitterProfile $profile)
+    {
         $path_prefix = $this->app->runningInConsole() ? base_path() . '/public/' : '';
 
-        copy(
-            $profile->profile_image_url,
-            $path_prefix . ltrim($profile->getProfilePictureCachePath(), '/') . md5($profile->id) . '.jpeg'
-        );
+        return $path_prefix . ltrim($profile->getProfilePictureCachePath(), '/') . md5($profile->id) . '.jpeg';
     }
 } 
