@@ -1,8 +1,23 @@
-
 filter:
     excluded_paths:
         - 'vendor/*'
         - 'web/*'
+build:
+    environment:
+        php: '5.5'
+        variables:
+            scrutinizer: true
+        hosts:
+            confomo.test: '127.0.0.1'
+        apache2:
+            modules: ['rewrite']
+            sites:
+                laravel_app:
+                    web_root: 'public/'
+                    host: 'confomo.test'
+    dependencies:
+        before:
+            - composer install --no-interaction
 tools:
     php_cpd:
         min_lines: 5
