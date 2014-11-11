@@ -1,5 +1,5 @@
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mattstauffer/confomo/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mattstauffer/confomo/)
- [![SensioLabsInsight](https://insight.sensiolabs.com/projects/df3eca98-9f22-47c5-a5d4-361d2eea96cd/big.png)](https://insight.sensiolabs.com/account/widget?project=df3eca98-9f22-47c5-a5d4-361d2eea96cd)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/df3eca98-9f22-47c5-a5d4-361d2eea96cd/mini.png)](https://insight.sensiolabs.com/projects/df3eca98-9f22-47c5-a5d4-361d2eea96cd)
 
 ## Confomo
 ### Connecting your online community with the real world, one conference at a time.
