@@ -244,6 +244,7 @@ ul strike {
     height: 5rem;
 }
 
-.flash_error {
+.flash_error, .errors {
     color: red;
 }
+

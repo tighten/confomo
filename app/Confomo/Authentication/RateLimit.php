@@ -31,7 +31,6 @@ use Illuminate\Cache\CacheManager;
  * }
  * </code>
  *
- * @todo    Replace CacheManager dependency to use Illuminate Cache Contract once 4.3 is out, and PSR cache when it's available
  * @package Confomo\Authentication
  */
 class RateLimit

@@ -57,7 +57,7 @@ class ConferencesController extends BaseController
         try {
             $conference = Conference::findOrFail($conference_id);
         } catch (Exception $e) {
-            exit("Haven't programmed this page yet.");
+            return Redirect::back()->withErrors();
         }
 
         $conference->name = Input::get('name');
