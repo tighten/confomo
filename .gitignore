@@ -1,9 +1,3 @@
-/bootstrap/compiled.php
 /vendor
-composer.phar
-.env.*.php
-.env.php
-.env_name.php
-.DS_Store
-Thumbs.db
+.env
 public/assets/img/cache/twitter_profile_pics/*.jpeg
