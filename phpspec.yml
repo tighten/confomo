@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Confomo
+        psr4_prefix: Confomo
+        src_path: app
