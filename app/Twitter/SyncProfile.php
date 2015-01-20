@@ -91,7 +91,7 @@ class SyncProfile
      */
     private function guardAgainstInvalidJobData($data)
     {
-        if ( ! array_key_exists('twitterHandle', $data) || ! array_key_exists('friendId', $data)) {
+        if (! array_key_exists('twitterHandle', $data) || ! array_key_exists('friendId', $data)) {
             $this->job->delete();
             throw new Exception('Invalid queue job.');
         }
@@ -108,7 +108,7 @@ class SyncProfile
     {
         $this->logger->info('Pulling twitter profile by screen name for ' . $screenName);
 
-        if ( ! $result = $this->getTwitterProfileByScreenName($screenName)) {
+        if (! $result = $this->getTwitterProfileByScreenName($screenName)) {
             throw new Exception('Failed Twitter result pulling for screen name ' . $screenName);
         }
 
@@ -172,7 +172,7 @@ class SyncProfile
      */
     protected function guardAgainstErrorResponse($twitterResponse, $twitterHandle)
     {
-        if ( ! is_array($twitterResponse) && isset($twitterResponse->errors)) {
+        if (! is_array($twitterResponse) && isset($twitterResponse->errors)) {
             $error = $twitterResponse->errors[0];
 
             switch ($error->code) {
@@ -186,8 +186,8 @@ class SyncProfile
                     throw new TwitterUserDoesNotExistException('Deleted job to pull profile info because user 404\'ed.');
                     break;
                 default:
-                    $this->logger->error('Unexpected Twitter code ' . $error->code . ' received.');
-                    throw new Exception('Unexpected Twitter code ' . $error->code . 'received.');
+                    $this->logger->error('Unexpected Twitter code ' . $error->code . ' received. Message is: ' . $error->message);
+                    throw new Exception('Unexpected Twitter code ' . $error->code . ' received. Message is: ' . $error->message);
                     break;
             }
         }

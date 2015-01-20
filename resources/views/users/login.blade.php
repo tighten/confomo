@@ -25,6 +25,6 @@
 
 <br>
 
-{{ Html::linkAction('signup', 'Sign up') }}
+{{ Html::linkRoute('signup', 'Sign up') }}
 
 @stop

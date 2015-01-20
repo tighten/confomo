@@ -14,8 +14,8 @@ class PublicUsersController extends BaseController
     /**
      * Display the public page for this user
      *
-     * @param  string  $username
-     * @param  int     $conference_id
+     * @param  string $username
+     * @param  int $conference_id
      * @return Response
      */
     public function show($username, $conference_id)
@@ -37,7 +37,7 @@ class PublicUsersController extends BaseController
      * Add suggested friends for this user
      *
      * @param  string $username
-     * @param  int    $conference_id
+     * @param  int $conference_id
      * @return string json
      * @todo  Abstract this creation logic to share between this and the friendscontroller
      */
@@ -94,12 +94,12 @@ class PublicUsersController extends BaseController
     {
         // @todo Make a real validation lazy
         // Validate type
-        if ( ! in_array($post['type'], ['new', 'old'])) {
+        if (! in_array($post['type'], ['new', 'old'])) {
             throw new Exception('Invalid post type ' . $post['type']);
         }
 
         foreach ($post as $key => $value) {
-            if ( ! in_array($key, ['twitter', 'type'])) {
+            if (! in_array($key, ['twitter', 'type'])) {
                 throw new Exception('Invalid key ' . $key);
             }
         }

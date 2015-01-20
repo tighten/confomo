@@ -144,6 +144,7 @@ return [
 		'Confomo\Providers\ConfigServiceProvider',
 		'Confomo\Providers\EventServiceProvider',
 		'Confomo\Providers\RouteServiceProvider',
+		'Confomo\Providers\TwitterServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
 
 	],

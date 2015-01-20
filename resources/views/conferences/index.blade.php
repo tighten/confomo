@@ -11,6 +11,6 @@
 @endif
 </ul>
 <br>
-{{ HTML::linkAction('conferences.create', 'Add conference') }}
+{{ Html::linkRoute('conferences.create', 'Add conference') }}
 
 @stop

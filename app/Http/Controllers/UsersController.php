@@ -33,7 +33,7 @@ class UsersController extends BaseController
     private function guardRateLimit()
     {
         if ($this->rateLimit->rateLimitExceeded(Request::getClientIp())) {
-            Log::error('User hit failed login rate limit.', ['ip' =>  Request::getClientIp(), 'email' => Input::get('email')]);
+            Log::error('User hit failed login rate limit.', ['ip' => Request::getClientIp(), 'email' => Input::get('email')]);
             App::abort(429);
         }
     }
@@ -136,7 +136,8 @@ class UsersController extends BaseController
         if (Auth::attempt([
             'email' => Input::get('email'),
             'password' => Input::get('password')
-        ])) {
+        ])
+        ) {
             return Redirect::route('home')
                 ->with('flash_notice', 'You have successfully created a user account.');
         }

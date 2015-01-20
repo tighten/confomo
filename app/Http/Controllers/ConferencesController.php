@@ -1,4 +1,4 @@
-<?php  namespace Confomo\Http\Controllers;
+<?php namespace Confomo\Http\Controllers;
 
 use Auth;
 use Confomo\Entities\Conference;
@@ -12,7 +12,6 @@ class ConferencesController extends BaseController
 {
     public function index()
     {
-        return Redirect::to('login');
         $conferences = Auth::user()->conferences;
 
         return View::make('conferences.index')

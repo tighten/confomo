@@ -6,7 +6,7 @@
 @if (Session::has('flash_error'))
 <div class="flash_error">{{ Session::get('flash_error') }}</div>
 @endif
-@if($errors->has())
+@if ($errors->has())
 <ul class="error">
 	@foreach ($errors->all() as $error)
 		<li>{{ $error }}</li>
@@ -37,5 +37,5 @@
 
 <br>
 
-{{ HTML::linkAction('login', 'Log in') }}
+{{ Html::linkRoute('login', 'Log in') }}
 @stop
