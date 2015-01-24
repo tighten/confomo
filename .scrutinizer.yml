@@ -6,7 +6,11 @@ build:
         php: '5.5'
         variables:
             scrutinizer: true
-            APP_ENV: testing
+            APP_ENV: 'testing'
+            DB_HOST: '127.0.0.1'
+            DB_DATABASE: 'confomo'
+            DB_USERNAME: 'root'
+            DB_PASSWORD: ''
         hosts:
             confomo.test: '127.0.0.1'
         apache2:
@@ -17,6 +21,7 @@ build:
                     host: 'confomo.test'
     dependencies:
         before:
+            - mysql -uroot -e 'CREATE DATABASE confomo'
             - composer install --no-interaction
 tools:
     php_cpd:
