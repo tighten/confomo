@@ -1,12 +1,12 @@
 filter:
     excluded_paths:
         - 'vendor/*'
-        - 'web/*'
 build:
     environment:
         php: '5.5'
         variables:
             scrutinizer: true
+            APP_ENV: testing
         hosts:
             confomo.test: '127.0.0.1'
         apache2:
