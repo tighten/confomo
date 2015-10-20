@@ -1,50 +1,30 @@
-<?php namespace Confomo\Twitter;
+<?php
 
+namespace App\Jobs;
+
+use App\Friend;
+use App\Jobs\Job;
+use App\TwitterProfile;
+use App\Twitter\Images\Downloader;
 use Config;
-use Confomo\Entities\Friend;
-use Confomo\Entities\TwitterProfile;
-use Confomo\Queue\API\Illuminate;
-use Confomo\Twitter\Images\Downloader;
 use Exception;
 use Illuminate\Cache\CacheManager as Cache;
 use Illuminate\Log\Writer as Logger;
 use Thujohn\Twitter\Twitter as TwitterClient;
 
-/**
- * Sync down a Twitter profile and its pic
- */
-class SyncProfile
+class PullTwitterUser extends Job
 {
     /**
      * Local Twitter profile cache length in minutes
      */
     const PULL_CACHE_LENGTH = 10080;
 
-    /**
-     * @var TwitterClient
-     */
     protected $client;
-    /**
-     * @var Cache
-     */
     protected $cache;
-    /**
-     * @var TwitterProfile
-     */
     protected $profile;
-    /**
-     * @var Friend
-     */
     protected $friend;
-    /**
-     * @var Illuminate\Log\Writer
-     */
     private $logger;
-
     protected $job;
-    /**
-     * @var Downloader
-     */
     private $downloader;
 
     public function __construct(TwitterClient $client, Cache $cache, Logger $logger, TwitterProfile $profile, Friend $friend, Downloader $downloader)

@@ -30,18 +30,8 @@ class UsersController extends BaseController
         return View::make('users.login');
     }
 
-    private function guardRateLimit()
-    {
-        if ($this->rateLimit->rateLimitExceeded(Request::getClientIp())) {
-            Log::error('User hit failed login rate limit.', ['ip' => Request::getClientIp(), 'email' => Input::get('email')]);
-            App::abort(429);
-        }
-    }
-
     public function postLogin()
     {
-        $this->guardRateLimit();
-
         $user = array(
             'email' => Input::get('email'),
             'password' => Input::get('password')
@@ -51,8 +41,6 @@ class UsersController extends BaseController
             return Redirect::route('home')
                 ->with('flash_notice', 'You are successfully logged in.');
         }
-
-        $this->rateLimit->incrementRateLimit(Request::getClientIp());
 
         return Redirect::route('login')
             ->with('flash_error', 'Your email/password combination was incorrect.')

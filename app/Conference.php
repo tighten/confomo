@@ -1,8 +1,10 @@
-<?php namespace Confomo\Entities;
+<?php
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+namespace App;
 
-class Conference extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Conference extends Model
 {
     protected $fillable = [
         'name',
@@ -12,22 +14,22 @@ class Conference extends Eloquent
 
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo(User::class);
     }
 
     public function friends()
     {
-        return $this->hasMany('Confomo\Entities\Friend');
+        return $this->hasMany(Friend::class);
     }
 
     public function newFriends()
     {
-        return $this->hasMany('Confomo\Entities\Friend')->where('type', 'new');
+        return $this->hasMany(Friend::class)->where('type', 'new');
     }
 
     public function oldFriends()
     {
-        return $this->hasMany('Confomo\Entities\Friend')->where('type', 'old');
+        return $this->hasMany(Friend::class)->where('type', 'old');
     }
 
     public function publicUrl()

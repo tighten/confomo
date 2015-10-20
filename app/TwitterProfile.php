@@ -1,9 +1,11 @@
-<?php namespace Confomo\Entities;
+<?php
 
-use Confomo\Twitter\Images\Namer;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+namespace App;
 
-class TwitterProfile extends Eloquent
+use App\Services\Twitter\Images\Namer;
+use Illuminate\Database\Eloquent\Model;
+
+class TwitterProfile extends Model
 {
     protected $guarded = [
         'id'
@@ -21,6 +23,6 @@ class TwitterProfile extends Eloquent
 
     public function friends()
     {
-        return $this->belongstoMany('Confomo\Entities\Friend');
+        return $this->belongstoMany(Friend::class);
     }
 }

@@ -1,9 +1,11 @@
-<?php namespace Confomo\Entities;
+<?php
+
+namespace App;
 
 use Confomo\Twitter\Images\Namer;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
-class Friend extends Eloquent
+class Friend extends Model
 {
     protected $fillable = [
         'first_name',
@@ -25,12 +27,12 @@ class Friend extends Eloquent
 
     public function friender()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo(User::class);
     }
 
 	public function twitterProfile()
 	{
-		return $this->hasOne('Confomo\Entities\TwitterProfile', 'twitter_id', 'twitter_id');
+		return $this->hasOne(TwitterProfile::class, 'twitter_id', 'twitter_id');
 	}
 
     public function getTwitterProfilePicAttribute()
