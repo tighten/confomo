@@ -1,10 +1,7 @@
 /vendor
-<<<<<<< HEAD
 .env
 public/assets/img/cache/twitter_profile_pics/*.jpeg
-=======
 /node_modules
 Homestead.yaml
 Homestead.json
 .env
->>>>>>> laravel/master
