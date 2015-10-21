@@ -2,25 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use Validator;
 
 class AuthController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Registration & Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
-    |
-    */
-
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
@@ -31,6 +22,40 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
+    }
+
+    /**
+     * Authenticate the user with Twitter.
+     *
+     * @return Response
+     */
+    public function authenticate()
+    {
+        return Socialite::with('twitter')->redirect();
+    }
+
+    /**
+     * Handle the authentication callback from Twitter.
+     *
+     * @return Response
+     */
+    public function handleTwitterCallback()
+    {
+        $twitter = Socialite::with('twitter')->user();
+
+        $user = User::where('twitter_id', $twitter->id)->first();
+
+        if ($user) {
+            Auth::login($user);
+        } else {
+            Auth::login($user = User::create([
+                'email' => $twitter->email,
+                'name' => $twitter->name,
+                'twitter_id' => $twitter->id,
+            ]));
+        }
+
+        return redirect('/');
     }
 
     /**

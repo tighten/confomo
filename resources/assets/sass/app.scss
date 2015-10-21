@@ -1,2 +1,16 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+$font-family-sans-serif: 'Lato';
+$navbar-height: 65px;
 
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+body {
+    font-weight: 300;
+}
+
+.fa-btn {
+    margin-right: 5px;
+}
+
+[v-cloak] {
+    display: none;
+}

@@ -13,4 +13,4 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
 Route::get('auth', 'Auth\AuthController@authenticate');
 Route::get('auth/callback', 'Auth\AuthController@handleTwitterCallback');
-Route::get('auth/logout', 'Auth\AuthController@logout');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');

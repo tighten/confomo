@@ -14,6 +14,12 @@ return [
     |
     */
 
+    'twitter' => [
+        'client_id' => env('TWITTER_CONSUMER_KEY'),
+        'client_secret' => env('TWITTER_CONSUMER_SECRET'),
+        'redirect' => env('TWITTER_URL'),
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
