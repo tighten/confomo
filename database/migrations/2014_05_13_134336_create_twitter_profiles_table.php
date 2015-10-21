@@ -26,7 +26,6 @@ class CreateTwitterProfilesTable extends Migration
         });
     }
 
-
     /**
 	 * Reverse the migrations.
 	 *
@@ -36,5 +35,4 @@ class CreateTwitterProfilesTable extends Migration
     {
         Schema::drop('twitter_profiles');
     }
-
 }

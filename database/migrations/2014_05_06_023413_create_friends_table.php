@@ -17,6 +17,12 @@ class CreateFriendsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('twitter');
+            $table->string('type');
+            $table->integer('user_id');
+            $table->boolean('met');
+            $table->integer('twitter_id')->unsigned();
+            $table->text('notes');
+            $table->integer('conference_id');
             $table->timestamps();
         });
     }
