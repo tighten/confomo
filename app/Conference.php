@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conference extends Model
 {
+    protected $fillable = ['title'];
+
     public function meetNewFriend($username)
     {
         $friend = new Friend([
@@ -14,6 +16,8 @@ class Conference extends Model
         ]);
 
         $this->newFriends()->save($friend);
+
+        return $friend;
     }
 
     public function newFriends()

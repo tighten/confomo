@@ -43,4 +43,9 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany(Conference::class);
     }
+
+    public function addConference($conference)
+    {
+        $this->conferences()->save(new Conference($conference));
+    }
 }

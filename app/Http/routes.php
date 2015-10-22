@@ -8,8 +8,11 @@ Route::get('dashboard', ['middleware' => 'auth', function () {
     return view('dashboard');
 }]);
 
-Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'api', 'namespace' => 'API', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'conferences'], function () {
+        Route::get('/', 'ConferencesController@index');
+        Route::post('/', 'ConferencesController@store');
+
         Route::post('{conference}/new-friends', 'ConferenceNewFriendsController@store');
         Route::get('{conference}/new-friends', 'ConferenceNewFriendsController@index');
 
@@ -20,6 +23,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     });
 });
 
+Route::get('local-login', 'Auth\AuthController@localLogin');
 Route::get('auth', 'Auth\AuthController@authenticate');
 Route::get('auth/callback', 'Auth\AuthController@handleTwitterCallback');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');

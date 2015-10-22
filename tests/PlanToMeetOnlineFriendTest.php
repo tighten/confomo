@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-class PlaneToMeetOnlineFriendTest extends TestCase
+class PlanToMeetOnlineFriendTest extends TestCase
 {
     use DatabaseMigrations;
 
