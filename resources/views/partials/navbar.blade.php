@@ -19,6 +19,13 @@
         <div class="collapse navbar-collapse">
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
+                @if (App::environment('local') && Auth::guest())
+                    <a href="/local-login">
+                        <button type="button" class="btn btn-default navbar-btn">
+                            Login Magically
+                        </button>
+                    </a>
+                @endif
                 @if (Auth::guest())
                     <a href="/auth">
                         <button type="button" class="btn btn-default navbar-btn">

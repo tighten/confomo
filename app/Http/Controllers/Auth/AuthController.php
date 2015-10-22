@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Validator;
@@ -56,6 +57,17 @@ class AuthController extends Controller
         }
 
         return redirect('/');
+    }
+
+    public function localLogin()
+    {
+        if (! App::environment('local')) {
+            abort(404);
+        }
+
+        Auth::login(User::first());
+
+        return redirect('/dashboard');
     }
 
     /**
