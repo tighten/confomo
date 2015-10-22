@@ -24,6 +24,8 @@ class FriendTest extends TestCase
 
         $friend->markMet();
 
-        $this->assertTrue($friend->met);
+        $pulledFriend = Friend::find($friend->id);
+
+        $this->assertTrue($pulledFriend->met);
     }
 }

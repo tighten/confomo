@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Friend extends Model
 {
-    protected $fillable = ['username', 'type'];
+    protected $fillable = ['username', 'type', 'met'];
     protected $casts = [
         'met' => 'boolean'
     ];
@@ -14,5 +14,6 @@ class Friend extends Model
     public function markMet()
     {
         $this->met = true;
+        $this->save();
     }
 }
