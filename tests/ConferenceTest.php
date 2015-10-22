@@ -39,11 +39,11 @@ class ConferenceTest extends TestCase
         $user = factory(User::class)->create();
 
         $this->be($user);
-        $this->json('post', '/api/conferences', ['title' => 'MyCon']);
+        $this->json('post', '/api/conferences', ['name' => 'MyCon']);
 
         $this->json('get', '/api/conferences');
 
-        $this->seeJson(['title' => 'MyCon']);
+        $this->seeJson(['name' => 'MyCon']);
     }
 
     public function test_it_can_get_all_conferences()
@@ -57,7 +57,7 @@ class ConferenceTest extends TestCase
         $this->be($user);
         $this->json('get', '/api/conferences');
 
-        $this->seeJson(['title' => $conference1->title]);
-        $this->seeJson(['title' => $conference2->title]);
+        $this->seeJson(['name' => $conference1->name]);
+        $this->seeJson(['name' => $conference2->name]);
     }
 }

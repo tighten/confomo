@@ -20,7 +20,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Conference::class, function (Faker\Generator $faker) {
     return [
-        'title' => $faker->sentence
+        'name' => $faker->sentence
     ];
 });
 

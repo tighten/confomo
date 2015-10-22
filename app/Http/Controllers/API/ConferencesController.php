@@ -11,7 +11,7 @@ class ConferencesController extends Controller
 {
     public function store(Request $request)
     {
-        Auth::user()->addConference(['title' => $request->input('title')]);
+        Auth::user()->addConference(['name' => $request->input('name')]);
     }
 
     public function index()
