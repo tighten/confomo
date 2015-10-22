@@ -12,7 +12,7 @@
 
             <!-- Branding -->
             <a class="navbar-brand" href="/">
-                Confomo
+                <strong style="font-size: 1.25em;">CONFOMO</strong> |  Never miss out on new friends
             </a>
         </div>
 
