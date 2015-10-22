@@ -12,8 +12,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'conferences'], function () {
         Route::post('{conference}/new-friends', 'ConferenceNewFriendsController@store');
         Route::get('{conference}/new-friends', 'ConferenceNewFriendsController@index');
+
         Route::post('{conference}/online-friends', 'ConferenceOnlineFriendsController@store');
         Route::get('{conference}/online-friends', 'ConferenceOnlineFriendsController@index');
+        Route::get('{conference}/online-friends/{friend}', 'ConferenceOnlineFriendsController@show');
+        Route::patch('{conference}/online-friends/{friend}', 'ConferenceOnlineFriendsController@update');
     });
 });
 

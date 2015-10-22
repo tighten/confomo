@@ -21,7 +21,7 @@ class Conference extends Model
         return $this->hasMany(Friend::class)->where('type', 'new');
     }
 
-    public function meetOnlineFriend($username)
+    public function planToMeetOnlineFriend($username)
     {
         $friend = new Friend([
             'username' => $username,
@@ -29,6 +29,13 @@ class Conference extends Model
         ]);
 
         $this->onlineFriends()->save($friend);
+
+        return $friend;
+    }
+
+    public function meetOnlineFriend($friend)
+    {
+        $friend->met = true;
     }
 
     public function onlineFriends()

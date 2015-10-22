@@ -26,6 +26,7 @@ $factory->define(App\Conference::class, function (Faker\Generator $faker) {
 $factory->define(App\Friend::class, function (Faker\Generator $faker) {
     return [
         'username' => $faker->word,
-        'type' => 'new'
+        'type' => 'new',
+        'met' => false
     ];
 });

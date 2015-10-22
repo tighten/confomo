@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Conference;
+use App\Friend;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
 
@@ -28,6 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot($router);
 
         $router->model('conference', Conference::class);
+        $router->model('friend', Friend::class);
     }
 
     /**

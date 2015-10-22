@@ -22,13 +22,13 @@ class ConferenceTest extends TestCase
         $this->assertEquals('adamwathan', $conference->newFriends->first()->username);
     }
 
-    public function test_it_can_meet_online_friend()
+    public function test_it_can_plan_to_meet_online_friend()
     {
         $user = factory(User::class)->create();
         $conference = factory(Conference::class)->make();
         $user->conferences()->save($conference);
 
-        $conference->meetOnlineFriend('dead_lugosi');
+        $conference->planToMeetOnlineFriend('dead_lugosi');
 
         $this->assertFalse($conference->onlineFriends->isEmpty());
         $this->assertEquals('dead_lugosi', $conference->onlineFriends->first()->username);
