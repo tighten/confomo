@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Conference extends Model
 {
     protected $fillable = ['name'];
+    protected $casts = ['user_id' => 'integer'];
 
     public function meetNewFriend($username)
     {

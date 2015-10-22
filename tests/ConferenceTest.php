@@ -60,4 +60,49 @@ class ConferenceTest extends TestCase
         $this->seeJson(['name' => $conference1->name]);
         $this->seeJson(['name' => $conference2->name]);
     }
+
+    public function test_it_can_delete_a_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->make();
+        $user->conferences()->save($conference);
+
+        $this->be($user);
+        $this->json('delete', '/api/conferences/' . $conference->id);
+
+        $this->json('get', '/api/conferences');
+        $this->dontSeeJson(['name' => $conference->name]);
+    }
+
+    public function test_it_only_shows_conferences_for_authenticated_user()
+    {
+        $user1 = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
+        $conference1 = factory(Conference::class)->make();
+        $conference2 = factory(Conference::class)->make();
+        $user1->conferences()->save($conference1);
+        $user2->conferences()->save($conference2);
+
+        $this->be($user1);
+
+        $this->json('get', '/api/conferences');
+
+        $this->dontSeeJson(['name' => $conference2->name]);
+    }
+
+    public function test_it_doesnt_allow_users_to_delete_other_users_conferences()
+    {
+        $user1 = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
+        $conference1 = factory(Conference::class)->make();
+        $conference2 = factory(Conference::class)->make();
+        $user1->conferences()->save($conference1);
+        $user2->conferences()->save($conference2);
+
+        $this->be($user1);
+
+        $this->json('delete', '/api/conferences/' . $conference2->id);
+
+        $this->seeStatusCode(404);
+    }
 }

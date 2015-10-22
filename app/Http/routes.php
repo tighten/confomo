@@ -12,6 +12,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'API', 'middleware' => 'auth'], 
     Route::group(['prefix' => 'conferences'], function () {
         Route::get('/', 'ConferencesController@index');
         Route::post('/', 'ConferencesController@store');
+        Route::delete('{conference}', 'ConferencesController@delete');
 
         Route::post('{conference}/new-friends', 'ConferenceNewFriendsController@store');
         Route::get('{conference}/new-friends', 'ConferenceNewFriendsController@index');

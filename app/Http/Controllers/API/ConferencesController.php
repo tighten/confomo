@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Conference;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -17,5 +18,14 @@ class ConferencesController extends Controller
     public function index()
     {
         return Auth::user()->conferences()->get();
+    }
+
+    public function delete(Conference $conference)
+    {
+        if ($conference->user_id !== Auth::user()->id) {
+            abort(404);
+        }
+
+        $conference->delete();
     }
 }

@@ -5,10 +5,19 @@ namespace App\Http\Controllers\API;
 use App\Conference;
 use App\Friend;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 class ConferenceOnlineFriendsController extends Controller
 {
+    public function __construct(Request $request)
+    {
+        if ($request->route('conference')->user_id !== Auth::user()->id) {
+            abort(404);
+        }
+    }
+
     public function store(Conference $conference)
     {
         $conference->planToMeetOnlineFriend(request('username'));
