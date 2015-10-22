@@ -61,6 +61,16 @@ var app = new Vue({
         },
 
         addConference: function () {
+            // @todo: Do validation in a more VueJS-y way?
+            if (this.addConferenceForm.name == '') {
+                this.addConferenceForm.errors = [
+                    'You need to actually type something for the name.'
+                ];
+                this.addConferenceForm.adding = false;
+
+                return;
+            }
+
             this.addConferenceForm.errors = [];
             this.addConferenceForm.adding = true;
 
@@ -78,6 +88,11 @@ var app = new Vue({
         },
 
         deleteConference: function (conference) {
+            // @todo: Use a more VueJS-y confirm?
+            if (! confirm('are you sure?')) {
+                return;
+            }
+
             this.conferences = _.reject(this.conferences, function (c) {
                 return c.id === conference.id;
             });
