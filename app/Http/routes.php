@@ -9,6 +9,8 @@ Route::get('dashboard', ['middleware' => 'auth', function () {
 }]);
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
+    Route::post('conferences/{conference}/new-friends', 'ConferenceNewFriendsController@store');
+    Route::get('conferences/{conference}/new-friends', 'ConferenceNewFriendsController@index');
 });
 
 Route::get('auth', 'Auth\AuthController@authenticate');

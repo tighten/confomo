@@ -14,8 +14,18 @@
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'email' => $faker->email,
-        'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
+        'twitter_id' => $faker->randomNumber
+    ];
+});
+
+$factory->define(App\Conference::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});
+
+$factory->define(App\Friend::class, function (Faker\Generator $faker) {
+    return [
+        'username' => $faker->word,
+        'type' => 'new'
     ];
 });
