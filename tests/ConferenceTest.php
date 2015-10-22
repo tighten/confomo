@@ -10,7 +10,7 @@ class ConferenceTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_it_can_add_new_friend()
+    public function test_it_can_meet_new_friend()
     {
         $user = factory(User::class)->create();
         $conference = factory(Conference::class)->make();
@@ -20,5 +20,17 @@ class ConferenceTest extends TestCase
 
         $this->assertFalse($conference->newFriends->isEmpty());
         $this->assertEquals('adamwathan', $conference->newFriends->first()->username);
+    }
+
+    public function test_it_can_meet_online_friend()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->make();
+        $user->conferences()->save($conference);
+
+        $conference->meetOnlineFriend('dead_lugosi');
+
+        $this->assertFalse($conference->onlineFriends->isEmpty());
+        $this->assertEquals('dead_lugosi', $conference->onlineFriends->first()->username);
     }
 }
