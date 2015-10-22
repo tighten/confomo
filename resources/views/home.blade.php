@@ -10,6 +10,9 @@
                     <div class="panel-body">
                         You must login before you can use Confomo.
                     </div>
+
+                    <div id="confomo-app" class="container" v-cloak>
+                    </div>
                 </div>
             </div>
         </div>

@@ -24073,17 +24073,74 @@ module.exports = Watcher
 
 require('./core/dependencies');
 
+// Flatten errors and set them on the given form
+var setErrorsOnForm = function setErrorsOnForm(form, errors) {
+    if (typeof errors === 'object') {
+        form.errors = _.flatten(_.toArray(errors));
+    } else {
+        form.errors.push('Something went wrong. Please try again.');
+    }
+};
+
+// Errors Component...
+Vue.component('form-errors', {
+    props: ['form'],
+
+    template: '\n    <div class="alert alert-danger" v-if="form.errors.length > 0">\n        <strong>Whoops!</strong> Looks like something went wrong!\n\n        <br><br>\n\n        <ul>\n            <li v-for="error in form.errors">\n                {{ error }}\n            </li>\n        </ul>\n    </div>\n    '
+});
+
 // Vue Application
 var app = new Vue({
     el: '#confomo-app',
 
-    data: {},
+    data: {
+        currentUserId: Confomo.userId,
 
-    ready: function ready() {},
+        conferences: [],
+
+        addConferenceForm: {
+            conference: '',
+            errors: [],
+            adding: false
+        }
+    },
+
+    ready: function ready() {
+        this.getAllConferences();
+    },
 
     computed: {},
 
-    methods: {}
+    methods: {
+        getAllConferences: function getAllConferences() {
+            this.$http.get('/api/conferences').success(function (conferences) {
+                this.conferences = conferences;
+            });
+        },
+
+        addConference: function addConference() {
+            this.addConferenceForm.errors = [];
+            this.addConferenceForm.adding = true;
+
+            this.$http.post('/api/conferences', this.addConferenceForm).success(function (conference) {
+                this.addConferenceForm.name = '';
+                this.addConferenceForm.adding = false;
+                // @todo: Add new conference to the list more cleanly
+                this.getAllConferences();
+            }).error(function (errors) {
+                setErrorsOnForm(this.addConferenceForm, errors);
+                this.addConferenceForm.adding = false;
+            });
+        },
+
+        deleteConference: function deleteConference(conference) {
+            this.conferences = _.reject(this.conferences, function (c) {
+                return c.id === conference.id;
+            });
+
+            this.$http['delete']('/api/conferences/' + conference.id);
+        }
+    }
 });
 
 },{"./core/dependencies":81}],81:[function(require,module,exports){
