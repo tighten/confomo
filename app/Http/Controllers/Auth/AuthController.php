@@ -50,7 +50,6 @@ class AuthController extends Controller
             Auth::login($user);
         } else {
             Auth::login($user = User::create([
-                'email' => $twitter->email,
                 'name' => $twitter->name,
                 'twitter_id' => $twitter->id,
             ]));
@@ -80,7 +79,6 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -95,7 +93,6 @@ class AuthController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
     }
