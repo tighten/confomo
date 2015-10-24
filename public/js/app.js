@@ -24083,6 +24083,8 @@ var setErrorsOnForm = function setErrorsOnForm(form, errors) {
     }
 };
 
+Vue.config.debug = true;
+
 // Errors Component...
 Vue.component('form-errors', {
     props: ['form'],
@@ -24090,7 +24092,70 @@ Vue.component('form-errors', {
     template: '\n    <div class="alert alert-danger" v-if="form.errors.length > 0">\n        <strong>Whoops!</strong> Looks like something went wrong!\n\n        <br><br>\n\n        <ul>\n            <li v-for="error in form.errors">\n                {{ error }}\n            </li>\n        </ul>\n    </div>\n    '
 });
 
-/** Custom code */
+Vue.component('friends-list', {
+    props: ['list', 'key', 'conferenceId', 'descriptor'],
+
+    data: function data() {
+        return {
+            addFriendForm: {
+                errors: [],
+                adding: false,
+                username: ''
+            }
+        };
+    },
+
+    ready: function ready() {
+        this.getAllFriends();
+    },
+
+    methods: {
+        getAllFriends: function getAllFriends() {
+            this.$http.get('/api/conferences/' + this.conferenceId + '/' + this.key).success(function (friends) {
+                this.list = friends;
+            });
+        },
+
+        addFriend: function addFriend() {
+            // @todo: Do validation in a more VueJS-y way?
+            if (this.addFriendForm.username == '') {
+                this.addFriendForm.errors = ['You need to actually type something for the name.'];
+                this.addFriendForm.adding = false;
+
+                return;
+            }
+
+            this.addFriendForm.errors = [];
+            this.addFriendForm.adding = true;
+
+            this.$http.post('/api/conferences/' + this.conferenceId + '/' + this.key, this.addFriendForm).success(function (friend) {
+                this.addFriendForm.username = '';
+                this.addFriendForm.adding = false;
+                // @todo: Add friend to the list more cleanly
+                this.getAllFriends();
+            }).error(function (errors) {
+                setErrorsOnForm(this.addFriendForm, errors);
+                this.addFriendForm.adding = false;
+            });
+        },
+
+        deleteFriend: function deleteFriend(friend) {
+            // @todo: Use a more VueJS-y confirm?
+            if (!confirm('are you sure?')) {
+                return;
+            }
+
+            this.list = _.reject(this.list, function (c) {
+                return c.id === friend.id;
+            });
+
+            this.$http['delete']('/api/conferences/' + this.conferenceId + '/' + this.key + '/' + friend.id);
+        }
+    },
+
+    template: '\n            <!-- Friend Listing -->\n            <h2>{{ descriptor }} Friends</h2>\n            <div v-if="list.length > 0">\n                <div class="row" v-for="friend in list">\n                    <div class="col-md-8 col-md-offset-2">\n                        <div class="panel panel-default"\n                            style="cursor: pointer">\n                            <div class="panel-heading">\n                                <div class="pull-left" style="padding-top: 6px;">\n                                    @{{ friend.username }}\n                                </div>\n\n                                <div class="pull-right">\n                                    <button class="btn btn-danger" style="font-size: 18px; margin-right: 10px;"\n                                        @click="deleteFriend(friend)">\n\n                                        <i class="fa fa-times"></i>\n                                    </button>\n                                </div>\n\n                                <div class="clearfix"></div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n            <!-- Add Friend Form -->\n            <div class="row">\n                <div class="col-md-8 col-md-offset-2">\n                    <div class="panel panel-primary">\n                        <div class="panel-heading">Add Friend</div>\n\n                        <div class="panel-body">\n                            <form-errors :form="addFriendForm"></form-errors>\n\n                            <form class="form-horizontal">\n                                <div class="form-group">\n                                    <label class="col-md-3 control-label">Name</label>\n\n                                    <div class="col-md-6">\n                                        <input type="text" class="form-control" name="username" v-model="addFriendForm.username">\n                                    </div>\n                                </div>\n\n                                <div class="form-group">\n                                    <div class="col-md-6 col-md-offset-3">\n                                        <button type="submit" class="btn btn-primary"\n                                            @click.prevent="addFriend"\n                                            :disabled="addFriendForm.adding">\n\n                                            <span v-if="addFriendForm.adding">\n                                                <i class="fa fa-btn fa-spinner fa-spin"></i>Adding\n                                            </span>\n\n                                            <span v-else>\n                                                <i class="fa fa-btn fa-plus"></i>Add Friend\n                                            </span>\n                                        </button>\n                                    </div>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </div>\n            </div>\n    '
+});
+
 Vue.component('dashboard', {
     data: function data() {
         return {
@@ -24170,67 +24235,13 @@ Vue.component('conference', {
             currentUserId: Confomo.userId,
             conferenceId: Confomo.conferenceId,
 
-            newFriends: [],
-
-            addNewFriendForm: {
-                errors: [],
-                adding: false
-            }
+            newFriends: []
         };
     },
 
-    ready: function ready() {
-        this.getAllNewFriends();
-    },
+    ready: function ready() {},
 
-    methods: {
-        getAllNewFriends: function getAllNewFriends() {
-            this.$http.get('/api/conferences/' + this.conferenceId + '/new-friends').success(function (friends) {
-                this.newFriends = friends;
-            });
-        },
-
-        addNewFriend: function addNewFriend() {
-            // @todo: Do validation in a more VueJS-y way?
-            if (this.addNewFriendForm.username == '') {
-                this.addNewFriendForm.errors = ['You need to actually type something for the name.'];
-                this.addNewFriendForm.adding = false;
-
-                return;
-            }
-
-            this.addNewFriendForm.errors = [];
-            this.addNewFriendForm.adding = true;
-
-            this.$http.post('/api/conferences/' + this.conferenceId + '/new-friends', this.addNewFriendForm).success(function (friend) {
-                this.addNewFriendForm.username = '';
-                this.addNewFriendForm.adding = false;
-                // @todo: Add new friend to the list more cleanly
-                this.getAllNewFriends();
-            }).error(function (errors) {
-                setErrorsOnForm(this.addNewFriendForm, errors);
-                this.addNewFriendForm.adding = false;
-            });
-        },
-
-        deleteNewFriend: function deleteNewFriend(friend) {
-            // @todo: Use a more VueJS-y confirm?
-            if (!confirm('are you sure?')) {
-                return;
-            }
-
-            this.newFriends = _.reject(this.newFriends, function (c) {
-                return c.id === friend.id;
-            });
-
-            this.$http['delete']('/api/conferences/' + this.conferenceId + '/new-friends/' + friend.id);
-        },
-
-        viewFriend: function viewFriend(friend) {
-            console.log('Go to friend page');
-            document.location.href = '/conference/' + this.conferenceId + '/new-friends/' + friend.id;
-        }
-    }
+    methods: {}
 });
 
 if ($("#confomo-app").length) {
