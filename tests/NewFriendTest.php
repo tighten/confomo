@@ -25,4 +25,34 @@ class NewFriendTest extends TestCase
 
         $this->seeStatusCode(404);
     }
+
+    public function test_it_shows_new_friends_for_my_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->make();
+        $user->conferences()->save($conference);
+        $conference->meetNewFriend('taylorotwell');
+
+        $this->be($user);
+
+        $this->json('get', 'api/conferences/' . $conference->id . '/new-friends');
+
+        $this->seeJson(['username' => 'taylorotwell']);
+    }
+
+    public function test_it_can_delete_new_friends()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->make();
+        $user->conferences()->save($conference);
+        $friend = $conference->meetNewFriend('jeffrey_way');
+
+        $this->be($user);
+
+        $this->json('delete', 'api/conferences/' . $conference->id . '/new-friends/' . $friend->id);
+
+        $this->json('get', 'api/conferences/' . $conference->id . '/new-friends');
+
+        $this->dontSeeJson(['username' => 'jeffrey_way']);
+    }
 }

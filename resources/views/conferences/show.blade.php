@@ -2,23 +2,27 @@
 
 @section('content')
     <div id="confomo-app" class="container" v-cloak>
-        <dashboard inline-template>
-            <!-- Conference Listing -->
-            <h2>Conferences</h2>
-            <div v-if="conferences.length > 0">
-                <div class="row" v-for="conference in conferences">
+        <script>
+            Confomo.conferenceId = {{ $conference->id }};
+        </script>
+        <conference inline-template>
+            <a href="/dashboard">&lt;- Back to dashboard</a>
+
+            <!-- New Friend Listing -->
+            <h2>New Friends</h2>
+            <div v-if="newFriends.length > 0">
+                <div class="row" v-for="friend in newFriends">
                     <div class="col-md-8 col-md-offset-2">
                         <div class="panel panel-default"
-                            @click="viewConference(conference)"
                             style="cursor: pointer">
                             <div class="panel-heading">
                                 <div class="pull-left" style="padding-top: 6px;">
-                                    @{{ conference.name }}
+                                    @@{{ friend.username }}
                                 </div>
 
                                 <div class="pull-right">
                                     <button class="btn btn-danger" style="font-size: 18px; margin-right: 10px;"
-                                        @click="deleteConference(conference)">
+                                        @click="deleteNewFriend(friend)">
 
                                         <i class="fa fa-times"></i>
                                     </button>
@@ -31,36 +35,36 @@
                 </div>
             </div>
 
-            <!-- Add Conference Form -->
+            <!-- Add Friend Form -->
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Add Conference</div>
+                        <div class="panel-heading">Add New Friend</div>
 
                         <div class="panel-body">
-                            <form-errors :form="addConferenceForm"></form-errors>
+                            <form-errors :form="addNewFriendForm"></form-errors>
 
                             <form class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Name</label>
 
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" name="name" v-model="addConferenceForm.name">
+                                        <input type="text" class="form-control" name="username" v-model="addNewFriendForm.username">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-3">
                                         <button type="submit" class="btn btn-primary"
-                                            @click.prevent="addConference"
-                                            :disabled="addConferenceForm.adding">
+                                            @click.prevent="addNewFriend"
+                                            :disabled="addNewFriendForm.adding">
 
-                                            <span v-if="addConferenceForm.adding">
+                                            <span v-if="addNewFriendForm.adding">
                                                 <i class="fa fa-btn fa-spinner fa-spin"></i>Adding
                                             </span>
 
                                             <span v-else>
-                                                <i class="fa fa-btn fa-plus"></i>Add Conference
+                                                <i class="fa fa-btn fa-plus"></i>Add Friend
                                             </span>
                                         </button>
                                     </div>

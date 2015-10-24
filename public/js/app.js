@@ -24073,6 +24073,7 @@ module.exports = Watcher
 
 require('./core/dependencies');
 
+/** Bootstrapp copied wholesale from Taylor's Zendcon talk */
 // Flatten errors and set them on the given form
 var setErrorsOnForm = function setErrorsOnForm(form, errors) {
     if (typeof errors === 'object') {
@@ -24089,20 +24090,20 @@ Vue.component('form-errors', {
     template: '\n    <div class="alert alert-danger" v-if="form.errors.length > 0">\n        <strong>Whoops!</strong> Looks like something went wrong!\n\n        <br><br>\n\n        <ul>\n            <li v-for="error in form.errors">\n                {{ error }}\n            </li>\n        </ul>\n    </div>\n    '
 });
 
-// Vue Application
-var app = new Vue({
-    el: '#confomo-app',
+/** Custom code */
+Vue.component('dashboard', {
+    data: function data() {
+        return {
+            currentUserId: Confomo.userId,
 
-    data: {
-        currentUserId: Confomo.userId,
+            conferences: [],
 
-        conferences: [],
-
-        addConferenceForm: {
-            conference: '',
-            errors: [],
-            adding: false
-        }
+            addConferenceForm: {
+                conference: '',
+                errors: [],
+                adding: false
+            }
+        };
     },
 
     ready: function ready() {
@@ -24141,7 +24142,9 @@ var app = new Vue({
             });
         },
 
-        deleteConference: function deleteConference(conference) {
+        deleteConference: function deleteConference(conference, $e) {
+            $e.stopPropagation();
+
             // @todo: Use a more VueJS-y confirm?
             if (!confirm('are you sure?')) {
                 return;
@@ -24152,9 +24155,87 @@ var app = new Vue({
             });
 
             this.$http['delete']('/api/conferences/' + conference.id);
+        },
+
+        viewConference: function viewConference(conference) {
+            console.log('Go to conference page');
+            document.location.href = '/conferences/' + conference.id;
         }
     }
 });
+
+Vue.component('conference', {
+    data: function data() {
+        return {
+            currentUserId: Confomo.userId,
+            conferenceId: Confomo.conferenceId,
+
+            newFriends: [],
+
+            addNewFriendForm: {
+                errors: [],
+                adding: false
+            }
+        };
+    },
+
+    ready: function ready() {
+        this.getAllNewFriends();
+    },
+
+    methods: {
+        getAllNewFriends: function getAllNewFriends() {
+            this.$http.get('/api/conferences/' + this.conferenceId + '/new-friends').success(function (friends) {
+                this.newFriends = friends;
+            });
+        },
+
+        addNewFriend: function addNewFriend() {
+            // @todo: Do validation in a more VueJS-y way?
+            if (this.addNewFriendForm.username == '') {
+                this.addNewFriendForm.errors = ['You need to actually type something for the name.'];
+                this.addNewFriendForm.adding = false;
+
+                return;
+            }
+
+            this.addNewFriendForm.errors = [];
+            this.addNewFriendForm.adding = true;
+
+            this.$http.post('/api/conferences/' + this.conferenceId + '/new-friends', this.addNewFriendForm).success(function (friend) {
+                this.addNewFriendForm.username = '';
+                this.addNewFriendForm.adding = false;
+                // @todo: Add new friend to the list more cleanly
+                this.getAllNewFriends();
+            }).error(function (errors) {
+                setErrorsOnForm(this.addNewFriendForm, errors);
+                this.addNewFriendForm.adding = false;
+            });
+        },
+
+        deleteNewFriend: function deleteNewFriend(friend) {
+            // @todo: Use a more VueJS-y confirm?
+            if (!confirm('are you sure?')) {
+                return;
+            }
+
+            this.newFriends = _.reject(this.newFriends, function (c) {
+                return c.id === friend.id;
+            });
+
+            this.$http['delete']('/api/conferences/' + this.conferenceId + '/new-friends/' + friend.id);
+        },
+
+        viewFriend: function viewFriend(friend) {
+            console.log('Go to friend page');
+            document.location.href = '/conference/' + this.conferenceId + '/new-friends/' + friend.id;
+        }
+    }
+});
+
+if ($("#confomo-app").length) {
+    new Vue({ el: '#confomo-app' });
+}
 
 },{"./core/dependencies":81}],81:[function(require,module,exports){
 /*
