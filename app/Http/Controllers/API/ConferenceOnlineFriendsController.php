@@ -41,4 +41,9 @@ class ConferenceOnlineFriendsController extends Controller
     {
         return $friend;
     }
+
+    public function delete(Conference $conference, Friend $friend)
+    {
+        $friend->delete();
+    }
 }

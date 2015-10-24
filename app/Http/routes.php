@@ -18,14 +18,15 @@ Route::group(['prefix' => 'api', 'namespace' => 'API', 'middleware' => 'auth'], 
         Route::post('/', 'ConferencesController@store');
         Route::delete('{conference}', 'ConferencesController@delete');
 
-        Route::post('{conference}/new-friends', 'ConferenceNewFriendsController@store');
         Route::get('{conference}/new-friends', 'ConferenceNewFriendsController@index');
+        Route::post('{conference}/new-friends', 'ConferenceNewFriendsController@store');
         Route::delete('{conference}/new-friends/{friend}', 'ConferenceNewFriendsController@delete');
 
-        Route::post('{conference}/online-friends', 'ConferenceOnlineFriendsController@store');
         Route::get('{conference}/online-friends', 'ConferenceOnlineFriendsController@index');
         Route::get('{conference}/online-friends/{friend}', 'ConferenceOnlineFriendsController@show');
+        Route::post('{conference}/online-friends', 'ConferenceOnlineFriendsController@store');
         Route::patch('{conference}/online-friends/{friend}', 'ConferenceOnlineFriendsController@update');
+        Route::delete('{conference}/online-friends/{friend}', 'ConferenceOnlineFriendsController@delete');
     });
 });
 
