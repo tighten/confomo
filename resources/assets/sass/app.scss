@@ -14,3 +14,9 @@ body {
 [v-cloak] {
     display: none;
 }
+
+.conference-button {
+    &:hover {
+        background-color: #eee;
+    }
+}

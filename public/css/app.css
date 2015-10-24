@@ -6000,4 +6000,7 @@ body {
 [v-cloak] {
   display: none; }
 
+.conference-button:hover {
+  background-color: #eee; }
+
 /*# sourceMappingURL=app.css.map */

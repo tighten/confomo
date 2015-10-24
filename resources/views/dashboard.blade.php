@@ -11,7 +11,7 @@
                         <div class="panel panel-default"
                             @click="viewConference(conference)"
                             style="cursor: pointer">
-                            <div class="panel-heading">
+                            <div class="panel-heading conference-button">
                                 <div class="pull-left" style="padding-top: 6px;">
                                     @{{ conference.name }}
                                 </div>

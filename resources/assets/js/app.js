@@ -104,15 +104,14 @@ Vue.component('friends-list', {
             <div v-if="list.length > 0">
                 <div class="row" v-for="friend in list">
                     <div class="col-md-8 col-md-offset-2">
-                        <div class="panel panel-default"
-                            style="cursor: pointer">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="pull-left" style="padding-top: 6px;">
                                     @{{ friend.username }}
                                 </div>
 
                                 <div class="pull-right">
-                                    <button class="btn btn-danger" style="font-size: 18px; margin-right: 10px;"
+                                    <button class="btn btn-danger btn-xs" style="font-size: 16px; margin-right: 10px;"
                                         @click="deleteFriend(friend)">
 
                                         <i class="fa fa-times"></i>
