@@ -26,6 +26,7 @@ $array = [
 
 ```php
 $array = ['value1', 'value2', 'value3'];
+```
 
 * Order use statements alphabetically
 * Remove lines between use statements
