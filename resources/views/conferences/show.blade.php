@@ -5,12 +5,7 @@
         <script>
             Confomo.conferenceId = {{ $conference->id }};
         </script>
-        <conference inline-template>
             <a href="/dashboard">&lt;- Back to dashboard</a>
-
-            <friends-list :list="newFriends" key="new-friends" :conference-id="conferenceId" descriptor="New"></friends-list>
-
-            <friends-list :list="onlineFriends" key="online-friends" :conference-id="conferenceId" descriptor="Online"></friends-list>
-        </dashboard>
+            <conference></conference>
     </div>
 @endsection
