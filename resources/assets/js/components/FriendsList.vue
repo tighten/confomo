@@ -39,7 +39,10 @@
                             <label class="col-md-3 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="username" v-model="addFriendForm.username">
+                                <div class="input-group">
+                                    <span class="input-group-addon">@</span>
+                                    <input type="text" class="form-control" name="username" v-model="addFriendForm.username">
+                                </div>
                             </div>
                         </div>
 
@@ -110,8 +113,7 @@
                     .success(function (friend) {
                         this.addFriendForm.username = '';
                         this.addFriendForm.adding = false;
-                        // @todo: Add friend to the list more cleanly
-                        this.getAllFriends();
+                        this.list.push(friend);
                     })
                     .error(function (errors) {
                         setErrorsOnForm(this.addFriendForm, errors);
@@ -120,16 +122,19 @@
             },
 
             deleteFriend: function (friend) {
-                // @todo: Use a more VueJS-y confirm?
-                if (! confirm('are you sure?')) {
-                    return;
-                }
+                var vm = this;
 
-                this.list = _.reject(this.list, function (c) {
-                    return c.id === friend.id;
+                swal({
+                    title: 'Are you sure?',
+                    text: 'This will delete @' + friend.username + ' from your list of friends',
+                    type: 'warning',
+                    showCancelButton: true
+                }, function () {
+                    vm.$http.delete('/api/conferences/' + vm.conferenceId + '/' + vm.key + '/' + friend.id)
+                        .then(function () {
+                            vm.list.$remove(friend)
+                        });
                 });
-
-                this.$http.delete('/api/conferences/' + this.conferenceId + '/' + this.key + '/' + friend.id);
             },
         }
     }

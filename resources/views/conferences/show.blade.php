@@ -5,6 +5,7 @@
         <script>
             Confomo.conferenceId = {{ $conference->id }};
         </script>
+            <h1>{{ $conference->name }}</h1>
             <a href="/dashboard">&lt;- Back to dashboard</a>
             <conference></conference>
     </div>

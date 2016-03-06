@@ -5,18 +5,15 @@
         <div v-if="conferences.length > 0">
             <div class="row" v-for="conference in conferences">
                 <div class="col-md-8 col-md-offset-2">
-                    <div class="panel panel-default"
-                        @click="viewConference(conference)"
-                        style="cursor: pointer">
+                    <div class="panel panel-default">
                         <div class="panel-heading conference-button">
-                            <div class="pull-left" style="padding-top: 6px;">
-                                {{ conference.name }}
-                            </div>
+                            <h3 class="panel-title pull-left" style="cursor: pointer; padding-top: 6px;" @click="viewConference(conference)">{{ conference.name }}</h3>
 
                             <div class="pull-right">
-                                <button class="btn btn-danger" style="font-size: 18px; margin-right: 10px;"
-                                    @click="deleteConference(conference)">
-
+                                <button class="btn btn-danger"
+                                        style="font-size: 18px; margin-right: 10px;"
+                                        @click.prevent="deleteConference(conference)"
+                                >
                                     <i class="fa fa-times"></i>
                                 </button>
                             </div>
@@ -74,8 +71,6 @@
     export default {
         data: function() {
             return {
-                currentUserId: Confomo.userId,
-
                 conferences: [],
 
                 addConferenceForm: {
@@ -125,22 +120,22 @@
             },
 
             deleteConference: function (conference, $e) {
-                $e.stopPropagation();
+                var vm = this;
 
-                // @todo: Use a more VueJS-y confirm?
-                if (! confirm('are you sure?')) {
-                    return;
-                }
-
-                this.conferences = _.reject(this.conferences, function (c) {
-                    return c.id === conference.id;
+                swal({
+                    title: 'Are you sure?',
+                    text: 'This will delete ' + conference.name + ' and any associated friends',
+                    type: 'warning',
+                    showCancelButton: true
+                }, function () {
+                    vm.$http.delete('/api/conferences/' + conference.id)
+                        .then(function () {
+                            vm.conferences.$remove(conference);
+                        });
                 });
-
-                this.$http.delete('/api/conferences/' + conference.id);
             },
 
             viewConference: function (conference) {
-                console.log('Go to conference page');
                 document.location.href = '/conferences/' + conference.id;
             },
         }

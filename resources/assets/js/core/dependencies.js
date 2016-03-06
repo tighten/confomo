@@ -16,3 +16,5 @@ require('bootstrap-sass/assets/javascripts/bootstrap');
  * Load Underscore.js, used for map / reduce on arrays.
  */
 window._ = require('underscore');
+
+require('sweetalert/lib/sweetalert');
