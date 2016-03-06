@@ -14,7 +14,6 @@ var setErrorsOnForm = function (form, errors) {
 Vue.config.debug = true;
 
 import Dashboard from './components/Dashboard.vue';
-import FriendsList from './components/FriendsList.vue';
 import Conference from './components/Conference.vue';
 
 // Global Errors Component...
