@@ -46,6 +46,6 @@ class User extends Model implements AuthenticatableContract,
 
     public function addConference($conference)
     {
-        $this->conferences()->save(new Conference($conference));
+        return $this->conferences()->save(new Conference($conference));
     }
 }

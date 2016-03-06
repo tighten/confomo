@@ -116,8 +116,7 @@
                     .success(function (conference) {
                         this.addConferenceForm.name = '';
                         this.addConferenceForm.adding = false;
-                        // @todo: Add new conference to the list more cleanly
-                        this.getAllConferences();
+                        this.conferences.push(conference);
                     })
                     .error(function (errors) {
                         setErrorsOnForm(this.addConferenceForm, errors);

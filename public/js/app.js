@@ -25271,10 +25271,6 @@ var _Dashboard = require('./components/Dashboard.vue');
 
 var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-var _FriendsList = require('./components/FriendsList.vue');
-
-var _FriendsList2 = _interopRequireDefault(_FriendsList);
-
 var _Conference = require('./components/Conference.vue');
 
 var _Conference2 = _interopRequireDefault(_Conference);
@@ -25310,7 +25306,7 @@ if ($("#confomo-app").length) {
     });
 }
 
-},{"./components/Conference.vue":32,"./components/Dashboard.vue":33,"./components/FormErrors.vue":34,"./components/FriendsList.vue":35,"./core/dependencies":36}],32:[function(require,module,exports){
+},{"./components/Conference.vue":32,"./components/Dashboard.vue":33,"./components/FormErrors.vue":34,"./core/dependencies":36}],32:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -25396,8 +25392,7 @@ exports.default = {
             this.$http.post('/api/conferences', this.addConferenceForm).success(function (conference) {
                 this.addConferenceForm.name = '';
                 this.addConferenceForm.adding = false;
-                // @todo: Add new conference to the list more cleanly
-                this.getAllConferences();
+                this.conferences.push(conference);
             }).error(function (errors) {
                 setErrorsOnForm(this.addConferenceForm, errors);
                 this.addConferenceForm.adding = false;
