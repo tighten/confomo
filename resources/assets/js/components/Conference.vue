@@ -7,6 +7,8 @@
 </template>
 
 <script>
+    import FriendsList from './FriendsList.vue';
+
     export default {
         data: function() {
             return {
@@ -18,14 +20,6 @@
             };
         },
 
-        components: {
-            FriendsList: require('./FriendsList.vue')
-        },
-
-        ready: function () {
-        },
-
-        methods: {
-        }
+        components: { FriendsList }
     }
 </script>

@@ -25316,6 +25316,13 @@ if ($("#confomo-app").length) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _FriendsList = require('./FriendsList.vue');
+
+var _FriendsList2 = _interopRequireDefault(_FriendsList);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
     data: function data() {
         return {
@@ -25327,13 +25334,7 @@ exports.default = {
         };
     },
 
-    components: {
-        FriendsList: require('./FriendsList.vue')
-    },
-
-    ready: function ready() {},
-
-    methods: {}
+    components: { FriendsList: _FriendsList2.default }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
 ;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"conference\">\n    <friends-list :list=\"newFriends\" key=\"new-friends\" :conference-id=\"conferenceId\" descriptor=\"New\"></friends-list>\n\n    <friends-list :list=\"onlineFriends\" key=\"online-friends\" :conference-id=\"conferenceId\" descriptor=\"Online\"></friends-list>\n</div>\n"
