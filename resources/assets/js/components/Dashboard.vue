@@ -10,7 +10,7 @@
                         style="cursor: pointer">
                         <div class="panel-heading conference-button">
                             <div class="pull-left" style="padding-top: 6px;">
-                                @{{ conference.name }}
+                                {{ conference.name }}
                             </div>
 
                             <div class="pull-right">
