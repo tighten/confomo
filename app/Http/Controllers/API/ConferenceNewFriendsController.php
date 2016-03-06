@@ -19,7 +19,7 @@ class ConferenceNewFriendsController extends Controller
 
     public function store(Conference $conference, Request $request)
     {
-        $conference->meetNewFriend($request->input('username'));
+        return $conference->meetNewFriend($request->input('username'));
     }
 
     public function index(Conference $conference)
