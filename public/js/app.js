@@ -25374,8 +25374,6 @@ exports.default = {
         this.getAllConferences();
     },
 
-    computed: {},
-
     methods: {
         getAllConferences: function getAllConferences() {
             this.$http.get('/api/conferences').success(function (conferences) {

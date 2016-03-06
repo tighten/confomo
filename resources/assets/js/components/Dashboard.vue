@@ -90,9 +90,6 @@
             this.getAllConferences();
         },
 
-        computed: {
-        },
-
         methods: {
             getAllConferences: function () {
                 this.$http.get('/api/conferences')
