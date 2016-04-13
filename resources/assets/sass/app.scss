@@ -2,6 +2,7 @@ $font-family-sans-serif: 'Lato';
 $navbar-height: 65px;
 
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/sweetalert/dist/sweetalert";
 
 body {
     font-weight: 300;

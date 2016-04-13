@@ -12,7 +12,7 @@ class ConferencesController extends Controller
 {
     public function store(Request $request)
     {
-        Auth::user()->addConference(['name' => $request->input('name')]);
+        return Auth::user()->addConference(['name' => $request->input('name')]);
     }
 
     public function index()

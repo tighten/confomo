@@ -20,7 +20,7 @@ class ConferenceOnlineFriendsController extends Controller
 
     public function store(Conference $conference)
     {
-        $conference->planToMeetOnlineFriend(request('username'));
+        return $conference->planToMeetOnlineFriend(request('username'));
     }
 
     public function index(Conference $conference)
