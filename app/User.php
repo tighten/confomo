@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Conference;
-use App\Friend;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -38,6 +36,13 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * Database fields that should be cast to specific types.
+     *
+     * @var array
+     */
+    protected $casts = ['id' => 'int'];
 
     public function conferences()
     {
