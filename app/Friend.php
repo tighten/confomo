@@ -13,7 +13,6 @@ class Friend extends Model
 
     public function markMet()
     {
-        $this->met = true;
-        $this->save();
+        return $this->update(['met' => true]);
     }
 }
