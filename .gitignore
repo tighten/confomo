@@ -1,6 +1,6 @@
 /vendor
 .env
-public/assets/img/cache/twitter_profile_pics/*.jpeg
+public/assets/img/cache/twitter_profile_pics/*
 /node_modules
 Homestead.yaml
 Homestead.json
