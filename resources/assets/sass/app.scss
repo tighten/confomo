@@ -72,4 +72,14 @@ body {
         background-color: $btn-default-bg;
         color: $brand-danger;
     }
+
+    .btn-primary.btn-inverse {
+        background-color: $btn-default-bg;
+        color: $brand-primary;
+    }
+
+    .btn-success.btn-inverse {
+        background-color: $btn-default-bg;
+        color: $brand-success;
+    }
 }
