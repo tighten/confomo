@@ -13,8 +13,31 @@ class Friend extends Model
         'met' => 'boolean'
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        /**
+         * When deleting a friend, if they are the last record in the database,
+         * they have an avatar set, and they are the last record with this 
+         * username, also remove the cached twitter avatar from storage.
+         */
+        static::deleted(function ($friend) {
+            if (static::where('username', $friend->username)->count() == 0) {
+                if ($friend->avatar && file_exists($avatar_path = public_path($friend->avatar))) {
+                    @unlink($avatar_path);
+                }
+            }
+        });
+    }
+
     public function fetchAvatar()
     {
+        // If the friend already exists, use the existing avatar
+        if ($friend = Friend::where('username', $this->username)->whereNotNull('avatar')->first()) {
+            return $this->update(['avatar' => $friend->avatar]);
+        }
+
         try {
             $twitter = app(TwitterOAuth::class);
             $details = $twitter->get('users/show', ['screen_name' => $this->username]);

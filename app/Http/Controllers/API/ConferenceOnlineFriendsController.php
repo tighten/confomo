@@ -44,10 +44,6 @@ class ConferenceOnlineFriendsController extends Controller
 
     public function delete(Conference $conference, Friend $friend)
     {
-        if ($friend->avatar && file_exists($avatar_path = public_path($friend->avatar))) {
-            unlink($avatar_path);
-        }
-        
         $friend->delete();
     }
 }
