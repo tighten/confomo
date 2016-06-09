@@ -22,22 +22,6 @@ body {
     }
 }
 
-.media.friend {
-    border: 1px solid $gray-lighter;
-    border-radius: $border-radius-base;
-    margin: 10px 0;
-
-    .media-left {
-        background-color: $gray-lighter;
-        padding: 10px;
-        text-align: center;
-
-        .media-object {
-            vertical-align: middle;
-        }
-    }
-}
-
 .Friends {
     margin-bottom: 20px;
 }
