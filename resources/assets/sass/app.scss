@@ -47,23 +47,22 @@ body {
     width: 75%;
 
     h4 {
+        margin-top: 5px;
         font-size: 16px;
     }
 }
 
-.Friend__Actions {
-    .btn-danger.btn-inverse {
-        background-color: $btn-default-bg;
-        color: $brand-danger;
-    }
+.btn-danger.btn-inverse {
+    background-color: $btn-default-bg;
+    color: $brand-danger;
+}
 
-    .btn-primary.btn-inverse {
-        background-color: $btn-default-bg;
-        color: $brand-primary;
-    }
+.btn-primary.btn-inverse {
+    background-color: $btn-default-bg;
+    color: $brand-primary;
+}
 
-    .btn-success.btn-inverse {
-        background-color: $btn-default-bg;
-        color: $brand-success;
-    }
+.btn-success.btn-inverse {
+    background-color: $btn-default-bg;
+    color: $brand-success;
 }
