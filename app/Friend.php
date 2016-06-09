@@ -19,7 +19,7 @@ class Friend extends Model
 
         /**
          * When deleting a friend, if they are the last record in the database,
-         * they have an avatar set, and they are the last record with this 
+         * they have an avatar set, and they are the last record with this
          * username, also remove the cached twitter avatar from storage.
          */
         static::deleted(function ($friend) {
