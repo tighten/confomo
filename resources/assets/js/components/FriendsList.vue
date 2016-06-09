@@ -12,8 +12,14 @@
                         <h4>@{{ friend.username }}</h4>
 
                         <div class="Friend__Actions">
-                            <button class="btn btn-danger btn-inverse btn-xs" @click="deleteFriend(friend)">
-                                Delete
+                            <button class="btn btn-danger btn-inverse btn-xs" @click="deleteFriend(friend)">Delete</button>
+
+                            <button v-if="key == 'online-friends'"
+                                    @click="metFriend(friend)"
+                                    :class="['btn', 'btn-inverse', 'btn-xs', friend.met ? 'btn-success' : 'btn-primary']"
+                            >
+                                <span v-if="friend.met">You've met!</span>
+                                <span v-else>Mark as met</span>
                             </button>
                         </div>
                     </div>
@@ -127,10 +133,13 @@
                     showCancelButton: true
                 }, () => {
                     vm.$http.delete('/api/conferences/' + vm.conferenceId + '/' + vm.key + '/' + friend.id)
-                        .then(() => {
-                            vm.list.$remove(friend)
-                        });
+                        .then(() => { vm.list.$remove(friend) });
                 });
+            },
+
+            metFriend: function (friend) {
+                this.$http.patch('/api/conferences/' + this.conferenceId + '/' + this.key + '/' + friend.id, { met: ! friend.met })
+                    .then(() => { friend.met = ! friend.met; });
             },
         }
     }
