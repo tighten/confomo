@@ -93,9 +93,7 @@
         methods: {
             getAllFriends: function () {
                 this.$http.get('/api/conferences/' + this.conferenceId + '/' + this.key)
-                    .success(function (friends) {
-                        this.list = friends;
-                    });
+                    .then(friends => { this.list = friends.data; });
             },
 
             addFriend: function () {
@@ -113,10 +111,10 @@
                 this.addFriendForm.adding = true;
 
                 this.$http.post('/api/conferences/' + this.conferenceId + '/' + this.key, this.addFriendForm)
-                    .success(friend => {
+                    .then(friend => {
                         this.addFriendForm.username = '';
                         this.addFriendForm.adding = false;
-                        this.list.push(friend);
+                        this.list.push(friend.data);
                     }, errors => {
                         setErrorsOnForm(this.addFriendForm, errors);
                         this.addFriendForm.adding = false;
