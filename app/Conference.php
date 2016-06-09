@@ -14,7 +14,7 @@ class Conference extends Model
         $friend = new Friend([
             'username' => $username,
             'type' => 'new',
-            'met' => true
+            'met' => true,
         ]);
 
         $this->newFriends()->save($friend);
@@ -34,7 +34,7 @@ class Conference extends Model
         $friend = new Friend([
             'username' => $username,
             'type' => 'online',
-            'met' => false
+            'met' => false,
         ]);
 
         $this->onlineFriends()->save($friend);

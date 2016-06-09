@@ -10,7 +10,7 @@ class Friend extends Model
 {
     protected $fillable = ['username', 'avatar', 'type', 'met'];
     protected $casts = [
-        'met' => 'boolean'
+        'met' => 'boolean',
     ];
 
     public static function boot()
@@ -34,7 +34,7 @@ class Friend extends Model
     public function fetchAvatar()
     {
         // If the friend already exists, use the existing avatar
-        if ($friend = Friend::where('username', $this->username)->whereNotNull('avatar')->first()) {
+        if ($friend = static::where('username', $this->username)->whereNotNull('avatar')->first()) {
             return $this->update(['avatar' => $friend->avatar]);
         }
 

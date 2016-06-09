@@ -9,7 +9,6 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-use Validator;
 
 class AuthController extends Controller
 {
@@ -19,8 +18,6 @@ class AuthController extends Controller
 
     /**
      * Create a new authentication controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -62,7 +59,7 @@ class AuthController extends Controller
 
     public function localLogin()
     {
-        if (! App::environment('local')) {
+        if (!App::environment('local')) {
             abort(404);
         }
 
