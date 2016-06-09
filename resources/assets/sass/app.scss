@@ -21,3 +21,55 @@ body {
         background-color: #eee;
     }
 }
+
+.media.friend {
+    border: 1px solid $gray-lighter;
+    border-radius: $border-radius-base;
+    margin: 10px 0;
+
+    .media-left {
+        background-color: $gray-lighter;
+        padding: 10px;
+        text-align: center;
+
+        .media-object {
+            vertical-align: middle;
+        }
+    }
+}
+
+.Friends {
+    margin-bottom: 20px;
+}
+
+.Friend {
+    border: 1px solid $gray-lighter;
+    border-radius: $border-radius-base;
+    display: block;
+    margin: 5px 0;
+}
+
+.Friend__Avatar {
+    background-color: $gray-lighter;
+    float: left;
+    padding: 10px;
+    text-align: center;
+    width: 25%;
+}
+
+.Friend__Body {
+    float: left;
+    padding: 10px;
+    width: 75%;
+
+    h4 {
+        font-size: 16px;
+    }
+}
+
+.Friend__Actions {
+    .btn-danger.btn-inverse {
+        background-color: $btn-default-bg;
+        color: $brand-danger;
+    }
+}

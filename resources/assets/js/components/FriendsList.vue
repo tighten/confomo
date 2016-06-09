@@ -2,23 +2,20 @@
     <!-- Friend Listing -->
     <h2>{{ descriptor }} Friends</h2>
     <div v-show="list.length > 0">
-        <div class="row" v-for="friend in list">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="pull-left" style="padding-top: 6px;">
-                            @{{ friend.username }}
-                        </div>
+        <div class="row Friends">
+            <div class="col-xs-12 col-sm-6 col-md-4" v-for="friend in list">
+                <div class="Friend clearfix">
+                    <div class="Friend__Avatar">
+                        <img v-if="friend.avatar" v-bind:src="'/' + friend.avatar" class="img-circle" width="60" />
+                    </div>
+                    <div class="Friend__Body">
+                        <h4>@{{ friend.username }}</h4>
 
-                        <div class="pull-right">
-                            <button class="btn btn-danger btn-xs" style="font-size: 16px; margin-right: 10px;"
-                                @click="deleteFriend(friend)">
-
-                                <i class="fa fa-times"></i>
+                        <div class="Friend__Actions">
+                            <button class="btn btn-danger btn-inverse btn-xs" @click="deleteFriend(friend)">
+                                Delete
                             </button>
                         </div>
-
-                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
@@ -110,12 +107,11 @@
                 this.addFriendForm.adding = true;
 
                 this.$http.post('/api/conferences/' + this.conferenceId + '/' + this.key, this.addFriendForm)
-                    .success(function (friend) {
+                    .success(friend => {
                         this.addFriendForm.username = '';
                         this.addFriendForm.adding = false;
                         this.list.push(friend);
-                    })
-                    .error(function (errors) {
+                    }, errors => {
                         setErrorsOnForm(this.addFriendForm, errors);
                         this.addFriendForm.adding = false;
                     });
@@ -129,9 +125,9 @@
                     text: 'This will delete @' + friend.username + ' from your list of friends',
                     type: 'warning',
                     showCancelButton: true
-                }, function () {
+                }, () => {
                     vm.$http.delete('/api/conferences/' + vm.conferenceId + '/' + vm.key + '/' + friend.id)
-                        .then(function () {
+                        .then(() => {
                             vm.list.$remove(friend)
                         });
                 });
