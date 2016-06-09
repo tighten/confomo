@@ -19,6 +19,8 @@ class Conference extends Model
 
         $this->newFriends()->save($friend);
 
+        $friend->fetchAvatar();
+
         return $friend;
     }
 
@@ -31,10 +33,13 @@ class Conference extends Model
     {
         $friend = new Friend([
             'username' => $username,
-            'type' => 'online'
+            'type' => 'online',
+            'met' => false
         ]);
 
         $this->onlineFriends()->save($friend);
+
+        $friend->fetchAvatar();
 
         return $friend;
     }
