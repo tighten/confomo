@@ -22,18 +22,18 @@ body {
     }
 }
 
-.Friends {
+.friends {
     margin-bottom: 20px;
 }
 
-.Friend {
+.friend {
     border: 1px solid $gray-lighter;
     border-radius: $border-radius-base;
     display: block;
     margin: 5px 0;
 }
 
-.Friend__Avatar {
+.friend__avatar {
     background-color: $gray-lighter;
     float: left;
     padding: 10px;
@@ -41,7 +41,7 @@ body {
     width: 25%;
 }
 
-.Friend__Body {
+.friend__body {
     float: left;
     padding: 10px;
     width: 75%;

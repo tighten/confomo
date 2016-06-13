@@ -2,16 +2,16 @@
     <!-- Friend Listing -->
     <h2>{{ descriptor }} Friends</h2>
     <div v-show="list.length > 0">
-        <div class="row Friends">
+        <div class="row friends">
             <div class="col-xs-12 col-sm-6 col-md-4" v-for="friend in list">
-                <div class="Friend clearfix">
-                    <div class="Friend__Avatar">
+                <div class="friend clearfix">
+                    <div class="friend__avatar">
                         <img v-bind:src="friend.avatar_url" class="img-circle" width="60" />
                     </div>
-                    <div class="Friend__Body">
+                    <div class="friend__body">
                         <h4>@{{ friend.username }}</h4>
 
-                        <div class="Friend__Actions">
+                        <div class="friend__actions">
                             <button class="btn btn-danger btn-inverse btn-xs" @click="deleteFriend(friend)">Delete</button>
 
                             <button v-if="key == 'online-friends'"
