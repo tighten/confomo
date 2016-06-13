@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Events\FriendWasSaved;
+use App\Events\FriendWasAdded;
 use Illuminate\Database\Eloquent\Model;
 
 class Conference extends Model
@@ -20,7 +20,7 @@ class Conference extends Model
 
         $this->newFriends()->save($friend);
 
-        event(new FriendWasSaved($friend));
+        event(new FriendWasAdded($friend));
 
         return $friend;
     }
@@ -40,7 +40,7 @@ class Conference extends Model
 
         $this->onlineFriends()->save($friend);
 
-        event(new FriendWasSaved($friend));
+        event(new FriendWasAdded($friend));
 
         return $friend;
     }

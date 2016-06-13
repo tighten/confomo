@@ -7,7 +7,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Friend;
 
-class FriendWasSaved extends Event
+class FriendWasAdded extends Event
 {
     use SerializesModels;
 
