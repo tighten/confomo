@@ -17,7 +17,7 @@ class FetchTwitterAvatarsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'twitter:fetch-avatars {--only-missing : Fetch only avatars that are missing}';
+    protected $signature = 'twitter:fetch-avatars {--sync-all : Fetch avatars for all friends}';
 
     /**
      * The console command description.
@@ -46,8 +46,7 @@ class FetchTwitterAvatarsCommand extends Command
     }
 
     /**
-     * Sort distinct Friend usernames, fetching any avatars we don't already
-     * have cached first, then followed by any others that we are syncing.
+     * Execute the console command.
      *
      * @return void
      */
@@ -55,12 +54,9 @@ class FetchTwitterAvatarsCommand extends Command
     {
         $friends = Friend::select('username')->distinct()->get();
 
-        if ($this->option('only-missing')) {
+        if (! $this->option('sync-all')) {
+            // Fetch only the avatars that are missing from disk
             $friends = $friends->filter(function ($friend) {
-                return ! file_exists(public_path($friend->avatar));
-            });
-        } else {
-            $friends = $friends->sortByDesc(function ($friend) {
                 return ! file_exists(public_path($friend->avatar));
             });
         }
