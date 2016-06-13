@@ -12,6 +12,14 @@ abstract class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    /**
+     * Return a file response.
+     *
+     * @param  string  $path
+     * @param  array  $headers
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function fileResponse($path, $headers = [])
     {
         return new BinaryFileResponse($path, 200, $headers);

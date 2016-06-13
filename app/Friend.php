@@ -10,9 +10,7 @@ class Friend extends Model
 {
     protected $fillable = ['username', 'avatar', 'type', 'met'];
     protected $appends = ['avatar_url'];
-    protected $casts = [
-        'met' => 'boolean',
-    ];
+    protected $casts = ['met' => 'boolean'];
 
     public function getAvatarAttribute()
     {
