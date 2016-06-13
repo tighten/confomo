@@ -27,10 +27,8 @@ class AvatarController extends Controller
         return $this->fileResponse($avatar_path, ['Content-type' => $mimeType]);
     }
 
-
     private function defaultAvatarResponse()
     {
         return $this->fileResponse(public_path('assets/img/default_avatar.png'), ['Content-type' => 'image/png']);
     }
-
 }
