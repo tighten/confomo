@@ -16,7 +16,6 @@ class CreateFriendsTable extends Migration
             $table->increments('id');
             $table->integer('conference_id')->unsigned();
             $table->string('username');
-            $table->string('avatar')->nullable()->default(null);
             $table->string('type');
             $table->boolean('met')->default(false);
             $table->timestamps();
