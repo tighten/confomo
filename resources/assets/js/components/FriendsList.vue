@@ -6,7 +6,7 @@
             <div class="col-xs-12 col-sm-6 col-md-4" v-for="friend in list">
                 <div class="friend clearfix">
                     <div class="friend__avatar">
-                        <img v-bind:src="friend.avatar_url" class="img-circle" width="60" />
+                        <img v-bind:src="friend.avatar_url" class="img-circle" height="60" />
                     </div>
                     <div class="friend__body">
                         <h4>@{{ friend.username }}</h4>
