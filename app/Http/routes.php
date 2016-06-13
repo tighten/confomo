@@ -34,3 +34,4 @@ Route::get('local-login', 'Auth\AuthController@localLogin');
 Route::get('auth', 'Auth\AuthController@authenticate');
 Route::get('auth/callback', 'Auth\AuthController@handleTwitterCallback');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
+Route::get('avatar/{username}', 'AvatarController@show');
