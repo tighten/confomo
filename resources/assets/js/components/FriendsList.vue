@@ -14,13 +14,10 @@
                         <div class="friend__actions">
                             <button class="btn btn-danger btn-inverse btn-xs" @click="deleteFriend(friend)">Delete</button>
 
-                            <button v-if="key == 'online-friends'"
-                                    @click="metFriend(friend)"
-                                    :class="['btn', 'btn-inverse', 'btn-xs', friend.met ? 'btn-success' : 'btn-primary']"
-                            >
-                                <span v-if="friend.met">You've met!</span>
-                                <span v-else>Mark as met</span>
-                            </button>
+                            <span v-if="key == 'online-friends'">
+                                <button v-if="friend.met" @click="markFriendNotMet(friend)" class="btn btn-inverse btn-xs btn-success" >You've met!</button>
+                                <button v-else @click="markFriendMet(friend)" class="btn btn-inverse btn-xs btn-primary">Mark as met</button>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -135,9 +132,17 @@
                 });
             },
 
-            metFriend: function (friend) {
-                this.$http.patch('/api/conferences/' + this.conferenceId + '/' + this.key + '/' + friend.id, { met: ! friend.met })
-                    .then(() => { friend.met = ! friend.met; });
+            markFriendMet: function (friend) {
+                this.toggleFriendMet(friend, true);
+            },
+
+            markFriendNotMet: function (friend) {
+                this.toggleFriendMet(friend, false);
+            },
+
+            toggleFriendMet: function (friend, met) {
+                this.$http.patch('/api/conferences/' + this.conferenceId + '/' + this.key + '/' + friend.id, { met: met })
+                    .then(() => { friend.met = met; });
             },
         }
     }
