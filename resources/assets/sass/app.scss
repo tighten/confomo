@@ -1,5 +1,7 @@
 $font-family-sans-serif: 'Lato';
 $navbar-height: 65px;
+$navbar-default-bg: #fff;
+$navbar-padding-vertical: 8.5px;
 
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/sweetalert/dist/sweetalert";

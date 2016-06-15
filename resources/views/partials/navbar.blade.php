@@ -12,7 +12,7 @@
 
             <!-- Branding -->
             <a class="navbar-brand" href="/">
-                <strong style="font-size: 1.25em;">CONFOMO</strong> |  Never miss out on new friends
+                <img src="{{ asset('assets/img/confomo-logo.png') }}" alt="ConFOMO | Never miss out on new friends" height="45" />
             </a>
         </div>
 
