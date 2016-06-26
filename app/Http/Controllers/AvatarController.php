@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Friend;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
-use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AvatarController extends Controller
 {
