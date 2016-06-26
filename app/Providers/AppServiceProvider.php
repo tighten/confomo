@@ -26,10 +26,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(TwitterOAuth::class, function () {
             return new TwitterOAuth(
-                config('confomo.twitter.consumer_key'),
-                config('confomo.twitter.consumer_secret'),
-                config('confomo.twitter.access_token'),
-                config('confomo.twitter.access_secret')
+                config('services.twitter.consumer_key'),
+                config('services.twitter.consumer_secret'),
+                config('services.twitter.access_token'),
+                config('services.twitter.access_secret')
             );
         });
     }
