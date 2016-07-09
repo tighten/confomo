@@ -1,5 +1,7 @@
 $font-family-sans-serif: 'Lato';
 $navbar-height: 65px;
+$navbar-default-bg: #fff;
+$navbar-padding-vertical: 3px;
 
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/sweetalert/dist/sweetalert";
@@ -20,4 +22,49 @@ body {
     &:hover {
         background-color: #eee;
     }
+}
+
+.friends {
+    margin-bottom: 20px;
+}
+
+.friend {
+    border: 1px solid $gray-lighter;
+    border-radius: $border-radius-base;
+    display: block;
+    margin: 5px 0;
+}
+
+.friend__avatar {
+    background-color: $gray-lighter;
+    float: left;
+    padding: 10px;
+    text-align: center;
+    width: 25%;
+}
+
+.friend__body {
+    float: left;
+    padding: 10px;
+    width: 75%;
+
+    h4 {
+        margin-top: 5px;
+        font-size: 16px;
+    }
+}
+
+.btn-danger.btn-inverse {
+    background-color: $btn-default-bg;
+    color: $brand-danger;
+}
+
+.btn-primary.btn-inverse {
+    background-color: $btn-default-bg;
+    color: $brand-primary;
+}
+
+.btn-success.btn-inverse {
+    background-color: $btn-default-bg;
+    color: $brand-success;
 }

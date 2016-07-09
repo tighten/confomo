@@ -2,23 +2,23 @@
     <!-- Friend Listing -->
     <h2>{{ descriptor }} Friends</h2>
     <div v-show="list.length > 0">
-        <div class="row" v-for="friend in list">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="pull-left" style="padding-top: 6px;">
-                            @{{ friend.username }}
+        <div class="row friends">
+            <div class="col-xs-12 col-sm-6 col-md-4" v-for="friend in list">
+                <div class="friend clearfix">
+                    <div class="friend__avatar">
+                        <img v-bind:src="friend.avatar_url" class="img-circle" height="60" />
+                    </div>
+                    <div class="friend__body">
+                        <h4>@{{ friend.username }}</h4>
+
+                        <div class="friend__actions">
+                            <button class="btn btn-danger btn-inverse btn-xs" @click="deleteFriend(friend)">Delete</button>
+
+                            <span v-if="key == 'online-friends'">
+                                <button v-if="friend.met" @click="markFriendNotMet(friend)" class="btn btn-inverse btn-xs btn-success" >You've met!</button>
+                                <button v-else @click="markFriendMet(friend)" class="btn btn-inverse btn-xs btn-primary">Mark as met</button>
+                            </span>
                         </div>
-
-                        <div class="pull-right">
-                            <button class="btn btn-danger btn-xs" style="font-size: 16px; margin-right: 10px;"
-                                @click="deleteFriend(friend)">
-
-                                <i class="fa fa-times"></i>
-                            </button>
-                        </div>
-
-                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
@@ -90,9 +90,7 @@
         methods: {
             getAllFriends: function () {
                 this.$http.get('/api/conferences/' + this.conferenceId + '/' + this.key)
-                    .success(function (friends) {
-                        this.list = friends;
-                    });
+                    .then(friends => { this.list = friends.data; });
             },
 
             addFriend: function () {
@@ -110,12 +108,11 @@
                 this.addFriendForm.adding = true;
 
                 this.$http.post('/api/conferences/' + this.conferenceId + '/' + this.key, this.addFriendForm)
-                    .success(function (friend) {
+                    .then(friend => {
                         this.addFriendForm.username = '';
                         this.addFriendForm.adding = false;
-                        this.list.push(friend);
-                    })
-                    .error(function (errors) {
+                        this.list.push(friend.data);
+                    }, errors => {
                         setErrorsOnForm(this.addFriendForm, errors);
                         this.addFriendForm.adding = false;
                     });
@@ -129,12 +126,23 @@
                     text: 'This will delete @' + friend.username + ' from your list of friends',
                     type: 'warning',
                     showCancelButton: true
-                }, function () {
+                }, () => {
                     vm.$http.delete('/api/conferences/' + vm.conferenceId + '/' + vm.key + '/' + friend.id)
-                        .then(function () {
-                            vm.list.$remove(friend)
-                        });
+                        .then(() => { vm.list.$remove(friend) });
                 });
+            },
+
+            markFriendMet: function (friend) {
+                this.toggleFriendMet(friend, true);
+            },
+
+            markFriendNotMet: function (friend) {
+                this.toggleFriendMet(friend, false);
+            },
+
+            toggleFriendMet: function (friend, met) {
+                this.$http.patch('/api/conferences/' + this.conferenceId + '/' + this.key + '/' + friend.id, { met: met })
+                    .then(() => { friend.met = met; });
             },
         }
     }

@@ -14,8 +14,8 @@ class CreateFriendsTable extends Migration
     {
         Schema::create('friends', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username');
             $table->integer('conference_id')->unsigned();
+            $table->string('username');
             $table->string('type');
             $table->boolean('met')->default(false);
             $table->timestamps();

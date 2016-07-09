@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\FriendWasAdded;
 use Illuminate\Database\Eloquent\Model;
 
 class Conference extends Model
@@ -14,10 +15,12 @@ class Conference extends Model
         $friend = new Friend([
             'username' => $username,
             'type' => 'new',
-            'met' => true
+            'met' => true,
         ]);
 
         $this->newFriends()->save($friend);
+
+        event(new FriendWasAdded($friend));
 
         return $friend;
     }
@@ -31,10 +34,13 @@ class Conference extends Model
     {
         $friend = new Friend([
             'username' => $username,
-            'type' => 'online'
+            'type' => 'online',
+            'met' => false,
         ]);
 
         $this->onlineFriends()->save($friend);
+
+        event(new FriendWasAdded($friend));
 
         return $friend;
     }

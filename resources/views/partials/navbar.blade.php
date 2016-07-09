@@ -12,7 +12,7 @@
 
             <!-- Branding -->
             <a class="navbar-brand" href="/">
-                <strong style="font-size: 1.25em;">CONFOMO</strong> |  Never miss out on new friends
+                <img src="{{ asset('assets/img/confomo-logo.png') }}" alt="ConFOMO | Never miss out on new friends" height="55" />
             </a>
         </div>
 
@@ -20,27 +20,21 @@
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 @if (App::environment('local') && Auth::guest())
-                    <a href="/local-login">
-                        <button type="button" class="btn btn-default navbar-btn">
-                            Login Magically
-                        </button>
+                    <a href="/local-login" class="btn btn-default navbar-btn">
+                        Login Magically
                     </a>
                 @endif
                 @if (Auth::guest())
-                    <a href="/auth">
-                        <button type="button" class="btn btn-default navbar-btn">
-                            <i class="fa fa-btn fa-twitter"></i>Login With Twitter
-                        </button>
+                    <a href="/auth" class="btn btn-default navbar-btn">
+                        <i class="fa fa-btn fa-twitter"></i>Login With Twitter
                     </a>
                 @else
                     <span style="margin-right: 5px;">
                         <p class="navbar-text" class="margin-right: 10px;">{{ Auth::user()->name }}</p>
                     </span>
 
-                    <a href="/auth/logout">
-                        <button type="button" class="btn btn-default navbar-btn">
-                            <i class="fa fa-btn fa-sign-out"></i>Logout
-                        </button>
+                    <a href="/auth/logout" class="btn btn-default navbar-btn">
+                        <i class="fa fa-btn fa-sign-out"></i>Logout
                     </a>
                 @endif
             </ul>
