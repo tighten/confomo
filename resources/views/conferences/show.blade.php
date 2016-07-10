@@ -11,7 +11,7 @@
 
             @if (auth()->user()->owns($conference))
                 /
-                <a href="{{ $conference->introduction_url }}" target="_blank" title="Your public introduction URL">
+                <a href="{{ url('conferences/' . $conference->id . '/introduce') }}" target="_blank" title="Your public introduction URL">
                     Public Introduction URL
                 </a>
             @endif
