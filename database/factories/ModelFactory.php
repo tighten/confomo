@@ -14,7 +14,7 @@
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'twitter_id' => $faker->randomNumber
+        'twitter_id' => $faker->randomNumber,
     ];
 });
 
@@ -22,7 +22,7 @@ $factory->define(App\Conference::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->sentence,
         'start_date' => $faker->date(),
-        'end_date' => $faker->date()
+        'end_date' => $faker->date(),
     ];
 });
 
@@ -30,6 +30,6 @@ $factory->define(App\Friend::class, function (Faker\Generator $faker) {
     return [
         'username' => $faker->word,
         'type' => 'new',
-        'met' => false
+        'met' => false,
     ];
 });

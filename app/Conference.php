@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace app;
 
 use App\Events\FriendWasAdded;
 use Carbon\Carbon;
@@ -78,5 +78,4 @@ class Conference extends Model
 
         return $this->end_date->lt(Carbon::now());
     }
-
 }

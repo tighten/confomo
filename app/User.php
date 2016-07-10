@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace app;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -53,5 +53,4 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->conferences()->save(new Conference($conference));
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace app;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,7 +9,7 @@ trait OwnsModels
     /**
      * Determine if this model owns the given model.
      *
-     * @param  Model  $model
+     * @param Model $model
      *
      * @return bool
      */

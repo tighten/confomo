@@ -1,14 +1,12 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class AddDatesToConferences extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -20,13 +18,11 @@ class AddDatesToConferences extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
         Schema::table('conferences', function (Blueprint $table) {
-            $table->dropColumn([ 'start_date', 'end_date' ]);
+            $table->dropColumn(['start_date', 'end_date']);
         });
     }
 }
