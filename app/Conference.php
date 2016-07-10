@@ -1,6 +1,6 @@
 <?php
 
-namespace app;
+namespace App;
 
 use App\Events\FriendWasAdded;
 use Carbon\Carbon;
