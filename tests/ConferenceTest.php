@@ -105,4 +105,48 @@ class ConferenceTest extends TestCase
 
         $this->seeStatusCode(404);
     }
+
+
+    public function test_it_identifies_an_upcoming_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'user_id' => $user->id,
+            'start_date' => date('Y-m-d', strtotime('+2 day')),
+            'end_date' => date('Y-m-d', strtotime('+2 day')),
+        ]);
+
+        $this->assertTrue($conference->isUpcoming());
+        $this->assertFalse($conference->isInProgress());
+        $this->assertFalse($conference->isFinished());
+    }
+
+
+    public function test_it_identifies_an_in_progress_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'user_id' => $user->id,
+            'start_date' => date('Y-m-d', strtotime('-1 day')),
+            'end_date' => date('Y-m-d', strtotime('+1 day')),
+        ]);
+
+        $this->assertFalse($conference->isUpcoming());
+        $this->assertTrue($conference->isInProgress());
+        $this->assertFalse($conference->isFinished());
+    }
+
+
+    public function test_it_identifies_a_finished_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'user_id' => $user->id,
+            'end_date' => date('Y-m-d', strtotime('-1 day')),
+        ]);
+
+        $this->assertFalse($conference->isUpcoming());
+        $this->assertFalse($conference->isInProgress());
+        $this->assertTrue($conference->isFinished());
+    }
 }

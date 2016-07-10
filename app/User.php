@@ -14,7 +14,7 @@ class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword;
+    use Authenticatable, Authorizable, CanResetPassword, OwnsModels;
 
     /**
      * The database table used by the model.
@@ -53,4 +53,5 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->conferences()->save(new Conference($conference));
     }
+
 }

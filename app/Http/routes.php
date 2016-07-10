@@ -35,3 +35,4 @@ Route::get('auth', 'Auth\AuthController@authenticate');
 Route::get('auth/callback', 'Auth\AuthController@handleTwitterCallback');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('avatar/{username}', 'AvatarController@show');
+Route::get('conferences/{conference}/introduce', 'ConferenceIntroductionController@index');
