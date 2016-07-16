@@ -8,9 +8,9 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 
 class Friend extends Model
 {
-    protected $fillable = ['username', 'avatar', 'type', 'met'];
+    protected $fillable = ['username', 'avatar', 'type', 'met', 'introduction'];
     protected $appends = ['avatar_url'];
-    protected $casts = ['met' => 'boolean'];
+    protected $casts = ['met' => 'boolean', 'introduction' => 'boolean'];
 
     protected static function boot()
     {
