@@ -12,6 +12,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('conferences/{conference}', 'ConferencesController@show');
 });
 
+Route::post('api/conferences/{conference}/introduction', 'ConferenceIntroductionController@store');
 Route::group(['prefix' => 'api', 'namespace' => 'API', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'conferences'], function () {
         Route::get('/', 'ConferencesController@index');
