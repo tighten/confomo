@@ -144,4 +144,63 @@ class ConferenceTest extends TestCase
         $this->assertFalse($conference->isInProgress());
         $this->assertTrue($conference->isFinished());
     }
+
+    public function test_it_introduces_a_new_online_friend()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'user_id' => $user->id,
+            'start_date' => date('Y-m-d', strtotime('+1 day')),
+        ]);
+
+        $conference->makeIntroduction('michaeldyrynda');
+
+        $this->seeInDatabase('friends', [
+            'conference_id' => $conference->id,
+            'username' => 'michaeldyrynda',
+            'type' => 'online',
+            'met' => false,
+            'introduction' => true,
+        ]);
+    }
+
+    public function test_it_introduces_a_new_met_friend_during_a_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'user_id' => $user->id,
+            'start_date' => date('Y-m-d', strtotime('-1 day')),
+            'end_date' => date('Y-m-d', strtotime('+1 day')),
+        ]);
+
+        $conference->makeIntroduction('michaeldyrynda');
+
+        $this->seeInDatabase('friends', [
+            'conference_id' => $conference->id,
+            'username' => 'michaeldyrynda',
+            'type' => 'new',
+            'met' => true,
+            'introduction' => true,
+        ]);
+    }
+
+    public function test_it_introduces_a_new_met_friend_after_a_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'user_id' => $user->id,
+            'start_date' => date('Y-m-d', strtotime('-2 day')),
+            'end_date' => date('Y-m-d', strtotime('-1 day')),
+        ]);
+
+        $conference->makeIntroduction('michaeldyrynda');
+
+        $this->seeInDatabase('friends', [
+            'conference_id' => $conference->id,
+            'username' => 'michaeldyrynda',
+            'type' => 'new',
+            'met' => true,
+            'introduction' => true,
+        ]);
+    }
 }
