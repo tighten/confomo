@@ -18,6 +18,8 @@
                                 <button v-if="friend.met" @click="markFriendNotMet(friend)" class="btn btn-inverse btn-xs btn-success" >You've met!</button>
                                 <button v-else @click="markFriendMet(friend)" class="btn btn-inverse btn-xs btn-primary">Mark as met</button>
                             </span>
+
+                            <span v-if="friend.introduction" class="label label-warning">Introduced</span>
                         </div>
                     </div>
                 </div>
