@@ -1,15 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="confomo-app" class="container">
+    <div id="confomo-app" class="container" v-cloak>
+        <script>
+            Confomo.conferenceId = {{ $conference->id }};
+        </script>
         <h1>
+            {{ $conference->user->name }}
+
             @if($conference->isUpcoming())
-                I'm going to be at {{ $conference->name }}. Would you like to meet?
+                is going to {{ $conference->name }}. Would you like to meet?
             @elseif($conference->isInProgress())
-                I'm at {{ $conference->name }}. Have we met?
+                is at {{ $conference->name }}. Have you met?
             @elseif($conference->isFinished())
-                I went to {{ $conference->name }}. Did we meet?
+                went to {{ $conference->name }}. Did you meet?
             @endif
         </h1>
+
+        @if (auth()->check())
+            <a href="/dashboard">&lt;- Back to dashboard</a>
+        @endif
+
+        <conference-introduction></conference-introduction>
     </div>
 @endsection
