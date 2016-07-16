@@ -12,6 +12,11 @@ class Conference extends Model
     protected $casts = ['user_id' => 'integer'];
     protected $dates = ['start_date', 'end_date'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function meetNewFriend($username)
     {
         $friend = new Friend([
@@ -50,6 +55,24 @@ class Conference extends Model
     public function onlineFriends()
     {
         return $this->hasMany(Friend::class)->where('type', 'online');
+    }
+
+    public function makeIntroduction($username)
+    {
+        $friend = new Friend([
+            'username' => $username,
+            'type' => $this->isUpcoming() ? 'online' : 'new',
+            'introduction' => true,
+            'met' => ! $this->isUpcoming(),
+        ]);
+
+        $relationship = $this->isUpcoming() ? 'onlineFriends' : 'newFriends';
+
+        $this->$relationship()->save($friend);
+
+        event(new FriendWasAdded($friend));
+
+        return $friend;
     }
 
     public function isUpcoming()
