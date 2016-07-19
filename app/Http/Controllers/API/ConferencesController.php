@@ -11,15 +11,12 @@ class ConferencesController extends Controller
 {
     public function store(Request $request)
     {
+        // @todo: We need a datepicker or something. this is awful
         $this->validate($request, [
             'name' => 'required',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'start_date' => 'required|date_format:Y-m-j',
+            'end_date' => 'required|date_format:Y-m-j|after:start-date',
         ]);
-
-
-        // Note: Placeholders show YYYY-mm-dd, but Chrome/etc. will localize.
-        // Hopefully Carbon can always handle the diffs. Bears investigation.
 
         return Auth::user()->addConference([
             'name' => $request->input('name'),

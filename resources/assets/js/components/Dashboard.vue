@@ -42,7 +42,7 @@
                                 <label class="col-md-3 control-label">Start Date</label>
 
                                 <div class="col-md-6">
-                                    <input type="date" class="form-control" name="start_date" v-model="addConferenceForm.start_date" placeholder="2016-01-29">
+                                    <input type="text" class="form-control" name="start_date" v-model="addConferenceForm.start_date" placeholder="2016-1-9">
                                 </div>
                             </div>
 
@@ -50,7 +50,7 @@
                                 <label class="col-md-3 control-label">End Date</label>
 
                                 <div class="col-md-6">
-                                    <input type="date" class="form-control" name="end_date" v-model="addConferenceForm.end_date" placeholder="2016-01-30">
+                                    <input type="text" class="form-control" name="end_date" v-model="addConferenceForm.end_date" placeholder="2016-1-30">
                                 </div>
                             </div>
 
