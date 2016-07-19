@@ -1,6 +1,4 @@
-[![Build Status](https://scrutinizer-ci.com/g/mattstauffer/confomo/badges/build.png?b=master)](https://scrutinizer-ci.com/g/mattstauffer/confomo/build-status/master)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mattstauffer/confomo/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mattstauffer/confomo/)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/df3eca98-9f22-47c5-a5d4-361d2eea96cd/mini.png)](https://insight.sensiolabs.com/projects/df3eca98-9f22-47c5-a5d4-361d2eea96cd)
+[ ![Codeship Status for mattstauffer/confomo](https://codeship.com/projects/5f3d86b0-1335-0134-c5b2-1e1a7920036c/status?branch=master)](https://codeship.com/projects/157478)
 
 ## Confomo
 ### Connecting your online community with the real world, one conference at a time.

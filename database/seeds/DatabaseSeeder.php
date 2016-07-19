@@ -1,10 +1,17 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
+    private $faker;
+
+    public function __construct(Faker\Generator $faker)
+    {
+        $this->faker = $faker;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -12,9 +19,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Eloquent::unguard();
+        Model::unguard();
 
-        $this->call('FriendsTableSeeder');
+        DB::table('users')->insert([
+            'name' => $this->faker->name,
+            'twitter_id' => str_random(10),
+        ]);
+
+        Model::reguard();
     }
-
 }

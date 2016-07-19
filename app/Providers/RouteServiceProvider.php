@@ -1,15 +1,14 @@
-<?php namespace Confomo\Providers;
+<?php
 
-use Confomo\Entities\Conference;
-use Illuminate\Routing\Router;
+namespace App\Providers;
+
+use App\Conference;
+use App\Friend;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\MessageBag;
-use Redirect;
+use Illuminate\Routing\Router;
 
 class RouteServiceProvider extends ServiceProvider
 {
-
     /**
      * This namespace is applied to the controller routes in your routes file.
      *
@@ -17,40 +16,32 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Confomo\Http\Controllers';
+    protected $namespace = 'App\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-     * @param  \Illuminate\Routing\Router $router
+     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
     public function boot(Router $router)
     {
         parent::boot($router);
 
-        $router->filter('authConf', function ($route, $request) {
-            $conference_id = $route->getParameter('conference_id');
-            $conference = Conference::find($conference_id);
-
-            if (! $conference || ! Auth::user() || $conference->user_id != Auth::user()->id) {
-                $messages = new MessageBag;
-                $messages->add('Validation Error', 'Conference does not exist or you do not have access to that conference.');
-                return Redirect::back()
-                    ->withErrors($messages)
-                    ->withInput();
-            }
-        });
+        $router->model('conference', Conference::class);
+        $router->model('friend', Friend::class);
     }
 
     /**
      * Define the routes for the application.
      *
+     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    public function map()
+    public function map(Router $router)
     {
-        $this->loadRoutesFrom(app_path('Http/routes.php'));
+        $router->group(['namespace' => $this->namespace], function ($router) {
+            require app_path('Http/routes.php');
+        });
     }
-
 }

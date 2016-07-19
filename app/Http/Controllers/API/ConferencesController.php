@@ -1,121 +1,34 @@
-<?php namespace Confomo\Http\Controllers\API;
+<?php
 
-use App;
-use Auth;
+namespace App\Http\Controllers\API;
 
-class ConferencesController extends \Confomo\Http\Controllers\BaseController
+use App\Conference;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class ConferencesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+    public function store(Request $request)
+    {
+        return Auth::user()->addConference([
+            'name' => $request->input('name'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+        ]);
+    }
+
     public function index()
     {
-        return Auth::user()->conferences;
+        return Auth::user()->conferences()->get();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function delete(Conference $conference)
     {
-        App::abort(404);
+        if ($conference->user_id !== Auth::user()->id) {
+            abort(404);
+        }
+
+        $conference->delete();
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        /*
-            $friend = new Friend($_POST);
-            $friend->user_id = Auth::user()->id;
-            $friend->save();
-
-            // Annoyingly necessary in order to return *all* fields
-            return Friend::find($friend->id);
-            */
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        /*
-            try {
-                return Friend
-                    ::where('user_id', Auth::user()->id)
-                    ->where('id', $id)
-                    ->firstOrFail();
-            } catch (Exception $e) {
-                App::abort(404);
-            }
-            */
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        App::abort(404);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @todo  Clean up the unset() to be a little less hackable
-     * @param  int $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        /*
-            $item = Input::all();
-            unset($item['id']);
-            unset($item['user_id']);
-
-            try {
-                $friend = Friend
-                    ::where('user_id', Auth::user()->id)
-                    ->where('id', $id)
-                    ->firstOrFail();
-            } catch (Exception $e) {
-                App::abort(404);
-            }
-
-            $friend->fill($item);
-
-            $friend->save();
-            */
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        /*
-            Friend
-                ::where('user_id', Auth::user()->id)
-                ->where('id', $id)
-                ->delete();
-            */
-    }
-
 }

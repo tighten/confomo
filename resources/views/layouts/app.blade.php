@@ -1,28 +1,42 @@
-@include('layouts.header')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<div class="nav clearfix">
-    @if (Auth::check()) {{ Html::linkRoute('conferences.index', 'Conferences') }} |
-    {{ Html::linkRoute('account', 'Account') }} |
-    {{ Html::linkRoute('logout', 'Logout (' . Auth::user()->email . ')', [], ['class' => 'logout-link']) }}
-    @endif
-</div>
-<br style="clear: both;">
+    <title>Confomo</title>
 
+    <!-- Fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
 
-@if (Session::has('flash_notice'))
-    <div class="flash_notice">{{ Session::get('flash_notice') }}</div>
-@endif
-@if ($errors->any())
-    <h3>Errors:</h3>
-    <ul class="errors">
-        @foreach ($errors->all() as $message)
-            <li>{{ $message }}</li>
-        @endforeach
-    </ul>
-@endif
+    <!-- Styles -->
+    <link href="/css/app.css" rel="stylesheet">
 
-@yield('content')
+    <!-- JavaScript Globals -->
+    <script>
+        window.Confomo = {
+            userId: {{ Auth::check() ? Auth::id() : 'null' }},
+            csrfToken: '{{ csrf_token() }}'
+        }
+    </script>
 
-</div>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <!-- Navigation -->
+    @include('partials.navbar')
 
-@include('layouts.footer', ['context' => 'app'])
+    <!-- Main Content -->
+    @yield('content')
+
+    <!-- JavaScript Application -->
+    <script src="/js/app.js"></script>
+</body>
+</html>

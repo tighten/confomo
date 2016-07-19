@@ -1,0 +1,18 @@
+
+
+Features
+- Mark a new Friend as met
+- Mark an old Friend as to-meet
+- Suggest a new Friend to mark as met
+- Suggest an old friend to mark as to-meet
+
+Scenarios
+- Given that I am at a conference
+  When I meet a new friend
+  Then that person is marked as met 
+- Given that I am at a conference
+  When I meet an online friend
+  Then that person is marked as met
+- Given that I'm preparing to attend a conference
+  When I want to meet an online friend
+  Then that person is added to my list of friends to meet

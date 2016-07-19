@@ -1,47 +1,39 @@
 <?php
-/* API */
-Route::group(['before' => 'auth', 'prefix' => 'api'], function () {
-    Route::group(['prefix' => 'conferences/{conference_id}', 'before' => 'authConf'], function ($conference_id) {
-        Route::resource('friends', 'API\FriendsController');
+
+Route::get('/', ['middleware' => 'guest', function () {
+    return view('home');
+}]);
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('dashboard', function () {
+        return view('dashboard');
+    });
+
+    Route::get('conferences/{conference}', 'ConferencesController@show');
+});
+
+Route::post('api/conferences/{conference}/introduction', 'ConferenceIntroductionController@store');
+Route::group(['prefix' => 'api', 'namespace' => 'API', 'middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'conferences'], function () {
+        Route::get('/', 'ConferencesController@index');
+        Route::post('/', 'ConferencesController@store');
+        Route::delete('{conference}', 'ConferencesController@delete');
+
+        Route::get('{conference}/new-friends', 'ConferenceNewFriendsController@index');
+        Route::post('{conference}/new-friends', 'ConferenceNewFriendsController@store');
+        Route::delete('{conference}/new-friends/{friend}', 'ConferenceNewFriendsController@delete');
+
+        Route::get('{conference}/online-friends', 'ConferenceOnlineFriendsController@index');
+        Route::get('{conference}/online-friends/{friend}', 'ConferenceOnlineFriendsController@show');
+        Route::post('{conference}/online-friends', 'ConferenceOnlineFriendsController@store');
+        Route::patch('{conference}/online-friends/{friend}', 'ConferenceOnlineFriendsController@update');
+        Route::delete('{conference}/online-friends/{friend}', 'ConferenceOnlineFriendsController@delete');
     });
 });
 
-/* USER */
-Route::get('login', ['as' => 'login', 'before' => 'guest', 'uses' => 'UsersController@login']);
-
-Route::post('login', ['before' => 'guest', 'uses' => 'UsersController@postLogin']);
-
-Route::get('logout', ['as' => 'logout', 'uses' => 'UsersController@logout']);
-
-Route::get('account', ['as' => 'account', 'before' => 'auth', 'uses' => 'UsersController@account']);
-
-Route::post('account', ['as' => 'update_account', 'before' => 'auth', 'uses' => 'UsersController@postAccount']);
-
-Route::get('signup', ['as' => 'signup', 'before' => 'guest', 'uses' => 'UsersController@signup']);
-
-Route::post('signup', ['before' => 'guest', 'uses' => 'UsersController@postSignup']);
-
-/* APP */
-Route::get('/', ['as' => 'home', 'before' => 'auth', function () {
-    return Redirect::to('conferences');
-}]);
-
-/** Conferences */
-Route::group(['prefix' => 'conferences', 'middleware' => 'auth'], function () {
-    Route::get('/', ['as' => 'conferences.index', 'uses' => 'ConferencesController@index']);
-
-    Route::get('add', ['as' => 'conferences.create', 'uses' => 'ConferencesController@create']);
-
-    Route::post('add', ['as' => 'conference.store', 'uses' => 'ConferencesController@store']);
-
-    Route::get('{conference_id}', ['as' => 'conferences.show', 'before' => 'authConf', 'uses' => 'ConferencesController@show']);
-
-    Route::get('{conference_id}/edit', ['as' => 'conferences.edit', 'before' => 'authConf', 'uses' => 'ConferencesController@edit']);
-
-    Route::post('{conference_id}/edit', ['as' => 'conferences.update', 'before' => 'authConf', 'uses' => 'ConferencesController@update']);
-});
-
-/** Public view */
-Route::post("users/{user_slug}/conferences/{conference_id}/friends/suggested", 'PublicUsersController@suggested');
-
-Route::get('users/{user_slug}/conferences/{conference_id}', 'PublicUsersController@show');
+Route::get('local-login', 'Auth\AuthController@localLogin');
+Route::get('auth', 'Auth\AuthController@authenticate');
+Route::get('auth/callback', 'Auth\AuthController@handleTwitterCallback');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+Route::get('avatar/{username}', 'AvatarController@show');
+Route::get('conferences/{conference}/introduce', 'ConferenceIntroductionController@index');
