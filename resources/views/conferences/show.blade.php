@@ -14,7 +14,7 @@
         <a href="/dashboard">&lt;- Back to dashboard</a>
 
         @if (auth()->user()->owns($conference))
-            <a href="{{ url('conferences/' . $conference->id . '/introduce') }}" title="Your public introduction URL" style="float: right">
+            <a href="{{ url('conferences/' . $conference->slug . '/introduce') }}" title="Your public introduction URL" style="float: right">
                 Public Introduction URL
             </a>
         @endif

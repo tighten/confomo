@@ -70,7 +70,7 @@
                 this.addIntroductionForm.errors = [];
                 this.addIntroductionForm.adding = true;
 
-                this.$http.post('/api/conferences/' + Confomo.conferenceId + '/introduction', this.addIntroductionForm)
+                this.$http.post('/api/conferences/' + Confomo.conferenceSlug + '/introduction', this.addIntroductionForm)
                     .then(friend => {
                         swal('Success', 'Your introduction has been sent!', 'success');
 

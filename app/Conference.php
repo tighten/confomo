@@ -8,9 +8,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conference extends Model
 {
-    protected $fillable = ['name', 'start_date', 'end_date'];
+    protected $fillable = ['name', 'start_date', 'end_date', 'slug'];
     protected $casts = ['user_id' => 'integer'];
     protected $dates = ['start_date', 'end_date'];
+
+    public function save(array $options = [])
+    {
+        if ($this->slug === null) {
+            return $this->saveWithNewSlug($options);
+        }
+
+        return parent::save($options);
+    }
+
+    private function saveWithNewSlug(array $options = [])
+    {
+        return retry(5, function () use ($options) {
+            $this->regenerateSlug();
+            return parent::save($options);
+        });
+    }
+
+    private function regenerateSlug()
+    {
+        $this->slug = str_random(16);
+    }
 
     public function user()
     {
