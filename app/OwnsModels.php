@@ -15,6 +15,6 @@ trait OwnsModels
      */
     public function owns(Model $model)
     {
-        return $this->id == $model->{$this->getForeignKey()};
+        return $this->id === $model->{$this->getForeignKey()};
     }
 }
