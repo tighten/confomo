@@ -123,8 +123,8 @@
                         this.addFriendForm.username = '';
                         this.addFriendForm.adding = false;
                         this.list.push(friend.data);
-                    }, errors => {
-                        setErrorsOnForm(this.addFriendForm, errors);
+                    }, response => {
+                        this.setErrorsOnForm(this.addFriendForm, response.data);
                         this.addFriendForm.adding = false;
                     });
             },

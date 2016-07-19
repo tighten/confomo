@@ -42,7 +42,7 @@
                                 <label class="col-md-3 control-label">Start Date</label>
 
                                 <div class="col-md-6">
-                                    <input type="date" class="form-control" name="start_date" v-model="addConferenceForm.start_date">
+                                    <input type="date" class="form-control" name="start_date" v-model="addConferenceForm.start_date" placeholder="2016-01-29">
                                 </div>
                             </div>
 
@@ -50,7 +50,7 @@
                                 <label class="col-md-3 control-label">End Date</label>
 
                                 <div class="col-md-6">
-                                    <input type="date" class="form-control" name="end_date" v-model="addConferenceForm.end_date">
+                                    <input type="date" class="form-control" name="end_date" v-model="addConferenceForm.end_date" placeholder="2016-01-30">
                                 </div>
                             </div>
 
@@ -101,8 +101,8 @@
         methods: {
             getAllConferences: function () {
                 this.$http.get('/api/conferences')
-                    .success(function (conferences) {
-                        this.conferences = conferences;
+                    .then(function (response) {
+                        this.conferences = response.data;
                     });
             },
 
@@ -114,20 +114,18 @@
                     return;
                 }
 
-
                 this.addConferenceForm.errors = [];
                 this.addConferenceForm.adding = true;
 
                 this.$http.post('/api/conferences', this.addConferenceForm)
-                    .success(function (conference) {
+                    .then(function (response) {
                         this.addConferenceForm.name = '';
                         this.addConferenceForm.start_date = '';
                         this.addConferenceForm.end_date = '';
                         this.addConferenceForm.adding = false;
-                        this.conferences.push(conference);
-                    })
-                    .error(function (errors) {
-                        setErrorsOnForm(this.addConferenceForm, errors);
+                        this.conferences.push(response.data);
+                    }, function (response) {
+                        this.setErrorsOnForm(this.addConferenceForm, response.data);
                         this.addConferenceForm.adding = false;
                     });
             },
@@ -166,6 +164,8 @@
                 if (this.addConferenceForm.end_date == '') {
                     this.addConferenceForm.errors.push('You need to actually type something for the end date.');
                 }
+
+                // @todo: Validate the dates! For Safari users.
 
                 if (this.addConferenceForm.errors.length > 0) {
                     this.addConferenceForm.adding = false;

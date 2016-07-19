@@ -26883,20 +26883,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Core Application Dependencies...
 require('./core/dependencies');
 
-/** Bootstrapp copied wholesale from Taylor's Zendcon talk */
-// Flatten errors and set them on the given form
-var setErrorsOnForm = function setErrorsOnForm(form, errors) {
-    if ((typeof errors === 'undefined' ? 'undefined' : _typeof(errors)) === 'object') {
-        form.errors = _.flatten(_.toArray(errors));
-    } else {
-        form.errors.push('Something went wrong. Please try again.');
-    }
-};
-
 Vue.config.debug = true;
 
 // Global Errors Component...
 Vue.component('form-errors', require('./components/FormErrors.vue'));
+
+Vue.mixin({
+    methods: {
+        // Flatten errors and set them on the given form
+        setErrorsOnForm: function setErrorsOnForm(form, errors) {
+            if ((typeof errors === 'undefined' ? 'undefined' : _typeof(errors)) === 'object') {
+                form.errors = _.flatten(_.toArray(errors));
+            } else {
+                form.errors.push('Something went wrong. Please try again.');
+            }
+        }
+    }
+});
 
 if ($("#confomo-app").length) {
     new Vue({
@@ -26984,8 +26987,8 @@ exports.default = {
 
                 _this.addIntroductionForm.username = '';
                 _this.addIntroductionForm.adding = false;
-            }, function (errors) {
-                setErrorsOnForm(_this.addIntroductionForm, errors);
+            }, function (response) {
+                _this.setErrorsOnForm(_this.addIntroductionForm, response.data);
                 _this.addIntroductionForm.adding = false;
             });
         }
@@ -27030,8 +27033,8 @@ exports.default = {
 
     methods: {
         getAllConferences: function getAllConferences() {
-            this.$http.get('/api/conferences').success(function (conferences) {
-                this.conferences = conferences;
+            this.$http.get('/api/conferences').then(function (response) {
+                this.conferences = response.data;
             });
         },
 
@@ -27046,14 +27049,14 @@ exports.default = {
             this.addConferenceForm.errors = [];
             this.addConferenceForm.adding = true;
 
-            this.$http.post('/api/conferences', this.addConferenceForm).success(function (conference) {
+            this.$http.post('/api/conferences', this.addConferenceForm).then(function (response) {
                 this.addConferenceForm.name = '';
                 this.addConferenceForm.start_date = '';
                 this.addConferenceForm.end_date = '';
                 this.addConferenceForm.adding = false;
-                this.conferences.push(conference);
-            }).error(function (errors) {
-                setErrorsOnForm(this.addConferenceForm, errors);
+                this.conferences.push(response.data);
+            }, function (response) {
+                this.setErrorsOnForm(this.addConferenceForm, response.data);
                 this.addConferenceForm.adding = false;
             });
         },
@@ -27092,6 +27095,8 @@ exports.default = {
                 this.addConferenceForm.errors.push('You need to actually type something for the end date.');
             }
 
+            // @todo: Validate the dates! For Safari users.
+
             if (this.addConferenceForm.errors.length > 0) {
                 this.addConferenceForm.adding = false;
 
@@ -27103,7 +27108,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"dashboard\">\n    <!-- Conference Listing -->\n    <h2>Conferences</h2>\n    <div v-if=\"conferences.length > 0\">\n        <div class=\"row\" v-for=\"conference in conferences\">\n            <div class=\"col-md-8 col-md-offset-2\">\n                <button class=\"btn btn-danger pull-right conference-delete-button\" style=\"font-size: 18px; margin-right: 10px;\" @click.prevent=\"deleteConference(conference)\">\n                    <i class=\"fa fa-times\"></i>\n                </button>\n                <h3 class=\"conference-button\" @click=\"viewConference(conference)\">\n                    {{ conference.name }}\n                </h3>\n            </div>\n        </div>\n    </div>\n\n    <hr v-show=\"conferences.length > 0\">\n\n    <!-- Add Conference Form -->\n    <div class=\"row\">\n        <div class=\"col-md-8 col-md-offset-2\">\n            <div v-bind:class=\"[ 'panel', conferences.length > 0 ? 'panel-default' : 'panel-primary' ]\">\n                <div class=\"panel-heading\">Add Conference</div>\n\n                <div class=\"panel-body\">\n                    <form-errors :form=\"addConferenceForm\"></form-errors>\n\n                    <form class=\"form-horizontal\">\n                        <div class=\"form-group\">\n                            <label class=\"col-md-3 control-label\">Name</label>\n\n                            <div class=\"col-md-6\">\n                                <input type=\"text\" class=\"form-control\" name=\"name\" v-model=\"addConferenceForm.name\">\n                            </div>\n                        </div>\n\n                        <div class=\"form-group\">\n                            <label class=\"col-md-3 control-label\">Start Date</label>\n\n                            <div class=\"col-md-6\">\n                                <input type=\"date\" class=\"form-control\" name=\"start_date\" v-model=\"addConferenceForm.start_date\">\n                            </div>\n                        </div>\n\n                        <div class=\"form-group\">\n                            <label class=\"col-md-3 control-label\">End Date</label>\n\n                            <div class=\"col-md-6\">\n                                <input type=\"date\" class=\"form-control\" name=\"end_date\" v-model=\"addConferenceForm.end_date\">\n                            </div>\n                        </div>\n\n                        <div class=\"form-group\">\n                            <div class=\"col-md-6 col-md-offset-3\">\n                                <button type=\"submit\" class=\"btn btn-primary\" @click.prevent=\"addConference\" :disabled=\"addConferenceForm.adding\">\n\n                                    <span v-if=\"addConferenceForm.adding\">\n                                        <i class=\"fa fa-btn fa-spinner fa-spin\"></i>Adding\n                                    </span>\n\n                                    <span v-else=\"\">\n                                        <i class=\"fa fa-btn fa-plus\"></i>Add Conference\n                                    </span>\n                                </button>\n                            </div>\n                        </div>\n                    </form>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"dashboard\">\n    <!-- Conference Listing -->\n    <h2>Conferences</h2>\n    <div v-if=\"conferences.length > 0\">\n        <div class=\"row\" v-for=\"conference in conferences\">\n            <div class=\"col-md-8 col-md-offset-2\">\n                <button class=\"btn btn-danger pull-right conference-delete-button\" style=\"font-size: 18px; margin-right: 10px;\" @click.prevent=\"deleteConference(conference)\">\n                    <i class=\"fa fa-times\"></i>\n                </button>\n                <h3 class=\"conference-button\" @click=\"viewConference(conference)\">\n                    {{ conference.name }}\n                </h3>\n            </div>\n        </div>\n    </div>\n\n    <hr v-show=\"conferences.length > 0\">\n\n    <!-- Add Conference Form -->\n    <div class=\"row\">\n        <div class=\"col-md-8 col-md-offset-2\">\n            <div v-bind:class=\"[ 'panel', conferences.length > 0 ? 'panel-default' : 'panel-primary' ]\">\n                <div class=\"panel-heading\">Add Conference</div>\n\n                <div class=\"panel-body\">\n                    <form-errors :form=\"addConferenceForm\"></form-errors>\n\n                    <form class=\"form-horizontal\">\n                        <div class=\"form-group\">\n                            <label class=\"col-md-3 control-label\">Name</label>\n\n                            <div class=\"col-md-6\">\n                                <input type=\"text\" class=\"form-control\" name=\"name\" v-model=\"addConferenceForm.name\">\n                            </div>\n                        </div>\n\n                        <div class=\"form-group\">\n                            <label class=\"col-md-3 control-label\">Start Date</label>\n\n                            <div class=\"col-md-6\">\n                                <input type=\"date\" class=\"form-control\" name=\"start_date\" v-model=\"addConferenceForm.start_date\" placeholder=\"2016-01-29\">\n                            </div>\n                        </div>\n\n                        <div class=\"form-group\">\n                            <label class=\"col-md-3 control-label\">End Date</label>\n\n                            <div class=\"col-md-6\">\n                                <input type=\"date\" class=\"form-control\" name=\"end_date\" v-model=\"addConferenceForm.end_date\" placeholder=\"2016-01-30\">\n                            </div>\n                        </div>\n\n                        <div class=\"form-group\">\n                            <div class=\"col-md-6 col-md-offset-3\">\n                                <button type=\"submit\" class=\"btn btn-primary\" @click.prevent=\"addConference\" :disabled=\"addConferenceForm.adding\">\n\n                                    <span v-if=\"addConferenceForm.adding\">\n                                        <i class=\"fa fa-btn fa-spinner fa-spin\"></i>Adding\n                                    </span>\n\n                                    <span v-else=\"\">\n                                        <i class=\"fa fa-btn fa-plus\"></i>Add Conference\n                                    </span>\n                                </button>\n                            </div>\n                        </div>\n                    </form>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -27187,8 +27192,8 @@ exports.default = {
                 _this2.addFriendForm.username = '';
                 _this2.addFriendForm.adding = false;
                 _this2.list.push(friend.data);
-            }, function (errors) {
-                setErrorsOnForm(_this2.addFriendForm, errors);
+            }, function (response) {
+                _this2.setErrorsOnForm(_this2.addFriendForm, response.data);
                 _this2.addFriendForm.adding = false;
             });
         },

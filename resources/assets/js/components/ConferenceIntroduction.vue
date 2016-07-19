@@ -76,8 +76,8 @@
 
                         this.addIntroductionForm.username = '';
                         this.addIntroductionForm.adding = false;
-                    }, errors => {
-                        setErrorsOnForm(this.addIntroductionForm, errors);
+                    }, response => {
+                        this.setErrorsOnForm(this.addIntroductionForm, response.data);
                         this.addIntroductionForm.adding = false;
                     });
             }
