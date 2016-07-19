@@ -6462,6 +6462,22 @@ img {
 [v-cloak] {
   display: none; }
 
+/* Temp navbar hack because Bootstrap hates non-hamburger navs */
+.logo {
+  max-width: 40%; }
+
+.nav-buttons {
+  float: right;
+  min-width: 200px;
+  text-align: right; }
+
+.nav-action-button {
+  margin-top: 0.75em; }
+
+@media only screen and (min-width: 600px) {
+  .nav-action-button {
+    margin-top: 2em; } }
+
 .conference-button {
   border: 1px solid #eee;
   border-radius: 0.25em;
