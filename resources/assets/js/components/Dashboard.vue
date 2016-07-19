@@ -113,14 +113,12 @@
 
             addConference: function () {
                 // @todo: Do validation in a more VueJS-y way?
-                if (this.addConferenceForm.name == '') {
-                    this.addConferenceForm.errors = [
-                        'You need to actually type something for the name.'
-                    ];
+                if (! this.validInput()) {
                     this.addConferenceForm.adding = false;
 
                     return;
                 }
+
 
                 this.addConferenceForm.errors = [];
                 this.addConferenceForm.adding = true;
@@ -157,6 +155,30 @@
 
             viewConference: function (conference) {
                 document.location.href = '/conferences/' + conference.id;
+            },
+
+            validInput: function () {
+                this.addConferenceForm.errors = [];
+                
+                if (this.addConferenceForm.name == '') {
+                    this.addConferenceForm.errors.push('You need to actually type something for the name.');
+                }
+
+                if (this.addConferenceForm.start_date == '') {
+                    this.addConferenceForm.errors.push('You need to actually type something for the start date.');
+                }
+
+                if (this.addConferenceForm.end_date == '') {
+                    this.addConferenceForm.errors.push('You need to actually type something for the end date.');
+                }
+
+                if (this.addConferenceForm.errors.length > 0) {
+                    this.addConferenceForm.adding = false;
+
+                    return;
+                }
+
+                return true;
             },
         }
     }
