@@ -44,6 +44,22 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="col-md-3 control-label">Start Date</label>
+
+                                <div class="col-md-6">
+                                    <input type="date" class="form-control" name="start_date" v-model="addConferenceForm.start_date">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">End Date</label>
+
+                                <div class="col-md-6">
+                                    <input type="date" class="form-control" name="end_date" v-model="addConferenceForm.end_date">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
                                     <button type="submit" class="btn btn-primary"
                                         @click.prevent="addConference"
@@ -74,7 +90,9 @@
                 conferences: [],
 
                 addConferenceForm: {
-                    conference: '',
+                    name: '',
+                    start_date: '',
+                    end_date: '',
                     errors: [],
                     adding: false
                 },
@@ -110,6 +128,8 @@
                 this.$http.post('/api/conferences', this.addConferenceForm)
                     .success(function (conference) {
                         this.addConferenceForm.name = '';
+                        this.addConferenceForm.start_date = '';
+                        this.addConferenceForm.end_date = '';
                         this.addConferenceForm.adding = false;
                         this.conferences.push(conference);
                     })

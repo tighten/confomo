@@ -37,11 +37,19 @@ class ConferenceTest extends TestCase
         $user = factory(User::class)->create();
 
         $this->be($user);
-        $this->json('post', '/api/conferences', ['name' => 'MyCon']);
+        $this->json('post', '/api/conferences', [
+            'name' => 'MyCon',
+            'start_date' => '2016-07-26',
+            'end_date' => '2016-07-29',
+        ]);
 
         $this->json('get', '/api/conferences');
 
-        $this->seeJson(['name' => 'MyCon']);
+        $this->seeJson([
+            'name' => 'MyCon',
+            'start_date' => '2016-07-26 00:00:00',
+            'end_date' => '2016-07-29 00:00:00',
+        ]);
     }
 
     public function test_it_can_get_all_conferences()

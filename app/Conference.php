@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conference extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'start_date', 'end_date'];
     protected $casts = ['user_id' => 'integer'];
     protected $dates = ['start_date', 'end_date'];
 
