@@ -3,6 +3,7 @@
 return Symfony\CS\Config\Config::create()
     ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
     ->fixers([
+        '-psr0',                                        // Ignore PSR-0, which lowercases the namespace
         'logical_not_operators_with_successor_space',   // Logical NOT operators (!) should have one trailing whitespace.
         'multiline_array_trailing_comma',               // PHP multi-line arrays should have a trailing comma.
         'ordered_use',                                  // Ordering use statements (alphabetically).

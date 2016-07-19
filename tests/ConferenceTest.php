@@ -3,8 +3,6 @@
 use App\Conference;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class ConferenceTest extends TestCase
 {
@@ -39,11 +37,19 @@ class ConferenceTest extends TestCase
         $user = factory(User::class)->create();
 
         $this->be($user);
-        $this->json('post', '/api/conferences', ['name' => 'MyCon']);
+        $this->json('post', '/api/conferences', [
+            'name' => 'MyCon',
+            'start_date' => '2016-07-26',
+            'end_date' => '2016-07-29',
+        ]);
 
         $this->json('get', '/api/conferences');
 
-        $this->seeJson(['name' => 'MyCon']);
+        $this->seeJson([
+            'name' => 'MyCon',
+            'start_date' => '2016-07-26 00:00:00',
+            'end_date' => '2016-07-29 00:00:00',
+        ]);
     }
 
     public function test_it_can_get_all_conferences()
@@ -101,8 +107,108 @@ class ConferenceTest extends TestCase
 
         $this->be($user1);
 
-        $this->json('delete', '/api/conferences/' . $conference2->id);
+        $this->json('delete', '/api/conferences/'.$conference2->id);
 
         $this->seeStatusCode(404);
+    }
+
+    public function test_it_identifies_an_upcoming_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'user_id' => $user->id,
+            'start_date' => date('Y-m-d', strtotime('+2 day')),
+            'end_date' => date('Y-m-d', strtotime('+2 day')),
+        ]);
+
+        $this->assertTrue($conference->isUpcoming());
+        $this->assertFalse($conference->isInProgress());
+        $this->assertFalse($conference->isFinished());
+    }
+
+    public function test_it_identifies_an_in_progress_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'user_id' => $user->id,
+            'start_date' => date('Y-m-d', strtotime('-1 day')),
+            'end_date' => date('Y-m-d', strtotime('+1 day')),
+        ]);
+
+        $this->assertFalse($conference->isUpcoming());
+        $this->assertTrue($conference->isInProgress());
+        $this->assertFalse($conference->isFinished());
+    }
+
+    public function test_it_identifies_a_finished_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'user_id' => $user->id,
+            'end_date' => date('Y-m-d', strtotime('-1 day')),
+        ]);
+
+        $this->assertFalse($conference->isUpcoming());
+        $this->assertFalse($conference->isInProgress());
+        $this->assertTrue($conference->isFinished());
+    }
+
+    public function test_it_introduces_a_new_online_friend()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'user_id' => $user->id,
+            'start_date' => date('Y-m-d', strtotime('+1 day')),
+        ]);
+
+        $conference->makeIntroduction('michaeldyrynda');
+
+        $this->seeInDatabase('friends', [
+            'conference_id' => $conference->id,
+            'username' => 'michaeldyrynda',
+            'type' => 'online',
+            'met' => false,
+            'introduction' => true,
+        ]);
+    }
+
+    public function test_it_introduces_a_new_met_friend_during_a_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'user_id' => $user->id,
+            'start_date' => date('Y-m-d', strtotime('-1 day')),
+            'end_date' => date('Y-m-d', strtotime('+1 day')),
+        ]);
+
+        $conference->makeIntroduction('michaeldyrynda');
+
+        $this->seeInDatabase('friends', [
+            'conference_id' => $conference->id,
+            'username' => 'michaeldyrynda',
+            'type' => 'new',
+            'met' => true,
+            'introduction' => true,
+        ]);
+    }
+
+    public function test_it_introduces_a_new_met_friend_after_a_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'user_id' => $user->id,
+            'start_date' => date('Y-m-d', strtotime('-2 day')),
+            'end_date' => date('Y-m-d', strtotime('-1 day')),
+        ]);
+
+        $conference->makeIntroduction('michaeldyrynda');
+
+        $this->seeInDatabase('friends', [
+            'conference_id' => $conference->id,
+            'username' => 'michaeldyrynda',
+            'type' => 'new',
+            'met' => true,
+            'introduction' => true,
+        ]);
     }
 }
