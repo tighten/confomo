@@ -1,11 +1,11 @@
 <style>
     /* Temporary. I hate Bootstrap so badly. -MES */
-    .logout-button {
+    .nav-action-button {
         margin-top: 0.75em;
     }
 
     @media only screen and (min-width: 600px) {
-        .logout-button {
+        .nav-action-button {
             margin-top: 2em;
         }
     }
@@ -14,12 +14,12 @@
     <div class="container">
         <div style="float: right; min-width: 200px; text-align: right;">
             @if (App::environment('local') && Auth::guest())
-                <a href="/local-login" class="btn btn-default">
+                <a href="/local-login" class="btn btn-default nav-action-button">
                     Login Magically
                 </a>
             @endif
             @if (Auth::guest())
-                <a href="/auth" class="btn btn-default">
+                <a href="/auth" class="btn btn-default nav-action-button">
                     <i class="fa fa-btn fa-twitter"></i>Login With Twitter
                 </a>
             @else
