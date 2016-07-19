@@ -15,9 +15,17 @@ return [
     */
 
     'twitter' => [
+        // @todo: merge these!
+        // Socialite
         'client_id' => env('TWITTER_CONSUMER_KEY'),
         'client_secret' => env('TWITTER_CONSUMER_SECRET'),
         'redirect' => env('TWITTER_URL'),
+
+        // Other
+        'consumer_key' => env('TWITTER_CONSUMER_KEY'),
+        'consumer_secret' => env('TWITTER_CONSUMER_SECRET'),
+        'access_token' => env('TWITTER_ACCESS_TOKEN'),
+        'access_secret' => env('TWITTER_ACCESS_TOKEN_SECRET'),
     ],
 
     'mailgun' => [
@@ -40,12 +48,4 @@ return [
         'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-
-    'twitter' => [
-        'consumer_key' => env('TWITTER_CONSUMER_KEY'),
-        'consumer_secret' => env('TWITTER_CONSUMER_SECRET'),
-        'access_token' => env('TWITTER_ACCESS_TOKEN'),
-        'access_secret' => env('TWITTER_ACCESS_TOKEN_SECRET'),
-    ],
-
 ];
