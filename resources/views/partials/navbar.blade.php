@@ -23,7 +23,7 @@
                     <i class="fa fa-btn fa-twitter"></i>Login With Twitter
                 </a>
             @else
-                <a href="/auth/logout" class="btn btn-default logout-button">
+                <a href="/auth/logout" class="btn btn-default nav-action-button">
                     <i class="fa fa-btn fa-sign-out"></i>Logout {{ Auth::user()->name }}
                 </a>
             @endif
