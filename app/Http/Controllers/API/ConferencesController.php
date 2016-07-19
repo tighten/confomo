@@ -11,11 +11,10 @@ class ConferencesController extends Controller
 {
     public function store(Request $request)
     {
-        // @todo: We need a datepicker or something. this is awful
         $this->validate($request, [
             'name' => 'required',
-            'start_date' => 'required|date_format:Y-m-j',
-            'end_date' => 'required|date_format:Y-m-j|after:start-date',
+            'start_date' => 'required|date_format:Y-m-d',
+            'end_date' => 'required|date_format:Y-m-d|after:start_date',
         ]);
 
         return Auth::user()->addConference([

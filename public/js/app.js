@@ -26862,6 +26862,26 @@ setTimeout(function () {
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":3}],17:[function(require,module,exports){
+var inserted = exports.cache = {}
+
+exports.insert = function (css) {
+  if (inserted[css]) return
+  inserted[css] = true
+
+  var elem = document.createElement('style')
+  elem.setAttribute('type', 'text/css')
+
+  if ('textContent' in elem) {
+    elem.textContent = css
+  } else {
+    elem.styleSheet.cssText = css
+  }
+
+  document.getElementsByTagName('head')[0].appendChild(elem)
+  return elem
+}
+
+},{}],18:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -26913,7 +26933,7 @@ if ($("#confomo-app").length) {
     });
 }
 
-},{"./components/Conference.vue":18,"./components/ConferenceIntroduction.vue":19,"./components/Dashboard.vue":20,"./components/FormErrors.vue":21,"./core/dependencies":23}],18:[function(require,module,exports){
+},{"./components/Conference.vue":19,"./components/ConferenceIntroduction.vue":20,"./components/Dashboard.vue":21,"./components/FormErrors.vue":23,"./core/dependencies":25}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26951,7 +26971,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-68f4a44b", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./FriendsList.vue":22,"vue":16,"vue-hot-reload-api":14}],19:[function(require,module,exports){
+},{"./FriendsList.vue":24,"vue":16,"vue-hot-reload-api":14}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27006,12 +27026,19 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-b588a1f6", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":16,"vue-hot-reload-api":14}],20:[function(require,module,exports){
+},{"vue":16,"vue-hot-reload-api":14}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _Datepicker = require('./Datepicker.vue');
+
+var _Datepicker2 = _interopRequireDefault(_Datepicker);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
     data: function data() {
         return {
@@ -27029,6 +27056,10 @@ exports.default = {
 
     ready: function ready() {
         this.getAllConferences();
+    },
+
+    components: {
+        Datepicker: _Datepicker2.default
     },
 
     methods: {
@@ -27108,7 +27139,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"dashboard\">\n    <!-- Conference Listing -->\n    <h2>Conferences</h2>\n    <div v-if=\"conferences.length > 0\">\n        <div class=\"row\" v-for=\"conference in conferences\">\n            <div class=\"col-md-8 col-md-offset-2\">\n                <button class=\"btn btn-danger pull-right conference-delete-button\" style=\"font-size: 18px; margin-right: 10px;\" @click.prevent=\"deleteConference(conference)\">\n                    <i class=\"fa fa-times\"></i>\n                </button>\n                <h3 class=\"conference-button\" @click=\"viewConference(conference)\">\n                    {{ conference.name }}\n                </h3>\n            </div>\n        </div>\n    </div>\n\n    <hr v-show=\"conferences.length > 0\">\n\n    <!-- Add Conference Form -->\n    <div class=\"row\">\n        <div class=\"col-md-8 col-md-offset-2\">\n            <div v-bind:class=\"[ 'panel', conferences.length > 0 ? 'panel-default' : 'panel-primary' ]\">\n                <div class=\"panel-heading\">Add Conference</div>\n\n                <div class=\"panel-body\">\n                    <form-errors :form=\"addConferenceForm\"></form-errors>\n\n                    <form class=\"form-horizontal\">\n                        <div class=\"form-group\">\n                            <label class=\"col-md-3 control-label\">Name</label>\n\n                            <div class=\"col-md-6\">\n                                <input type=\"text\" class=\"form-control\" name=\"name\" v-model=\"addConferenceForm.name\">\n                            </div>\n                        </div>\n\n                        <div class=\"form-group\">\n                            <label class=\"col-md-3 control-label\">Start Date</label>\n\n                            <div class=\"col-md-6\">\n                                <input type=\"text\" class=\"form-control\" name=\"start_date\" v-model=\"addConferenceForm.start_date\" placeholder=\"2016-1-9\">\n                            </div>\n                        </div>\n\n                        <div class=\"form-group\">\n                            <label class=\"col-md-3 control-label\">End Date</label>\n\n                            <div class=\"col-md-6\">\n                                <input type=\"text\" class=\"form-control\" name=\"end_date\" v-model=\"addConferenceForm.end_date\" placeholder=\"2016-1-30\">\n                            </div>\n                        </div>\n\n                        <div class=\"form-group\">\n                            <div class=\"col-md-6 col-md-offset-3\">\n                                <button type=\"submit\" class=\"btn btn-primary\" @click.prevent=\"addConference\" :disabled=\"addConferenceForm.adding\">\n\n                                    <span v-if=\"addConferenceForm.adding\">\n                                        <i class=\"fa fa-btn fa-spinner fa-spin\"></i>Adding\n                                    </span>\n\n                                    <span v-else=\"\">\n                                        <i class=\"fa fa-btn fa-plus\"></i>Add Conference\n                                    </span>\n                                </button>\n                            </div>\n                        </div>\n                    </form>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n    <div class=\"dashboard\">\n        <!-- Conference Listing -->\n        <h2>Conferences</h2>\n        <div v-if=\"conferences.length > 0\">\n            <div class=\"row\" v-for=\"conference in conferences\">\n                <div class=\"col-md-8 col-md-offset-2\">\n                    <button class=\"btn btn-danger pull-right conference-delete-button\" style=\"font-size: 18px; margin-right: 10px;\" @click.prevent=\"deleteConference(conference)\">\n                        <i class=\"fa fa-times\"></i>\n                    </button>\n                    <h3 class=\"conference-button\" @click=\"viewConference(conference)\">\n                        {{ conference.name }}\n                    </h3>\n                </div>\n            </div>\n        </div>\n\n        <hr v-show=\"conferences.length > 0\">\n\n        <!-- Add Conference Form -->\n        <div class=\"row\">\n            <div class=\"col-md-8 col-md-offset-2\">\n                <div v-bind:class=\"[ 'panel', conferences.length > 0 ? 'panel-default' : 'panel-primary' ]\">\n                    <div class=\"panel-heading\">Add Conference</div>\n\n                    <div class=\"panel-body\">\n                        <form-errors :form=\"addConferenceForm\"></form-errors>\n\n                        <form class=\"form-horizontal\">\n                            <div class=\"form-group\">\n                                <label class=\"col-md-3 control-label\">Name</label>\n\n                                <div class=\"col-md-6\">\n                                    <input type=\"text\" class=\"form-control\" name=\"name\" v-model=\"addConferenceForm.name\">\n                                </div>\n                            </div>\n\n                            <div class=\"form-group\">\n                                <label class=\"col-md-3 control-label\">Start Date</label>\n\n                                <div class=\"col-md-6\">\n\t\t\t\t\t\t\t\t\t<datepicker :value.sync=\"addConferenceForm.start_date\" format=\"yyyy-MM-dd\">\n\t\t\t\t\t\t\t\t\t</datepicker>\n                                </div>\n                            </div>\n\n                            <div class=\"form-group\">\n                                <label class=\"col-md-3 control-label\">End Date</label>\n\n                                <div class=\"col-md-6\">\n\t\t\t\t\t\t\t\t\t<datepicker :value.sync=\"addConferenceForm.end_date\" format=\"yyyy-MM-dd\">\n\t\t\t\t\t\t\t\t\t</datepicker>\n                                </div>\n                            </div>\n\n                            <div class=\"form-group\">\n                                <div class=\"col-md-6 col-md-offset-3\">\n                                    <button type=\"submit\" class=\"btn btn-primary\" @click.prevent=\"addConference\" :disabled=\"addConferenceForm.adding\">\n\n                                        <span v-if=\"addConferenceForm.adding\">\n                                            <i class=\"fa fa-btn fa-spinner fa-spin\"></i>Adding\n                                        </span>\n\n                                        <span v-else=\"\">\n                                            <i class=\"fa fa-btn fa-plus\"></i>Add Conference\n                                        </span>\n                                    </button>\n                                </div>\n                            </div>\n                        </form>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -27119,7 +27150,303 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-5c2a69b5", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":16,"vue-hot-reload-api":14}],21:[function(require,module,exports){
+},{"./Datepicker.vue":22,"vue":16,"vue-hot-reload-api":14}],22:[function(require,module,exports){
+var __vueify_insert__ = require("vueify/lib/insert-css")
+var __vueify_style__ = __vueify_insert__.insert("\ninput.datepicker-input.with-reset-button {\n  padding-right: 25px;\n}\n\ndiv.datepicker > button.close {\n  position: absolute;\n  top: calc(50% - 13px);\n  right: 10px;\n}\n\ndiv.datepicker > button.close {\n  outline: none;\n  z-index: 2;\n}\n\ndiv.datepicker > button.close:focus {\n  opacity: .2;\n}\n\n\n.datepicker{\n    position: relative;\n    display: inline-block;\n}\n\n.datepicker-popup{\n    position: absolute;\n    border: 1px solid #ccc;\n    border-radius: 5px;\n    background: #fff;\n    margin-top: 2px;\n    z-index: 1000;\n    box-shadow: 0 6px 12px rgba(0,0,0,0.175);\n}\n.datepicker-inner{\n    width: 218px;\n\n}\n.datepicker-body{\n    padding: 10px 10px;\n}\n.datepicker-ctrl p,\n.datepicker-ctrl span,\n.datepicker-body span{\n    display: inline-block;\n    width: 28px;\n    line-height: 28px;\n    height: 28px;\n    border-radius: 4px;\n}\n.datepicker-ctrl p {\n    width: 65%;\n}\n.datepicker-ctrl span {\n  position: absolute;\n}\n.datepicker-body span {\n  text-align: center;\n}\n.datepicker-monthRange span{\n  width: 48px;\n  height: 50px;\n  line-height: 45px;\n}\n.datepicker-item-disable {\n  background-color: white!important;\n  cursor: not-allowed!important;\n}\n.decadeRange span:first-child,\n.decadeRange span:last-child,\n.datepicker-item-disable,\n.datepicker-item-gray{\n    color: #999;\n}\n\n.datepicker-dateRange-item-active:hover,\n.datepicker-dateRange-item-active {\n    background: rgb(50, 118, 177)!important;\n    color: white!important;\n}\n.datepicker-monthRange {\n  margin-top: 10px\n}\n.datepicker-monthRange span,\n.datepicker-ctrl span,\n.datepicker-ctrl p,\n.datepicker-dateRange span {\n  cursor: pointer;\n}\n.datepicker-monthRange span:hover,\n.datepicker-ctrl p:hover,\n.datepicker-ctrl i:hover,\n.datepicker-dateRange span:hover,\n.datepicker-dateRange-item-hover {\n    background-color : #eeeeee;\n}\n\n.datepicker-weekRange span{\n    font-weight: bold;\n}\n.datepicker-label{\n    background-color: #f8f8f8;\n    font-weight: 700;\n    padding: 7px 0;\n    text-align: center;\n}\n.datepicker-ctrl{\n    position: relative;\n    height: 30px;\n    line-height: 30px;\n    font-weight: bold;\n    text-align: center;\n}\n.month-btn{\n  font-weight: bold;\n  -webkit-user-select:none;\n    -moz-user-select:none;\n    -ms-user-select:none;\n    user-select:none;\n}\n.datepicker-preBtn{\n    left: 2px;\n}\n.datepicker-nextBtn{\n    right: 2px;\n}\n")
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _EventListener = require('../utils/EventListener.js');
+
+var _EventListener2 = _interopRequireDefault(_EventListener);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  props: {
+    value: {
+      type: String,
+      twoWay: true
+    },
+    format: {
+      default: 'MMMM/dd/yyyy'
+    },
+    disabledDaysOfWeek: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
+    width: {
+      type: String,
+      default: '200px'
+    },
+    showResetButton: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      weekRange: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+      dateRange: [],
+      decadeRange: [],
+      currDate: new Date(),
+      displayDayView: false,
+      displayMonthView: false,
+      displayYearView: false,
+      monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    };
+  },
+
+  watch: {
+    currDate: function currDate() {
+      this.getDateRange();
+    }
+  },
+  methods: {
+    close: function close() {
+      this.displayDayView = this.displayMonthView = this.displayYearView = false;
+    },
+    inputClick: function inputClick() {
+      if (this.displayMonthView || this.displayYearView) {
+        this.displayDayView = false;
+      } else {
+        this.displayDayView = !this.displayDayView;
+      }
+    },
+    preNextDecadeClick: function preNextDecadeClick(flag) {
+      var year = this.currDate.getFullYear();
+      var months = this.currDate.getMonth();
+      var date = this.currDate.getDate();
+
+      if (flag === 0) {
+        this.currDate = new Date(year - 10, months, date);
+      } else {
+        this.currDate = new Date(year + 10, months, date);
+      }
+    },
+    preNextMonthClick: function preNextMonthClick(flag) {
+      var year = this.currDate.getFullYear();
+      var month = this.currDate.getMonth();
+      var date = this.currDate.getDate();
+
+      if (flag === 0) {
+        var preMonth = this.getYearMonth(year, month - 1);
+        this.currDate = new Date(preMonth.year, preMonth.month, date);
+      } else {
+        var nextMonth = this.getYearMonth(year, month + 1);
+        this.currDate = new Date(nextMonth.year, nextMonth.month, date);
+      }
+    },
+    preNextYearClick: function preNextYearClick(flag) {
+      var year = this.currDate.getFullYear();
+      var months = this.currDate.getMonth();
+      var date = this.currDate.getDate();
+
+      if (flag === 0) {
+        this.currDate = new Date(year - 1, months, date);
+      } else {
+        this.currDate = new Date(year + 1, months, date);
+      }
+    },
+    yearSelect: function yearSelect(year) {
+      this.displayYearView = false;
+      this.displayMonthView = true;
+      this.currDate = new Date(year, this.currDate.getMonth(), this.currDate.getDate());
+    },
+    daySelect: function daySelect(date, el) {
+      if (el.$el.classList[0] === 'datepicker-item-disable') {
+        return false;
+      } else {
+        this.currDate = date;
+        this.value = this.stringify(this.currDate);
+        this.displayDayView = false;
+      }
+    },
+    switchMonthView: function switchMonthView() {
+      this.displayDayView = false;
+      this.displayMonthView = true;
+    },
+    switchDecadeView: function switchDecadeView() {
+      this.displayMonthView = false;
+      this.displayYearView = true;
+    },
+    monthSelect: function monthSelect(index) {
+      this.displayMonthView = false;
+      this.displayDayView = true;
+      this.currDate = new Date(this.currDate.getFullYear(), index, this.currDate.getDate());
+    },
+    getYearMonth: function getYearMonth(year, month) {
+      if (month > 11) {
+        year++;
+        month = 0;
+      } else if (month < 0) {
+        year--;
+        month = 11;
+      }
+      return { year: year, month: month };
+    },
+    stringifyDecadeHeader: function stringifyDecadeHeader(date) {
+      var yearStr = date.getFullYear().toString();
+      var firstYearOfDecade = yearStr.substring(0, yearStr.length - 1) + 0;
+      var lastYearOfDecade = parseInt(firstYearOfDecade, 10) + 10;
+      return firstYearOfDecade + '-' + lastYearOfDecade;
+    },
+    stringifyDayHeader: function stringifyDayHeader(date) {
+      return this.monthNames[date.getMonth()] + ' ' + date.getFullYear();
+    },
+    parseMonth: function parseMonth(date) {
+      return this.monthNames[date.getMonth()];
+    },
+    stringifyYearHeader: function stringifyYearHeader(date) {
+      return date.getFullYear();
+    },
+    stringify: function stringify(date) {
+      var format = arguments.length <= 1 || arguments[1] === undefined ? this.format : arguments[1];
+
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      var monthName = this.parseMonth(date);
+
+      return format.replace(/yyyy/g, year).replace(/MMMM/g, monthName).replace(/MMM/g, monthName.substring(0, 3)).replace(/MM/g, ('0' + month).slice(-2)).replace(/dd/g, ('0' + day).slice(-2)).replace(/yy/g, year).replace(/M(?!a)/g, month).replace(/d/g, day);
+    },
+    parse: function parse(str) {
+      if (str.length == 10 && (this.format == 'dd-MM-yyyy' || this.format == 'dd/MM/yyyy')) {
+        str = str.substring(3, 5) + '-' + str.substring(0, 2) + '-' + str.substring(6, 10);
+      }
+      var date = new Date(str);
+      return isNaN(date.getFullYear()) ? null : date;
+    },
+    getDayCount: function getDayCount(year, month) {
+      var dict = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+      if (month === 1) {
+        if (year % 400 === 0 || year % 4 === 0 && year % 100 !== 0) {
+          return 29;
+        }
+        return 28;
+      }
+
+      return dict[month];
+    },
+    getDateRange: function getDateRange() {
+      var _this = this;
+
+      this.dateRange = [];
+      this.decadeRange = [];
+      var time = {
+        year: this.currDate.getFullYear(),
+        month: this.currDate.getMonth(),
+        day: this.currDate.getDate()
+      };
+      var yearStr = time.year.toString();
+      var firstYearOfDecade = yearStr.substring(0, yearStr.length - 1) + 0 - 1;
+      for (var i = 0; i < 12; i++) {
+        this.decadeRange.push({
+          text: firstYearOfDecade + i
+        });
+      }
+
+      var currMonthFirstDay = new Date(time.year, time.month, 1);
+      var firstDayWeek = currMonthFirstDay.getDay() + 1;
+      if (firstDayWeek === 0) {
+        firstDayWeek = 7;
+      }
+      var dayCount = this.getDayCount(time.year, time.month);
+      if (firstDayWeek > 1) {
+        var preMonth = this.getYearMonth(time.year, time.month - 1);
+        var prevMonthDayCount = this.getDayCount(preMonth.year, preMonth.month);
+        for (var _i = 1; _i < firstDayWeek; _i++) {
+          var dayText = prevMonthDayCount - firstDayWeek + _i + 1;
+          this.dateRange.push({
+            text: dayText,
+            date: new Date(preMonth.year, preMonth.month, dayText),
+            sclass: 'datepicker-item-gray'
+          });
+        }
+      }
+
+      var _loop = function _loop(_i2) {
+        var date = new Date(time.year, time.month, _i2);
+        var week = date.getDay();
+        var sclass = '';
+        _this.disabledDaysOfWeek.forEach(function (el) {
+          if (week === parseInt(el, 10)) sclass = 'datepicker-item-disable';
+        });
+
+        if (_i2 === time.day) {
+          if (_this.value) {
+            var valueDate = _this.parse(_this.value);
+            if (valueDate) {
+              if (valueDate.getFullYear() === time.year && valueDate.getMonth() === time.month) {
+                sclass = 'datepicker-dateRange-item-active';
+              }
+            }
+          }
+        }
+        _this.dateRange.push({
+          text: _i2,
+          date: date,
+          sclass: sclass
+        });
+      };
+
+      for (var _i2 = 1; _i2 <= dayCount; _i2++) {
+        _loop(_i2);
+      }
+
+      if (this.dateRange.length < 42) {
+        var nextMonthNeed = 42 - this.dateRange.length;
+        var nextMonth = this.getYearMonth(time.year, time.month + 1);
+
+        for (var _i3 = 1; _i3 <= nextMonthNeed; _i3++) {
+          this.dateRange.push({
+            text: _i3,
+            date: new Date(nextMonth.year, nextMonth.month, _i3),
+            sclass: 'datepicker-item-gray'
+          });
+        }
+      }
+    }
+  },
+  ready: function ready() {
+    var _this2 = this;
+
+    this.$dispatch('child-created', this);
+    this.currDate = this.parse(this.value) || this.parse(new Date());
+    this._closeEvent = _EventListener2.default.listen(window, 'click', function (e) {
+      if (!_this2.$el.contains(e.target)) _this2.close();
+    });
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (this._closeEvent) this._closeEvent.remove();
+  }
+};
+
+// Stolen from Vue-strap, which is having huge issues with Elixir
+// as of 2016-07-19
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"datepicker\">\n  <input class=\"form-control datepicker-input\" :class=\"{'with-reset-button': showResetButton}\" type=\"text\" v-bind:style=\"{width:width}\" @click=\"inputClick\" v-model=\"value\">\n  <button v-if=\"showResetButton\" type=\"button\" class=\"close\" @click=\"value = ''\">\n    <span>×</span>\n  </button>\n  <div class=\"datepicker-popup\" v-show=\"displayDayView\">\n    <div class=\"datepicker-inner\">\n      <div class=\"datepicker-body\">\n        <div class=\"datepicker-ctrl\">\n          <span class=\"month-btn datepicker-preBtn\" @click=\"preNextMonthClick(0)\">&lt;</span>\n          <span class=\"month-btn datepicker-nextBtn\" @click=\"preNextMonthClick(1)\">&gt;</span>\n          <p @click=\"switchMonthView\">{{stringifyDayHeader(currDate)}}</p>\n        </div>\n        <div class=\"datepicker-weekRange\">\n          <span v-for=\"w in weekRange\">{{w}}</span>\n        </div>\n        <div class=\"datepicker-dateRange\">\n          <span v-for=\"d in dateRange\" v-bind:class=\"d.sclass\" @click=\"daySelect(d.date,this)\">{{d.text}}</span>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"datepicker-popup\" v-show=\"displayMonthView\">\n    <div class=\"datepicker-inner\">\n      <div class=\"datepicker-body\">\n        <div class=\"datepicker-ctrl\">\n          <span class=\"month-btn datepicker-preBtn\" @click=\"preNextYearClick(0)\">&lt;</span>\n          <span class=\"month-btn datepicker-nextBtn\" @click=\"preNextYearClick(1)\">&gt;</span>\n          <p @click=\"switchDecadeView\">{{stringifyYearHeader(currDate)}}</p>\n        </div>\n        <div class=\"datepicker-monthRange\">\n          <template v-for=\"m in monthNames\">\n            <span v-bind:class=\"{'datepicker-dateRange-item-active':\n                this.value &amp;&amp; (this.monthNames[this.parse(this.value).getMonth()]  === m) &amp;&amp;\n                this.currDate.getFullYear() === this.parse(this.value).getFullYear()}\" @click=\"monthSelect($index)\">{{m.substr(0,3)}}</span>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"datepicker-popup\" v-show=\"displayYearView\">\n    <div class=\"datepicker-inner\">\n      <div class=\"datepicker-body\">\n        <div class=\"datepicker-ctrl\">\n          <span class=\"month-btn datepicker-preBtn\" @click=\"preNextDecadeClick(0)\">&lt;</span>\n          <span class=\"month-btn datepicker-nextBtn\" @click=\"preNextDecadeClick(1)\">&gt;</span>\n          <p>{{stringifyDecadeHeader(currDate)}}</p>\n        </div>\n        <div class=\"datepicker-monthRange decadeRange\">\n          <template v-for=\"decade in decadeRange\">\n            <span v-bind:class=\"{'datepicker-dateRange-item-active':\n                this.value &amp;&amp; this.parse(this.value).getFullYear() === decade.text}\" @click.stop=\"yearSelect(decade.text)\">{{decade.text}}</span>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.dispose(function () {
+    __vueify_insert__.cache["\ninput.datepicker-input.with-reset-button {\n  padding-right: 25px;\n}\n\ndiv.datepicker > button.close {\n  position: absolute;\n  top: calc(50% - 13px);\n  right: 10px;\n}\n\ndiv.datepicker > button.close {\n  outline: none;\n  z-index: 2;\n}\n\ndiv.datepicker > button.close:focus {\n  opacity: .2;\n}\n\n\n.datepicker{\n    position: relative;\n    display: inline-block;\n}\n\n.datepicker-popup{\n    position: absolute;\n    border: 1px solid #ccc;\n    border-radius: 5px;\n    background: #fff;\n    margin-top: 2px;\n    z-index: 1000;\n    box-shadow: 0 6px 12px rgba(0,0,0,0.175);\n}\n.datepicker-inner{\n    width: 218px;\n\n}\n.datepicker-body{\n    padding: 10px 10px;\n}\n.datepicker-ctrl p,\n.datepicker-ctrl span,\n.datepicker-body span{\n    display: inline-block;\n    width: 28px;\n    line-height: 28px;\n    height: 28px;\n    border-radius: 4px;\n}\n.datepicker-ctrl p {\n    width: 65%;\n}\n.datepicker-ctrl span {\n  position: absolute;\n}\n.datepicker-body span {\n  text-align: center;\n}\n.datepicker-monthRange span{\n  width: 48px;\n  height: 50px;\n  line-height: 45px;\n}\n.datepicker-item-disable {\n  background-color: white!important;\n  cursor: not-allowed!important;\n}\n.decadeRange span:first-child,\n.decadeRange span:last-child,\n.datepicker-item-disable,\n.datepicker-item-gray{\n    color: #999;\n}\n\n.datepicker-dateRange-item-active:hover,\n.datepicker-dateRange-item-active {\n    background: rgb(50, 118, 177)!important;\n    color: white!important;\n}\n.datepicker-monthRange {\n  margin-top: 10px\n}\n.datepicker-monthRange span,\n.datepicker-ctrl span,\n.datepicker-ctrl p,\n.datepicker-dateRange span {\n  cursor: pointer;\n}\n.datepicker-monthRange span:hover,\n.datepicker-ctrl p:hover,\n.datepicker-ctrl i:hover,\n.datepicker-dateRange span:hover,\n.datepicker-dateRange-item-hover {\n    background-color : #eeeeee;\n}\n\n.datepicker-weekRange span{\n    font-weight: bold;\n}\n.datepicker-label{\n    background-color: #f8f8f8;\n    font-weight: 700;\n    padding: 7px 0;\n    text-align: center;\n}\n.datepicker-ctrl{\n    position: relative;\n    height: 30px;\n    line-height: 30px;\n    font-weight: bold;\n    text-align: center;\n}\n.month-btn{\n  font-weight: bold;\n  -webkit-user-select:none;\n    -moz-user-select:none;\n    -ms-user-select:none;\n    user-select:none;\n}\n.datepicker-preBtn{\n    left: 2px;\n}\n.datepicker-nextBtn{\n    right: 2px;\n}\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-914de62a", module.exports)
+  } else {
+    hotAPI.update("_v-914de62a", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"../utils/EventListener.js":26,"vue":16,"vue-hot-reload-api":14,"vueify/lib/insert-css":17}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27142,7 +27469,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-4c1ad2fe", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":16,"vue-hot-reload-api":14}],22:[function(require,module,exports){
+},{"vue":16,"vue-hot-reload-api":14}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27240,7 +27567,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-4169e534", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":16,"vue-hot-reload-api":14}],23:[function(require,module,exports){
+},{"vue":16,"vue-hot-reload-api":14}],25:[function(require,module,exports){
 'use strict';
 
 /*
@@ -27264,6 +27591,45 @@ window._ = require('underscore');
 
 require('sweetalert/lib/sweetalert');
 
-},{"bootstrap-sass/assets/javascripts/bootstrap":1,"jquery":2,"sweetalert/lib/sweetalert":12,"underscore":13,"vue":16,"vue-resource":15}]},{},[17]);
+},{"bootstrap-sass/assets/javascripts/bootstrap":1,"jquery":2,"sweetalert/lib/sweetalert":12,"underscore":13,"vue":16,"vue-resource":15}],26:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var EventListener = {
+  /**
+   * Stolen from Vue-strap.
+   * 
+   * Listen to DOM events during the bubble phase.
+   *
+   * @param {DOMEventTarget} target DOM element to register listener on.
+   * @param {string} eventType Event type, e.g. 'click' or 'mouseover'.
+   * @param {function} callback Callback function.
+   * @return {object} Object with a `remove` method.
+   */
+
+  listen: function listen(target, eventType, callback) {
+    if (target.addEventListener) {
+      target.addEventListener(eventType, callback, false);
+      return {
+        remove: function remove() {
+          target.removeEventListener(eventType, callback, false);
+        }
+      };
+    } else if (target.attachEvent) {
+      target.attachEvent('on' + eventType, callback);
+      return {
+        remove: function remove() {
+          target.detachEvent('on' + eventType, callback);
+        }
+      };
+    }
+  }
+};
+
+exports.default = EventListener;
+
+},{}]},{},[18]);
 
 //# sourceMappingURL=app.js.map

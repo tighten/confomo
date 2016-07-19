@@ -1,7 +1,6 @@
 // Core Application Dependencies...
 require('./core/dependencies');
 
-
 Vue.config.debug = true;
 
 import Dashboard from './components/Dashboard.vue';
