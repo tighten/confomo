@@ -35,5 +35,3 @@ if ($("#confomo-app").length) {
         }
     });
 }
-
-Vue.component('nav-dropdown', require('./components/nav-dropdown.vue'));

@@ -24,6 +24,7 @@
     <input class="form-control datepicker-input" :class="{'with-reset-button': showResetButton}" type="text"
         v-bind:style="{width:width}"
         @click="inputClick"
+        readonly
         v-model="value"/>
     <button v-if="showResetButton" type="button" class="close" @click="value = ''">
       <span>&times;</span>

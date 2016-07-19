@@ -23,6 +23,7 @@ $factory->define(App\Conference::class, function (Faker\Generator $faker) {
         'name' => $faker->sentence,
         'start_date' => $faker->date(),
         'end_date' => $faker->date(),
+        'slug' => str_random(16),
     ];
 });
 

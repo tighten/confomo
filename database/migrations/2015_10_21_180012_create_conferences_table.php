@@ -16,6 +16,7 @@ class CreateConferencesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('user_id')->unsigned();
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
