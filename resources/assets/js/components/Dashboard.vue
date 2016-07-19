@@ -42,10 +42,10 @@
                                 <label class="col-md-3 control-label">Start Date</label>
 
                                 <div class="col-md-6">
-									<datepicker
-									  :value.sync="addConferenceForm.start_date"
-									  format="yyyy-MM-dd">
-									</datepicker>
+                                    <datepicker
+                                        :value.sync="addConferenceForm.start_date"
+                                        format="yyyy-MM-dd">
+                                    </datepicker>
                                 </div>
                             </div>
 
@@ -53,10 +53,10 @@
                                 <label class="col-md-3 control-label">End Date</label>
 
                                 <div class="col-md-6">
-									<datepicker
-									  :value.sync="addConferenceForm.end_date"
-									  format="yyyy-MM-dd">
-									</datepicker>
+                                    <datepicker
+                                        :value.sync="addConferenceForm.end_date"
+                                        format="yyyy-MM-dd">
+                                    </datepicker>
                                 </div>
                             </div>
 
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-	import Datepicker from './Datepicker.vue';
+    import Datepicker from './Datepicker.vue';
 
     export default {
         data: function() {
@@ -106,9 +106,9 @@
             this.getAllConferences();
         },
 
-		components: {
-			Datepicker
-		},
+        components: {
+            Datepicker
+        },
 
         methods: {
             getAllConferences: function () {
