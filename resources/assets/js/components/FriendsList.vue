@@ -18,7 +18,7 @@
                         <img v-bind:src="friend.avatar_url" class="img-circle" height="60" />
                     </div>
                     <div class="friend__body">
-                        <h4>@{{ friend.username }}</h4>
+                        <h4><a href="http://twitter.com/{{ friend.username }}">@{{ friend.username }}</a></h4>
 
                         <div class="friend__actions">
                             <button class="btn btn-danger btn-inverse btn-xs" @click="deleteFriend(friend)">Delete</button>
