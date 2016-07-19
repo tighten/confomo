@@ -1,6 +1,15 @@
 <template>
     <!-- Friend Listing -->
     <h2>{{ descriptor }} Friends</h2>
+    <p v-show="descriptor == 'New'" style="text-align: center; font-style: italic; color: rgba(0, 0, 0, 0.5)">
+        (New friends are people you met at this conference.)
+    </p>
+    <p v-show="descriptor == 'Online'" style="text-align: center; font-style: italic; color: rgba(0, 0, 0, 0.5)">
+        (Online friends are people you know online prior to the conference and want to meet at the conference.)
+    </p>
+    <div v-show="list.length == 0">
+        <p style="font-size: 1.5em;">You don't have any {{ descriptor }} Friends added yet.</p><br>
+    </div>
     <div v-show="list.length > 0">
         <div class="row friends">
             <div class="col-xs-12 col-sm-6 col-md-4" v-for="friend in list">
@@ -30,7 +39,7 @@
     <!-- Add Friend Form -->
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-primary">
+            <div v-bind:class="['panel', list.length > 0 ? 'panel-default' : 'panel-primary']">
                 <div class="panel-heading">Add Friend</div>
 
                 <div class="panel-body">

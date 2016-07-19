@@ -1,8 +1,8 @@
 <template>
     <div class="conference">
-        <friends-list :list="newFriends" key="new-friends" :conference-id="conferenceId" descriptor="New"></friends-list>
-
         <friends-list :list="onlineFriends" key="online-friends" :conference-id="conferenceId" descriptor="Online"></friends-list>
+
+        <friends-list :list="newFriends" key="new-friends" :conference-id="conferenceId" descriptor="New"></friends-list>
     </div>
 </template>
 

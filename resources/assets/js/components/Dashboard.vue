@@ -5,30 +5,25 @@
         <div v-if="conferences.length > 0">
             <div class="row" v-for="conference in conferences">
                 <div class="col-md-8 col-md-offset-2">
-                    <div class="panel panel-default">
-                        <div class="panel-heading conference-button">
-                            <h3 class="panel-title pull-left" style="cursor: pointer; padding-top: 6px;" @click="viewConference(conference)">{{ conference.name }}</h3>
-
-                            <div class="pull-right">
-                                <button class="btn btn-danger"
-                                        style="font-size: 18px; margin-right: 10px;"
-                                        @click.prevent="deleteConference(conference)"
-                                >
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </div>
-
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
+                    <button class="btn btn-danger pull-right conference-delete-button"
+                            style="font-size: 18px; margin-right: 10px;"
+                            @click.prevent="deleteConference(conference)"
+                    >
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <h3 class="conference-button" @click="viewConference(conference)">
+                        {{ conference.name }}
+                    </h3>
                 </div>
             </div>
         </div>
 
+        <hr v-show="conferences.length > 0">
+
         <!-- Add Conference Form -->
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-primary">
+                <div v-bind:class="[ 'panel', conferences.length > 0 ? 'panel-default' : 'panel-primary' ]">
                     <div class="panel-heading">Add Conference</div>
 
                     <div class="panel-body">
@@ -159,7 +154,7 @@
 
             validInput: function () {
                 this.addConferenceForm.errors = [];
-                
+
                 if (this.addConferenceForm.name == '') {
                     this.addConferenceForm.errors.push('You need to actually type something for the name.');
                 }

@@ -16,10 +16,11 @@
                 went to {{ $conference->name }}. Did you meet?
             @endif
         </h1>
-
         @if (auth()->check())
-            <a href="/dashboard">&lt;- Back to dashboard</a>
+            <a href="/conferences/{{ $conference->id }}">&lt;- Back to conference dashboard</a>
         @endif
+
+        <br><br>
 
         <conference-introduction></conference-introduction>
     </div>

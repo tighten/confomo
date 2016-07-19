@@ -10,6 +10,14 @@ body {
     font-weight: 300;
 }
 
+h1, h2 {
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+}
+
 .fa-btn {
     margin-right: 5px;
 }
@@ -19,9 +27,21 @@ body {
 }
 
 .conference-button {
+    border: 1px solid #eee;
+    border-radius: 0.25em;
+    margin-bottom: 1em;
+    margin-top: 0;
+    overflow: auto;
+    padding: 0.75em;
+
     &:hover {
-        background-color: #eee;
+        background-color: $brand-primary;
+        color: #fff;
     }
+}
+
+.conference-delete-button {
+    margin-left: 1em;
 }
 
 .friends {
