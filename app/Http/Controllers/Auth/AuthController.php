@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use InvalidArgumentException;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
@@ -16,11 +17,6 @@ class AuthController extends Controller
 
     protected $loginPath = '/';
 
-    /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
@@ -43,7 +39,11 @@ class AuthController extends Controller
      */
     public function handleTwitterCallback()
     {
-        $twitter = Socialite::with('twitter')->user();
+        try {
+            $twitter = Socialite::with('twitter')->user();
+        } catch (InvalidArgumentException $e) {
+            return redirect('/');
+        }
 
         $user = User::where('twitter_id', $twitter->id)->first();
 
