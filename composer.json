@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "laravel/socialite": "^3.0@dev",
         "abraham/twitteroauth": "^0.6.4",
-        "pda/pheanstalk": "~3.0"
+        "pda/pheanstalk": "~3.0",
+        "bugsnag/bugsnag-laravel": "1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
