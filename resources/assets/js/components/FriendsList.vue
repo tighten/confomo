@@ -8,7 +8,7 @@
         (Online friends are people you know online prior to the conference and want to meet at the conference.)
     </p>
     <div v-show="list.length == 0">
-        <p style="font-size: 1.5em;">You don't have any {{ descriptor }} Friends added yet.</p><br>
+        <p style="font-size: 1.5em; text-align: center;">You don't have any {{ descriptor }} Friends added yet.</p><br>
     </div>
     <div v-show="list.length > 0">
         <div class="row friends">
