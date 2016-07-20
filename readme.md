@@ -5,11 +5,13 @@
 
 Built in 4 hours to help me track who I wanted to meet at Laracon 2014, and who I met there who I didn't know yet.
 
+Updated for Laravel 5.1 and Vue in 2015/2016. @michaeldyrynda did most of the hard work there, and we documented it [on a podcast](http://rebuilding.confomo.com/).
+
 ### Contributing
-Submit an issue for bugs or feature requests, or submit a PR against the `development` branch.
+Submit an issue for bugs or feature requests, or submit a PR against the `master` branch.
 
 ![ConFOMO screenshot](public/assets/img/confomo-screenshot.png)
 
 ### License
 
-Not sure. Don't steal it? @todo.
+Not sure. Don't steal it? Let's call it MIT for today.
