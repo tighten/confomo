@@ -11,6 +11,7 @@ body {
 }
 
 h1, h2 {
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -109,4 +110,26 @@ img {
 .btn-success.btn-inverse {
     background-color: $btn-default-bg;
     color: $brand-success;
+}
+
+.landing p {
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+.screenshot {
+    border: 0.5em solid #eee;
+    display: block;
+    margin: 3em auto 0;
+    width: 800px;
+}
+
+@media screen and (max-width: $screen-sm-max) {
+    .logo {
+        margin-top: 5px;
+    }
+
+    .landing p {
+        font-size: 1.5em;
+    }
 }
