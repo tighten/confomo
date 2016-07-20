@@ -12,7 +12,7 @@
 
                 <p>Sign up for free to try it now. Just hit "Login With Twitter" above.</p>
 
-                <img src="/assets/img/confomo-screenshot.png" alt="ConFOMO screenshot" style="border: 0.5em solid #eee; width: 800px; margin: 0 auto; display: block; margin-top: 3em;">
+                <img src="/assets/img/confomo-screenshot.png" alt="ConFOMO screenshot" class="screenshot" style="">
             </div>
         </div>
     </div>

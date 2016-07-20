@@ -115,10 +115,13 @@ img {
 .landing p {
     font-size: 2em;
     margin-bottom: 1em;
+}
 
-    &:last-child {
-        margin-bottom: 0;
-    }
+.screenshot {
+    border: 0.5em solid #eee;
+    display: block;
+    margin: 3em auto 0;
+    width: 800px;
 }
 
 @media screen and (max-width: $screen-sm-max) {
