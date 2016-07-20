@@ -112,6 +112,48 @@ class ConferenceTest extends TestCase
         $this->seeStatusCode(404);
     }
 
+    public function test_conference_can_start_and_end_on_same_day()
+    {
+        $user = factory(User::class)->create();
+
+        $this->be($user);
+        $this->json('post', '/api/conferences', [
+            'name' => 'MyCon',
+            'start_date' => '2016-07-26',
+            'end_date' => '2016-07-26',
+        ]);
+
+        $this->assertResponseOk();
+    }
+
+    public function test_conference_cannot_end_before_it_starts()
+    {
+        $user = factory(User::class)->create();
+
+        $this->be($user);
+        $this->json('post', '/api/conferences', [
+            'name' => 'MyCon',
+            'start_date' => '2016-07-26',
+            'end_date' => '2016-07-01',
+        ]);
+
+        $this->assertResponseStatus(422);
+    }
+
+    public function test_conference_can_end_after_it_starts()
+    {
+        $user = factory(User::class)->create();
+
+        $this->be($user);
+        $this->json('post', '/api/conferences', [
+            'name' => 'MyCon',
+            'start_date' => '2016-07-26',
+            'end_date' => '2016-07-30',
+        ]);
+
+        $this->assertResponseOk();
+    }
+
     public function test_it_identifies_an_upcoming_conference()
     {
         $user = factory(User::class)->create();

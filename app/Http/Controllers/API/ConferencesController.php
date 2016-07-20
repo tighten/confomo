@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Conference;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,10 +12,12 @@ class ConferencesController extends Controller
 {
     public function store(Request $request)
     {
+        $after = (new Carbon($request->input('start_date')))->subDay();
+
         $this->validate($request, [
             'name' => 'required',
             'start_date' => 'required|date_format:Y-m-d',
-            'end_date' => 'required|date_format:Y-m-d|after:start_date',
+            'end_date' => 'required|date_format:Y-m-d|after:' . $after,
         ]);
 
         return Auth::user()->addConference([
