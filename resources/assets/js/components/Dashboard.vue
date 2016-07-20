@@ -17,6 +17,11 @@
                 </div>
             </div>
         </div>
+        <div v-if="conferences.length == 0" style="max-width: 600px; margin: 2em auto; font-size: 1.5em">
+            <p><strong>Just getting started?</strong> Add the name of the next conference you're planning to attend. You can then add your "online friends"&mdash;friends you know online and plan to meet at the conference. Then, at the conference, you can take a look at that list, and mark them when they're met&mdash;like a todo list for friends.</p>
+            <p>These conferences aren't connected to anyone else in this system. It's just for you, to track your friends.</p>
+            <p>So get started! Add your next conference below.</p>
+        </div>
 
         <hr v-show="conferences.length > 0">
 
