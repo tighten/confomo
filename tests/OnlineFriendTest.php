@@ -3,8 +3,6 @@
 use App\Conference;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class OnlineFriendTest extends TestCase
 {
@@ -21,7 +19,7 @@ class OnlineFriendTest extends TestCase
 
         $this->be($user1);
 
-        $this->json('get', '/api/conferences/' . $conference2->id . '/online-friends');
+        $this->json('get', '/api/conferences/' . $conference2->slug . '/online-friends');
 
         $this->seeStatusCode(404);
     }
@@ -35,7 +33,7 @@ class OnlineFriendTest extends TestCase
 
         $this->be($user);
 
-        $this->json('get', 'api/conferences/' . $conference->id . '/online-friends');
+        $this->json('get', 'api/conferences/' . $conference->slug . '/online-friends');
 
         $this->seeJson(['username' => 'ambassadorawsum']);
     }
@@ -49,9 +47,9 @@ class OnlineFriendTest extends TestCase
 
         $this->be($user);
 
-        $this->json('delete', 'api/conferences/' . $conference->id . '/online-friends/' . $friend->id);
+        $this->json('delete', 'api/conferences/' . $conference->slug . '/online-friends/' . $friend->id);
 
-        $this->json('get', 'api/conferences/' . $conference->id . '/online-friends');
+        $this->json('get', 'api/conferences/' . $conference->slug . '/online-friends');
 
         $this->dontSeeJson(['username' => 'mattgreen110']);
     }

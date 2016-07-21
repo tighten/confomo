@@ -3,8 +3,6 @@
 use App\Conference;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class PlanToMeetOnlineFriendTest extends TestCase
 {
@@ -20,7 +18,7 @@ class PlanToMeetOnlineFriendTest extends TestCase
 
         $this->be($user);
 
-        $this->json('get', 'api/conferences/' . $conference->id . '/online-friends');
+        $this->json('get', 'api/conferences/' . $conference->slug . '/online-friends');
 
         $this->seeJson(['username' => 'dead_lugosi']);
     }

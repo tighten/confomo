@@ -74,7 +74,7 @@ class ConferenceTest extends TestCase
         $user->conferences()->save($conference);
 
         $this->be($user);
-        $this->json('delete', '/api/conferences/' . $conference->id);
+        $this->json('delete', '/api/conferences/' . $conference->slug);
 
         $this->json('get', '/api/conferences');
         $this->dontSeeJson(['name' => $conference->name]);
@@ -107,7 +107,7 @@ class ConferenceTest extends TestCase
 
         $this->be($user1);
 
-        $this->json('delete', '/api/conferences/'.$conference2->id);
+        $this->json('delete', '/api/conferences/'.$conference2->slug);
 
         $this->seeStatusCode(404);
     }
@@ -251,6 +251,45 @@ class ConferenceTest extends TestCase
             'type' => 'new',
             'met' => true,
             'introduction' => true,
+        ]);
+    }
+
+    public function test_it_strips_leading_at_symbol_when_adding_new_online_friend()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create(['user_id' => $user->id]);
+
+        $conference->planToMeetOnlineFriend('@mattstauffer');
+
+        $this->seeInDatabase('friends', [
+            'conference_id' => $conference->id,
+            'username' => 'mattstauffer',
+        ]);
+    }
+
+    public function test_it_strips_leading_at_symbol_when_adding_new_met_friend()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create(['user_id' => $user->id]);
+
+        $conference->meetNewFriend('@marcusmoore');
+
+        $this->seeInDatabase('friends', [
+            'conference_id' => $conference->id,
+            'username' => 'marcusmoore',
+        ]);
+    }
+
+    public function test_it_strips_leading_at_symbol_when_introducing_yourself()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create(['user_id' => $user->id]);
+
+        $conference->makeIntroduction('@michaeldyrynda');
+
+        $this->seeInDatabase('friends', [
+            'conference_id' => $conference->id,
+            'username' => 'michaeldyrynda',
         ]);
     }
 }

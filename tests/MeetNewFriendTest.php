@@ -4,8 +4,6 @@ use App\Conference;
 use App\Friend;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class MeetNewFriendTest extends TestCase
 {
@@ -18,11 +16,11 @@ class MeetNewFriendTest extends TestCase
         $user->conferences()->save($conference);
 
         $this->be($user);
-        $this->json('post', 'api/conferences/' . $conference->id . '/new-friends', [
-            'username' => 'adamwathan'
+        $this->json('post', 'api/conferences/' . $conference->slug . '/new-friends', [
+            'username' => 'adamwathan',
         ]);
 
-        $this->json('get', 'api/conferences/' . $conference->id . '/new-friends');
+        $this->json('get', 'api/conferences/' . $conference->slug . '/new-friends');
 
         $this->seeJson(['username' => 'adamwathan']);
     }
@@ -34,8 +32,8 @@ class MeetNewFriendTest extends TestCase
         $user->conferences()->save($conference);
 
         $this->be($user);
-        $this->json('post', 'api/conferences/' . $conference->id . '/new-friends', [
-            'username' => 'adamwathan'
+        $this->json('post', 'api/conferences/' . $conference->slug . '/new-friends', [
+            'username' => 'adamwathan',
         ]);
 
         $friend = Friend::where('username', 'adamwathan')->first();
