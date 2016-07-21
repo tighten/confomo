@@ -16,8 +16,13 @@
                 went to {{ $conference->name }}. Did you meet?
             @endif
         </h1>
+
         @if (auth()->check())
-            <a href="/conferences/{{ $conference->slug }}">&lt;- Back to conference dashboard</a>
+            @if(auth()->user()->owns($conference))
+                <a href="/conferences/{{ $conference->slug }}">&lt;- Back to conference dashboard</a>
+            @else
+                <a href="/dashboard">&lt;- Back to dashboard</a>
+            @endif
         @endif
 
         <br><br>
