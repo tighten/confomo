@@ -17,7 +17,11 @@
             @endif
         </h1>
         @if (auth()->check())
-            <a href="/conferences/{{ $conference->id }}">&lt;- Back to conference dashboard</a>
+            @if(auth()->user()->owns($conference))
+                <a href="/conferences/{{ $conference->id }}">&lt;- Back to conference dashboard</a>
+            @else
+                <a href="/dashboard">&lt;- Back to dashboard</a>
+            @endif
         @endif
 
         <br><br>
