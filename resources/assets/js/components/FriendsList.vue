@@ -82,7 +82,7 @@
 
 <script>
     export default {
-        props: ['list', 'key', 'conferenceId', 'descriptor'],
+        props: ['list', 'key', 'conferenceSlug', 'descriptor'],
 
         data: function () {
             return {
@@ -100,7 +100,7 @@
 
         methods: {
             getAllFriends: function () {
-                this.$http.get('/api/conferences/' + this.conferenceId + '/' + this.key)
+                this.$http.get('/api/conferences/' + this.conferenceSlug + '/' + this.key)
                     .then(friends => { this.list = friends.data; });
             },
 
@@ -118,7 +118,7 @@
                 this.addFriendForm.errors = [];
                 this.addFriendForm.adding = true;
 
-                this.$http.post('/api/conferences/' + this.conferenceId + '/' + this.key, this.addFriendForm)
+                this.$http.post('/api/conferences/' + this.conferenceSlug + '/' + this.key, this.addFriendForm)
                     .then(friend => {
                         this.addFriendForm.username = '';
                         this.addFriendForm.adding = false;
@@ -138,7 +138,7 @@
                     type: 'warning',
                     showCancelButton: true
                 }, () => {
-                    vm.$http.delete('/api/conferences/' + vm.conferenceId + '/' + vm.key + '/' + friend.id)
+                    vm.$http.delete('/api/conferences/' + vm.conferenceSlug + '/' + vm.key + '/' + friend.id)
                         .then(() => { vm.list.$remove(friend) });
                 });
             },
@@ -152,7 +152,7 @@
             },
 
             toggleFriendMet: function (friend, met) {
-                this.$http.patch('/api/conferences/' + this.conferenceId + '/' + this.key + '/' + friend.id, { met: met })
+                this.$http.patch('/api/conferences/' + this.conferenceSlug + '/' + this.key + '/' + friend.id, { met: met })
                     .then(() => { friend.met = met; });
             },
         }

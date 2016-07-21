@@ -156,7 +156,7 @@
                     type: 'warning',
                     showCancelButton: true
                 }, function () {
-                    vm.$http.delete('/api/conferences/' + conference.id)
+                    vm.$http.delete('/api/conferences/' + conference.slug)
                         .then(function () {
                             vm.conferences.$remove(conference);
                         });
@@ -164,7 +164,7 @@
             },
 
             viewConference: function (conference) {
-                document.location.href = '/conferences/' + conference.id;
+                document.location.href = '/conferences/' + conference.slug;
             },
 
             validInput: function () {

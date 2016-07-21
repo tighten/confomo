@@ -3,8 +3,6 @@
 use App\Conference;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class PlanToMeetOnlineFriendTest extends TestCase
 {
@@ -12,7 +10,7 @@ class PlanToMeetOnlineFriendTest extends TestCase
 
     public function test_when_i_plan_to_meet_online_friend_they_show_up_in_online_friends_list()
     {
-        $user = factory(User::class)->create();
+        $user       = factory(User::class)->create();
         $conference = factory(Conference::class)->make();
         $user->conferences()->save($conference);
 
@@ -20,7 +18,7 @@ class PlanToMeetOnlineFriendTest extends TestCase
 
         $this->be($user);
 
-        $this->json('get', 'api/conferences/' . $conference->id . '/online-friends');
+        $this->json('get', 'api/conferences/' . $conference->slug . '/online-friends');
 
         $this->seeJson(['username' => 'dead_lugosi']);
     }
