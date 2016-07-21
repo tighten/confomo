@@ -25,6 +25,7 @@ class Conference extends Model
     {
         return retry(5, function () use ($options) {
             $this->regenerateSlug();
+
             return parent::save($options);
         });
     }
@@ -42,7 +43,7 @@ class Conference extends Model
     public function meetNewFriend($username)
     {
         $friend = new Friend([
-            'username' => $username,
+            'username' => $this->normalizeFriendName($username),
             'type' => 'new',
             'met' => true,
         ]);
@@ -62,7 +63,7 @@ class Conference extends Model
     public function planToMeetOnlineFriend($username)
     {
         $friend = new Friend([
-            'username' => $username,
+            'username' => $this->normalizeFriendName($username),
             'type' => 'online',
             'met' => false,
         ]);
@@ -82,7 +83,7 @@ class Conference extends Model
     public function makeIntroduction($username)
     {
         $friend = new Friend([
-            'username' => $username,
+            'username' => $this->normalizeFriendName($username),
             'type' => $this->isUpcoming() ? 'online' : 'new',
             'introduction' => true,
             'met' => ! $this->isUpcoming(),
@@ -122,5 +123,10 @@ class Conference extends Model
         }
 
         return $this->end_date->lt(Carbon::now());
+    }
+
+    protected function normalizeFriendName($username)
+    {
+        return str_replace('@', '', $username);
     }
 }
