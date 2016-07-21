@@ -253,4 +253,43 @@ class ConferenceTest extends TestCase
             'introduction' => true,
         ]);
     }
+
+    public function test_it_strips_leading_at_symbol_when_adding_new_online_friend()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create(['user_id' => $user->id]);
+
+        $conference->planToMeetOnlineFriend('@mattstauffer');
+
+        $this->seeInDatabase('friends', [
+            'conference_id' => $conference->id,
+            'username' => 'mattstauffer',
+        ]);
+    }
+
+    public function test_it_strips_leading_at_symbol_when_adding_new_met_friend()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create(['user_id' => $user->id]);
+
+        $conference->meetNewFriend('@marcusmoore');
+
+        $this->seeInDatabase('friends', [
+            'conference_id' => $conference->id,
+            'username' => 'marcusmoore',
+        ]);
+    }
+
+    public function test_it_strips_leading_at_symbol_when_introducing_yourself()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create(['user_id' => $user->id]);
+
+        $conference->makeIntroduction('@michaeldyrynda');
+
+        $this->seeInDatabase('friends', [
+            'conference_id' => $conference->id,
+            'username' => 'michaeldyrynda',
+        ]);
+    }
 }
