@@ -10,8 +10,8 @@ class OnlineFriendTest extends TestCase
 
     public function test_it_doesnt_show_online_friends_for_another_users_conference()
     {
-        $user1       = factory(User::class)->create();
-        $user2       = factory(User::class)->create();
+        $user1 = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
         $conference1 = factory(Conference::class)->make();
         $conference2 = factory(Conference::class)->make();
         $user1->conferences()->save($conference1);
@@ -26,7 +26,7 @@ class OnlineFriendTest extends TestCase
 
     public function test_it_shows_online_friends_for_my_conference()
     {
-        $user       = factory(User::class)->create();
+        $user = factory(User::class)->create();
         $conference = factory(Conference::class)->make();
         $user->conferences()->save($conference);
         $conference->planToMeetOnlineFriend('ambassadorawsum');
@@ -40,7 +40,7 @@ class OnlineFriendTest extends TestCase
 
     public function test_it_can_delete_online_friends()
     {
-        $user       = factory(User::class)->create();
+        $user = factory(User::class)->create();
         $conference = factory(Conference::class)->make();
         $user->conferences()->save($conference);
         $friend = $conference->planToMeetOnlineFriend('mattgreen110');

@@ -10,7 +10,7 @@ class MeetOnlineFriendTest extends TestCase
 
     public function test_when_i_meet_an_online_friend_then_that_person_is_marked_as_met()
     {
-        $user       = factory(User::class)->create();
+        $user = factory(User::class)->create();
         $conference = factory(Conference::class)->make();
         $user->conferences()->save($conference);
 

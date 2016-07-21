@@ -11,7 +11,7 @@ class MeetNewFriendTest extends TestCase
 
     public function test_when_i_meet_a_new_friend_then_that_person_is_listed_in_the_new_friends_list()
     {
-        $user       = factory(User::class)->create();
+        $user = factory(User::class)->create();
         $conference = factory(Conference::class)->make();
         $user->conferences()->save($conference);
 
@@ -27,7 +27,7 @@ class MeetNewFriendTest extends TestCase
 
     public function test_when_i_meet_a_new_friend_then_that_person_is_marked_as_met()
     {
-        $user       = factory(User::class)->create();
+        $user = factory(User::class)->create();
         $conference = factory(Conference::class)->make();
         $user->conferences()->save($conference);
 
