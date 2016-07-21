@@ -74,7 +74,7 @@ class ConferenceTest extends TestCase
         $user->conferences()->save($conference);
 
         $this->be($user);
-        $this->json('delete', '/api/conferences/' . $conference->id);
+        $this->json('delete', '/api/conferences/' . $conference->slug);
 
         $this->json('get', '/api/conferences');
         $this->dontSeeJson(['name' => $conference->name]);
@@ -107,7 +107,7 @@ class ConferenceTest extends TestCase
 
         $this->be($user1);
 
-        $this->json('delete', '/api/conferences/'.$conference2->id);
+        $this->json('delete', '/api/conferences/'.$conference2->slug);
 
         $this->seeStatusCode(404);
     }

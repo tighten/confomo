@@ -3,7 +3,7 @@
 @section('content')
     <div id="confomo-app" class="container" v-cloak>
         <script>
-            Confomo.conferenceId = {{ $conference->id }};
+            Confomo.conferenceSlug = "{{ $conference->slug }}";
         </script>
 
         <h1>{{ $conference->name }}</h1>

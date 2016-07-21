@@ -28,7 +28,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot($router);
 
-        $router->model('conference', Conference::class);
+        $router->bind('conference', function ($conference) {
+            return Conference::where('slug', $conference)->firstOrFail();
+        });
         $router->model('friend', Friend::class);
     }
 

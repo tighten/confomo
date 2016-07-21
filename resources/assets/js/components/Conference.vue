@@ -1,8 +1,8 @@
 <template>
     <div class="conference">
-        <friends-list :list="onlineFriends" key="online-friends" :conference-id="conferenceId" descriptor="Online"></friends-list>
+        <friends-list :list="onlineFriends" key="online-friends" :conference-slug="conferenceSlug" descriptor="Online"></friends-list>
 
-        <friends-list :list="newFriends" key="new-friends" :conference-id="conferenceId" descriptor="New"></friends-list>
+        <friends-list :list="newFriends" key="new-friends" :conference-slug="conferenceSlug" descriptor="New"></friends-list>
     </div>
 </template>
 
@@ -13,7 +13,7 @@
         data: function() {
             return {
                 currentUserId: Confomo.userId,
-                conferenceId: Confomo.conferenceId,
+                conferenceSlug: Confomo.conferenceSlug,
 
                 newFriends: [],
                 onlineFriends: []
