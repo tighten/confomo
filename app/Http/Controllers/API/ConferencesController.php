@@ -13,11 +13,11 @@ class ConferencesController extends Controller
 {
     public function store(StoreConferencesRequest $request)
     {
-        return Auth::user()->addConference([
-            'name' => $request->input('name'),
-            'start_date' => $request->input('start_date'),
-            'end_date' => $request->input('end_date'),
-        ]);
+        return Auth::user()->addConference($request->only([
+            'name',
+            'start_date',
+            'end_date',
+        ]));
     }
 
     public function index()
