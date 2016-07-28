@@ -94,9 +94,7 @@ class Conference extends Model
 
     protected function existingFriendIntroduction($username, $friend)
     {
-        $friend->introduction = true;
-
-        $friend->save();
+        $friend->update(['introduction' => true]);
 
         return $friend;
     }
