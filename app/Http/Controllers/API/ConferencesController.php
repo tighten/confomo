@@ -27,9 +27,7 @@ class ConferencesController extends Controller
 
     public function delete(Conference $conference)
     {
-        if ($conference->user_id !== Auth::user()->id) {
-            abort(404);
-        }
+        abort_if($conference->user_id !== Auth::user()->id, 404);
 
         $conference->delete();
     }
