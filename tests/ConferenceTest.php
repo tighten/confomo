@@ -1,6 +1,7 @@
 <?php
 
 use App\Conference;
+use App\Friend;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -291,5 +292,17 @@ class ConferenceTest extends TestCase
             'conference_id' => $conference->id,
             'username' => 'michaeldyrynda',
         ]);
+    }
+
+    public function test_it_does_not_duplicate_a_friend_if_they_are_already_on_your_list_and_introducing_themselves()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create(['user_id' => $user->id]);
+
+        $conference->planToMeetOnlineFriend('stauffermatt');
+        $conference->makeIntroduction('stauffermatt');
+
+        $this->assertCount(1, Friend::where('username', 'stauffermatt')->where('conference_id', $conference->id)->get());
+        $this->seeInDatabase('friends', ['username' => 'stauffermatt', 'conference_id' => $conference->id, 'introduction' => true]);
     }
 }
