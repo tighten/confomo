@@ -31,5 +31,4 @@ class StoreConferenceRequest extends Request
             'end_date' => 'required|date_format:Y-m-d|after:' . $after,
         ];
     }
-
 }
