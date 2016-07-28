@@ -14,7 +14,18 @@
         <a href="/dashboard">&lt;- Back to dashboard</a>
 
         @if (auth()->user()->owns($conference))
-            <a href="{{ url('conferences/' . $conference->slug . '/introduce') }}" title="Your public introduction URL" style="float: right">
+            <span class="pull-right">
+                <a class="twitter-share-button"
+                href="https://twitter.com/share"
+                data-url="{{ url('conferences/' . $conference->slug . '/introduce') }}"
+                data-hashtags="ConFOMO"
+                data-text="{{ $conference->tweet_text }}"
+                >
+                    Tweet
+                </a>
+            </span>
+               
+            <a href="{{ url('conferences/' . $conference->slug . '/introduce') }}" title="Your public introduction URL" style="float: right; margin-right: 5px;">
                 Public Introduction URL
             </a>
         @endif
