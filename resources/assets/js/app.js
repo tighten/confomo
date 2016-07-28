@@ -23,8 +23,7 @@ Vue.mixin({
     }
 });
 
-
-if ($("#confomo-app").length) {
+if (document.getElementById("confomo-app")) {
     new Vue({
         el: '#confomo-app',
 
