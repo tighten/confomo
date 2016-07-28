@@ -49,7 +49,7 @@ class AuthController extends Controller
             Auth::login($user, true);
         } else {
             Auth::login($user = User::create([
-                'name'       => $twitter->name,
+                'name' => $twitter->name,
                 'twitter_id' => $twitter->id,
             ]), true);
         }
