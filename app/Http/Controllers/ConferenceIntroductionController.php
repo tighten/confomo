@@ -16,6 +16,8 @@ class ConferenceIntroductionController extends Controller
 
     public function store($conferenceSlug, Request $request)
     {
+        $this->validate($request, ['username' => 'required']);
+
         return Conference::where('slug', $conferenceSlug)
             ->firstOrFail()
             ->makeIntroduction($request->input('username'));
