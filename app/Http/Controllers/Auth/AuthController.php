@@ -45,15 +45,13 @@ class AuthController extends Controller
             return redirect('/');
         }
 
-        $user = User::where('twitter_id', $twitter->id)->first();
-
-        if ($user) {
-            Auth::login($user);
+        if ($user = User::where('twitter_id', $twitter->id)->first()) {
+            Auth::login($user, true);
         } else {
             Auth::login($user = User::create([
-                'name' => $twitter->name,
+                'name'       => $twitter->name,
                 'twitter_id' => $twitter->id,
-            ]));
+            ]), true);
         }
 
         return redirect('/');
@@ -65,7 +63,7 @@ class AuthController extends Controller
             abort(404);
         }
 
-        Auth::login(User::first());
+        Auth::login(User::first(), true);
 
         return redirect('/dashboard');
     }
