@@ -13,7 +13,7 @@ class ConferenceOnlineFriendsController extends Controller
 {
     public function __construct(Request $request)
     {
-        abort_if($request->route('conference')->user_id !== Auth::user()->id, 404);
+        abort_if(! Auth::user()->owns($request->route('conference')), 404);
     }
 
     public function store(Conference $conference)
