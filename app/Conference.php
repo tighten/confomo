@@ -82,20 +82,34 @@ class Conference extends Model
 
     public function makeIntroduction($username)
     {
-        $friend = Friend::firstOrNew(['username' => $this->normalizeFriendName($username)]);
+        $friend = Friend::firstOrNew([
+            'conference_id' => $this->id,
+            'username' => $this->normalizeFriendName($username),
+        ]);
 
-        if ($friend->id) {
-            $friend->introduction = true;
-            $friend->save();
+        return $friend->exists
+            ? $this->existingFriendIntroduction($username, $friend)
+            : $this->newFriendIntroduction($username, $friend);
+    }
 
-            return $friend;
-        }
-
-        $friend->type = $this->isUpcoming() ? 'online' : 'new';
+    protected function existingFriendIntroduction($username, $friend)
+    {
         $friend->introduction = true;
-        $friend->met = ! $this->isUpcoming();
 
-        $relationship = $this->isUpcoming() ? 'onlineFriends' : 'newFriends';
+        $friend->save();
+
+        return $friend;
+    }
+
+    protected function newFriendIntroduction($username, $friend)
+    {
+        $friend->fill([
+            'introduction' => true,
+            'type' => $this->isUpcoming() ? 'online' : 'new',
+            'met' => ! $this->isUpcoming(),
+        ]);
+
+        $relationship = sprintf('%sFriends', $friend->type);
 
         $this->$relationship()->save($friend);
 
