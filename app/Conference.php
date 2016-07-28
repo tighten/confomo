@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class Conference extends Model
 {
     protected $fillable = ['name', 'start_date', 'end_date', 'slug'];
-    protected $casts    = ['user_id' => 'integer'];
-    protected $dates    = ['start_date', 'end_date'];
+    protected $casts = ['user_id' => 'integer'];
+    protected $dates = ['start_date', 'end_date'];
 
     public function save(array $options = [])
     {
@@ -44,8 +44,8 @@ class Conference extends Model
     {
         $friend = new Friend([
             'username' => $this->normalizeFriendName($username),
-            'type'     => 'new',
-            'met'      => true,
+            'type' => 'new',
+            'met' => true,
         ]);
 
         $this->newFriends()->save($friend);
@@ -64,8 +64,8 @@ class Conference extends Model
     {
         $friend = new Friend([
             'username' => $this->normalizeFriendName($username),
-            'type'     => 'online',
-            'met'      => false,
+            'type' => 'online',
+            'met' => false,
         ]);
 
         $this->onlineFriends()->save($friend);
@@ -83,10 +83,10 @@ class Conference extends Model
     public function makeIntroduction($username)
     {
         $friend = new Friend([
-            'username'     => $this->normalizeFriendName($username),
-            'type'         => $this->isUpcoming() ? 'online' : 'new',
+            'username' => $this->normalizeFriendName($username),
+            'type' => $this->isUpcoming() ? 'online' : 'new',
             'introduction' => true,
-            'met'          => ! $this->isUpcoming(),
+            'met' => ! $this->isUpcoming(),
         ]);
 
         $relationship = $this->isUpcoming() ? 'onlineFriends' : 'newFriends';
