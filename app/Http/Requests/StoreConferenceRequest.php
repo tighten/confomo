@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Carbon\Carbon;
 
 class StoreConferenceRequest extends Request
 {
@@ -23,10 +24,11 @@ class StoreConferenceRequest extends Request
      */
     public function rules()
     {
+        $after = (new Carbon($this->input('start_date')))->subDay();
         return [
             'name' => 'required',
             'start_date' => 'required|date_format:Y-m-d',
-            'end_date' => 'required|date_format:Y-m-d|after:start_date',
+            'end_date' => 'required|date_format:Y-m-d|after:' . $after,
         ];
     }
 
