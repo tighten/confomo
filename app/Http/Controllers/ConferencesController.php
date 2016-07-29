@@ -8,6 +8,7 @@ class ConferencesController extends Controller
 {
     public function show(Conference $conference)
     {
-        return view('conferences.show', compact('conference'));
+        return view('conferences.show')
+            ->with('conference', $conference);
     }
 }
