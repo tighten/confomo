@@ -4,10 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Conference;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreConferenceRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreConferenceRequest;
 
 class ConferencesController extends Controller
 {
