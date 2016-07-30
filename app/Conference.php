@@ -88,18 +88,18 @@ class Conference extends Model
         ]);
 
         return $friend->exists
-            ? $this->existingFriendIntroduction($username, $friend)
-            : $this->newFriendIntroduction($username, $friend);
+            ? $this->markExistingFriendAsIntroduction($username, $friend)
+            : $this->addNewFriendAsIntroduction($username, $friend);
     }
 
-    protected function existingFriendIntroduction($username, $friend)
+    protected function markExistingFriendAsIntroduction($username, $friend)
     {
         $friend->update(['introduction' => true]);
 
         return $friend;
     }
 
-    protected function newFriendIntroduction($username, $friend)
+    protected function addNewFriendAsIntroduction($username, $friend)
     {
         $friend->fill([
             'introduction' => true,
