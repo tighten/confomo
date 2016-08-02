@@ -20,7 +20,7 @@ function retry($retries, $fn)
 if (! function_exists('dayBefore')) {
     function dayBefore($dateString)
     {
-        return with(new \Carbon\Carbon($dateString))->subDay()->format("Y-m-d");
+        return (new \Carbon\Carbon($dateString))->subDay();
     }
 }
 
