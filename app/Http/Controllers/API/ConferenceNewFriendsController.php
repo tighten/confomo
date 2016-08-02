@@ -12,9 +12,7 @@ class ConferenceNewFriendsController extends Controller
 {
     public function __construct(Request $request)
     {
-        if ($request->route('conference')->user_id !== Auth::user()->id) {
-            abort(404);
-        }
+        abort_if($request->conference->user_id !== Auth::user()->id, 404);
     }
 
     public function store(Conference $conference, Request $request)
