@@ -17,6 +17,13 @@ function retry($retries, $fn)
     }
 }
 
+if (! function_exists('dayBefore')) {
+    function dayBefore($dateString)
+    {
+        return with(new \Carbon\Carbon($dateString))->subDay()->format("Y-m-d");
+    }
+}
+
 if (! function_exists('abort_if')) {
     /**
      * Throw an HttpException with the given data if the given condition is true.

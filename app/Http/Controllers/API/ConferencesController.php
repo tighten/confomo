@@ -11,8 +11,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ConferencesController extends Controller
 {
-    public function store(StoreConferenceRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'start_date' => 'required|date_format:Y-m-d',
+            'end_date' => 'required|date_format:Y-m-d|after:' . dayBefore($request->start_date),
+        ]);
+
         return Auth::user()->addConference($request->only([
             'name',
             'start_date',
