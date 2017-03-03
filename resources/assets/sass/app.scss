@@ -10,7 +10,7 @@ body {
     font-weight: 300;
 }
 
-h1, h2 {
+h1, h2, h4 {
     margin-bottom: 20px;
     text-align: center;
 }
@@ -97,6 +97,28 @@ img {
     }
 }
 
+.conferences {
+    margin-bottom: 20px;
+}
+
+.conference {
+    border: 1px solid $gray-lighter;
+    border-radius: $border-radius-base;
+    display: block;
+    margin: 5px 0;
+}
+
+.conference__body {
+    float: left;
+    padding: 10px;
+    width: 75%;
+
+    h4 {
+        margin-top: 5px;
+        font-size: 16px;
+    }
+}
+
 .btn-danger.btn-inverse {
     background-color: $btn-default-bg;
     color: $brand-danger;
@@ -132,4 +154,8 @@ img {
     .landing p {
         font-size: 1.5em;
     }
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
 }

@@ -9,6 +9,9 @@ Route::group(['middleware' => 'auth'], function () {
         return view('dashboard');
     });
 
+    Route::get('users/{twitter_nickname}','UserController@show');
+    Route::get('settings', 'UserController@settings');
+
     Route::get('conferences/{conference}', 'ConferencesController@show');
 });
 
@@ -29,6 +32,11 @@ Route::group(['prefix' => 'api', 'namespace' => 'API', 'middleware' => 'auth'], 
         Route::patch('{conference}/online-friends/{friend}', 'ConferenceOnlineFriendsController@update');
         Route::delete('{conference}/online-friends/{friend}', 'ConferenceOnlineFriendsController@delete');
     });
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('{twitter_nickname}/conferences', 'UserController@getUserConferences');
+    });
+    Route::get('settings', 'UserController@settings');
+    Route::post('settings', 'UserController@updateSettings');
 });
 
 Route::get('local-login', 'Auth\AuthController@localLogin');
