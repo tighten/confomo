@@ -14,11 +14,10 @@ class UserController extends Controller
     public function getUserConferences(User $user)
     {
         if (! $user->conferenceListIsPublic) {
-
             return response('no_content', 204);
         }
         $conferences = $user->conferences()->orderBy('start_date', 'desc')->get();
-        $conferences->transform(function($conference) {
+        $conferences->transform(function ($conference) {
             $conference->timeframe = ($conference->isUpcoming()) ? "future" : "past";
 
             return $conference;

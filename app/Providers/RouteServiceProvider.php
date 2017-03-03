@@ -33,7 +33,7 @@ class RouteServiceProvider extends ServiceProvider
             return Conference::where('slug', $conference)->firstOrFail();
         });
         $router->model('friend', Friend::class);
-        $router->bind('twitter_nickname', function($nickname) {
+        $router->bind('twitter_nickname', function ($nickname) {
             return User::where('twitter_nickname', $nickname)->firstOrFail();
         });
     }
