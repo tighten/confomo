@@ -11,9 +11,14 @@
                     <i class="fa fa-btn fa-twitter"></i>Login With Twitter
                 </a>
             @else
-                <a href="/auth/logout" class="btn btn-default nav-action-button">
-                    <i class="fa fa-btn fa-sign-out"></i>Logout {{ Auth::user()->name }}
-                </a>
+                <div class="btn-group dropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle nav-action-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/settings">Settings</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/auth/logout"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                    </ul>
+                </div>
             @endif
         </div>
 
