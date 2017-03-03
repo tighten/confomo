@@ -14,12 +14,14 @@ class ConferencesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'conf_url' => 'sometimes|active_url',
             'start_date' => 'required|date_format:Y-m-d',
             'end_date' => 'required|date_format:Y-m-d|after:' . dayBefore($request->start_date),
         ]);
 
         return Auth::user()->addConference($request->only([
             'name',
+            'conf_url',
             'start_date',
             'end_date',
         ]));
@@ -27,7 +29,7 @@ class ConferencesController extends Controller
 
     public function index()
     {
-        return Auth::user()->conferences()->get();
+        return Auth::user()->conferences;
     }
 
     public function delete(Conference $conference)

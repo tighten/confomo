@@ -53,6 +53,28 @@ class ConferenceTest extends TestCase
         ]);
     }
 
+    public function test_it_can_create_a_conference_with_a_url()
+    {
+        $user = factory(User::class)->create();
+
+        $this->be($user);
+        $this->json('post', '/api/conferences', [
+            'name' => 'MySecondCon',
+            'conf_url' => 'http://example.com',
+            'start_date' => '2016-07-26',
+            'end_date' => '2016-07-29',
+        ]);
+
+        $this->json('get', '/api/conferences');
+
+        $this->seeJson([
+            'name' => 'MySecondCon',
+            'conf_url' => 'http://example.com',
+            'start_date' => '2016-07-26 00:00:00',
+            'end_date' => '2016-07-29 00:00:00',
+        ]);
+    }
+
     public function test_it_can_get_all_conferences()
     {
         $user = factory(User::class)->create();

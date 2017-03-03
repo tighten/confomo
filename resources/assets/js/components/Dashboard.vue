@@ -43,6 +43,14 @@
                                 </div>
                             </div>
 
+	                        <div class="form-group">
+		                        <label class="col-md-3 control-label">Conference URL</label>
+
+		                        <div class="col-md-6">
+			                        <input type="text" class="form-control" name="conf_url" v-model="addConferenceForm.conf_url">
+		                        </div>
+	                        </div>
+
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Start Date</label>
 
@@ -99,6 +107,7 @@
 
                 addConferenceForm: {
                     name: '',
+                    conf_url: '',
                     start_date: '',
                     end_date: '',
                     errors: [],
@@ -137,6 +146,7 @@
                 this.$http.post('/api/conferences', this.addConferenceForm)
                     .then(function (response) {
                         this.addConferenceForm.name = '';
+                        this.addConferenceForm.conf_url = '';
                         this.addConferenceForm.start_date = '';
                         this.addConferenceForm.end_date = '';
                         this.addConferenceForm.adding = false;
