@@ -10,7 +10,7 @@
 			<div class="col-xs-12 col-sm-6 col-md-4" v-for="conference in futureList">
 				<div class="conference clearfix">
 					<div class="conference__body">
-						<h3>{{ conference.name }}</h3>
+						<h3><a href="{{ conference.conf_url }}">{{ conference.name }}</a></h3>
 						<div class="conference__actions">
 							<span class="label label-success">Starts {{ formatDate(conference.start_date) }}</span>
 							<span>
@@ -28,7 +28,7 @@
 			<div class="col-xs-12 col-sm-6 col-md-4" v-for="conference in pastList">
 				<div class="conference clearfix">
 					<div class="conference__body">
-						<h3>{{ conference.name }}</h3>
+						<h3><a href="{{ conference.conf_url }}">{{ conference.name }}</a></h3>
 						<div class="conference__actions">
 							<span class="label label-warning">Started {{ formatDate(conference.start_date) }}</span>
 						</div>
