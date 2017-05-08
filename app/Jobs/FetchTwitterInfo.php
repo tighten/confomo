@@ -7,7 +7,7 @@ use App\Friend;
 use Exception;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-class FetchTwitterAvatar extends Job implements SelfHandling
+class FetchTwitterInfo extends Job implements SelfHandling
 {
     /**
      * @var \App\Friend
@@ -34,9 +34,20 @@ class FetchTwitterAvatar extends Job implements SelfHandling
     {
         try {
             $details = app(TwitterOAuth::class)->get('users/show', ['screen_name' => $this->friend->username]);
-            $url = str_replace('_normal', '', $details->profile_image_url_https);
+            $this->friend->name = $details->name;
+            $this->friend->location = $details->location;
 
-            if (@file_put_contents(public_path($this->friend->avatar), @file_get_contents($url))) {
+            if (array_has($details->entities, 'url')) {
+                $this->friend->url = $details->url;
+                $this->friend->url_display = $details->entities->url->urls[0]->display_url;
+            }
+
+            $this->friend->description = $details->description;
+            $this->friend->save();
+
+            $avatar_url = str_replace('_normal', '', $details->profile_image_url_https);
+
+            if (@file_put_contents(public_path($this->friend->avatar), @file_get_contents($avatar_url))) {
                 return true;
             }
         } catch (Exception $e) {
