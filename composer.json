@@ -10,7 +10,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "laravel/socialite": "^3.0@dev",
+        "laravel/socialite": "^2.0",
         "abraham/twitteroauth": "^0.6.4",
         "pda/pheanstalk": "~3.0",
         "bugsnag/bugsnag-laravel": "1.*"
@@ -19,7 +19,6 @@
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~4.0",
-        "phpspec/phpspec": "~2.1",
         "doctrine/dbal": "^2.5",
         "symfony/dom-crawler": "2.8.*|3.0.*",
         "symfony/css-selector": "2.8.*|3.0.*"
