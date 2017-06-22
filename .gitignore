@@ -4,5 +4,6 @@ public/assets/img/cache/twitter_profile_pics/*
 !public/assets/img/cache/twitter_profile_pics/.gitkeep
 /node_modules
 Homestead.yaml
+/public/storage
 Homestead.json
 .env
