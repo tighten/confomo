@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\FriendWasAdded' => [
             'App\Listeners\FetchFriendAvatar',
         ],
+        'App\Events\UserWasAdded' => [
+            'App\Listeners\FetchUserAvatar',
+        ],
     ];
 
     /**

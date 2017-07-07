@@ -6,6 +6,8 @@ Vue.config.debug = true;
 import Dashboard from './components/Dashboard.vue';
 import Conference from './components/Conference.vue';
 import ConferenceIntroduction from './components/ConferenceIntroduction.vue';
+import User from './components/User.vue';
+import UserSettings from './components/UserSettings.vue';
 
 // Global Errors Component...
 Vue.component('form-errors', require('./components/FormErrors.vue'));
@@ -30,7 +32,9 @@ if (document.getElementById("confomo-app")) {
         components: {
             Dashboard,
             Conference,
-            ConferenceIntroduction
+            ConferenceIntroduction,
+            User,
+            UserSettings
         }
     });
 }

@@ -7,6 +7,9 @@
         </script>
 
         <h1>{{ $conference->name }}</h1>
+        @if ($conference->conf_url)
+            <h4><a href="{{ $conference->conf_url }}" target="_blank">{{ $conference->conf_url }}</a></h4>
+        @endif
         @if ($conference->start_date && $conference->end_date)
             <div style="text-align: center">{{ $conference->start_date->format('M j, Y') }} - {{ $conference->end_date->format('M j, Y') }}</div>
         @endif

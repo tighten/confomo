@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserWasAdded;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -51,8 +52,11 @@ class AuthController extends Controller
             Auth::login($user = User::create([
                 'name' => $twitter->name,
                 'twitter_id' => $twitter->id,
+                'twitter_nickname' => $twitter->nickname,
             ]), true);
         }
+
+        event(new UserWasAdded($user));
 
         return redirect('/');
     }

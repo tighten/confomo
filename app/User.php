@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'twitter_id'];
+    protected $fillable = ['name', 'twitter_id', 'twitter_nickname', 'userIsSearchable', 'conferenceListIsPublic', 'avatar'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -44,6 +44,12 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $casts = ['id' => 'int'];
 
+    /**
+     * Fields that should be appended to the model when cast to an array or json.
+     * @var array
+     */
+    protected $appends = ['avatar_url'];
+
     public function conferences()
     {
         return $this->hasMany(Conference::class);
@@ -52,5 +58,15 @@ class User extends Model implements AuthenticatableContract,
     public function addConference($conference)
     {
         return $this->conferences()->save(new Conference($conference));
+    }
+
+    public function getAvatarAttribute()
+    {
+        return sprintf('assets/img/cache/twitter_profile_pics/%s', sha1($this->twitter_nickname));
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        return asset(sprintf('avatar/%s', $this->twitter_nickname));
     }
 }
