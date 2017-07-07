@@ -36,6 +36,12 @@ class FetchTwitterInfo extends Job implements SelfHandling
         try {
             $details = $twitter->get('users/show', ['screen_name' => $this->friend->username]);
 
+            if (isset($details->errors)) {
+                // @todo: Handle if it's a non-existent friend?
+                Log::error($details->errors[0]->message);
+                return false;
+            }
+
             $this->friend->name = $details->name;
             $this->friend->location = $details->location;
             $this->friend->description = $details->description;
