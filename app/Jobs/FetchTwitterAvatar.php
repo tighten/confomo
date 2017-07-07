@@ -42,10 +42,11 @@ class FetchTwitterAvatar extends Job implements SelfHandling
                 return true;
             }
         } catch (Exception $e) {
-            Log::error('Failed syncing avatar for ' . $this->friend->username);
+            Log::error('Failed syncing avatar for ' . $this->friend->username . '; exception: ' . $e->getMessage());
             // No big deal, as we have a default avatar
         }
 
+        Log::error('Failed syncing avatar for ' . $this->friend->username);
         return false;
     }
 }
