@@ -5,10 +5,9 @@ namespace App\Jobs;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Friend;
 use Exception;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\Facades\Log;
 
-class FetchTwitterAvatar extends Job implements SelfHandling
+class FetchTwitterAvatar extends Job
 {
     /**
      * @var \App\Friend
