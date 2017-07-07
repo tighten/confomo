@@ -4,11 +4,11 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Abraham\TwitterOAuth\TwitterOAuth;
-use App\Jobs\FetchTwitterAvatar;
+use App\Jobs\FetchTwitterInfo;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Friend;
 
-class FetchTwitterAvatarsCommand extends Command
+class FetchTwitterInfoCommand extends Command
 {
     use DispatchesJobs;
 
@@ -17,14 +17,14 @@ class FetchTwitterAvatarsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'twitter:fetch-avatars {--sync-all : Fetch avatars for all friends}';
+    protected $signature = 'twitter:fetch-info {--sync-all : Fetch twitter info for all friends}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Sync Twitter avatars for conference friends.';
+    protected $description = 'Sync Twitter info for conference friends.';
 
     /**
      * Twitter OAuth client.
@@ -62,7 +62,7 @@ class FetchTwitterAvatarsCommand extends Command
         }
 
         $friends->each(function ($friend) {
-            $this->dispatch(new FetchTwitterAvatar($friend));
+            $this->dispatch(new FetchTwitterInfo($friend));
         });
     }
 }

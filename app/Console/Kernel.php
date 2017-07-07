@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\FetchTwitterAvatarsCommand::class,
+        \App\Console\Commands\FetchTwitterInfoCommand::class,
     ];
 
     /**
@@ -24,6 +24,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('twitter:fetch-avatars --sync-all')->daily();
+        $schedule->command('twitter:fetch-info --sync-all')->daily();
     }
 }

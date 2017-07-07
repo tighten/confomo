@@ -18,7 +18,16 @@
                         <img v-bind:src="friend.avatar_url" class="img-circle" height="60" />
                     </div>
                     <div class="friend__body">
-                        <h4><a href="http://twitter.com/{{ friend.username }}">@{{ friend.username }}</a></h4>
+                        <h4>
+                            <a href="http://twitter.com/{{ friend.username }}">
+                                <span v-if="friend.name != ''">
+                                    {{ friend.name }} <small>(@{{ friend.username }})</small>
+                                </span>
+                                <span v-else>
+                                    @{{ friend.username }}
+                                </span>
+                            </a>
+                        </h4>
 
                         <div class="friend__actions">
                             <button class="btn btn-danger btn-inverse btn-xs" @click="deleteFriend(friend)">Delete</button>
@@ -27,6 +36,8 @@
                                 <button v-if="friend.met" @click="markFriendNotMet(friend)" class="btn btn-inverse btn-xs btn-success" >You've met!</button>
                                 <button v-else @click="markFriendMet(friend)" class="btn btn-inverse btn-xs btn-primary">Mark as met</button>
                             </span>
+
+                            <friend-details :friend="friend"></friend-details>
 
                             <span v-if="friend.introduction" class="label label-warning">Introduced</span>
                         </div>
@@ -81,6 +92,8 @@
 </template>
 
 <script>
+    import FriendDetails from './FriendDetails.vue';
+
     export default {
         props: ['list', 'key', 'conferenceSlug', 'descriptor'],
 
@@ -96,6 +109,10 @@
 
         ready: function() {
             this.getAllFriends();
+        },
+
+        components: {
+            FriendDetails
         },
 
         methods: {
