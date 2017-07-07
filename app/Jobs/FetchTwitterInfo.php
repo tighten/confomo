@@ -6,6 +6,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Friend;
 use Exception;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Support\Facades\Log;
 
 class FetchTwitterInfo extends Job implements SelfHandling
 {
