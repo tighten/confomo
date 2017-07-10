@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,7 +11,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'conferences', 'middleware' => 'auth:api|bindings'], function () {
+Route::group(['prefix' => 'conferences', 'middleware' => 'auth'], function () {
     Route::get('/', 'ConferencesController@index');
     Route::post('/', 'ConferencesController@store');
     Route::delete('{conference}', 'ConferencesController@delete');
