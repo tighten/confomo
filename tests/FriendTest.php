@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-class FriendTest extends TestCase
+class FriendTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 

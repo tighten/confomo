@@ -4,7 +4,7 @@ use App\Conference;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class NewFriendTest extends TestCase
+class NewFriendTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 
