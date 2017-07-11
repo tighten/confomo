@@ -31,7 +31,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'API', 'middleware' => 'auth'], 
 Route::get('local-login', 'Auth\LoginController@localLogin');
 Route::get('auth', 'Auth\LoginController@authenticate');
 Route::get('auth/callback', 'Auth\LoginController@handleTwitterCallback');
-Route::get('auth/logout', 'Auth\LoginController@getLogout');
+Route::get('auth/logout', 'Auth\LoginController@logout');
 Route::get('avatar/{username}', 'AvatarController@show');
 Route::get('conferences/{conferenceSlug}/introduce', 'ConferenceIntroductionController@index');
 Route::post('api/conferences/{conferenceSlug}/introduction', 'ConferenceIntroductionController@store');
