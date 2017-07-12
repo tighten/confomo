@@ -3,10 +3,10 @@
 namespace App\Listeners;
 
 use App\Events\FriendWasAdded;
-use App\Jobs\FetchTwitterAvatar;
+use App\Jobs\FetchTwitterInfo;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class FetchFriendAvatar
+class FetchFriendInfo
 {
     use DispatchesJobs;
 
@@ -29,7 +29,7 @@ class FetchFriendAvatar
     public function handle(FriendWasAdded $event)
     {
         if (! file_exists(public_path($event->friend->avatar))) {
-            $this->dispatch(new FetchTwitterAvatar($event->friend));
+            $this->dispatch(new FetchTwitterInfo($event->friend));
         }
     }
 }
