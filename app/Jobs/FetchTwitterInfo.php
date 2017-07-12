@@ -5,10 +5,9 @@ namespace App\Jobs;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Friend;
 use Exception;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\Facades\Log;
 
-class FetchTwitterInfo extends Job implements SelfHandling
+class FetchTwitterInfo extends Job
 {
     /**
      * @var \App\Friend
