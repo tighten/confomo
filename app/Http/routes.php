@@ -12,7 +12,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('conferences/{conference}', 'ConferencesController@show');
 });
 
-
 Route::group(['prefix' => 'api', 'namespace' => 'API', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'conferences'], function () {
         Route::get('/', 'ConferencesController@index');

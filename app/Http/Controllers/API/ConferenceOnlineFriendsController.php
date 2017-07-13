@@ -7,7 +7,6 @@ use App\Friend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 
 class ConferenceOnlineFriendsController extends Controller
 {
@@ -28,7 +27,7 @@ class ConferenceOnlineFriendsController extends Controller
 
     public function update(Conference $conference, Friend $friend)
     {
-        foreach (Input::all() as $key => $value) {
+        foreach (request()->all() as $key => $value) {
             $friend->$key = $value;
         }
 
