@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\FetchTwitterAvatarsCommand::class,
+        \App\Console\Commands\FetchTwitterInfoCommand::class,
     ];
 
     /**
@@ -24,8 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-                 ->hourly();
+        $schedule->command('twitter:fetch-info --sync-all')->daily();
     }
     /**
      * Register the Closure based commands for the application.

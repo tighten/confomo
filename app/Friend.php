@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Friend extends Model
 {
-    protected $fillable = ['username', 'avatar', 'type', 'met', 'introduction'];
+    protected $fillable = ['username', 'avatar', 'type', 'met', 'introduction', 'name', 'location', 'description', 'url', 'url_display'];
     protected $appends = ['avatar_url'];
     protected $casts = ['met' => 'boolean', 'introduction' => 'boolean'];
 

@@ -124,6 +124,26 @@ img {
     width: 800px;
 }
 
+/* Friend Details Modal */
+.friend-details-modal {
+    text-align: center;
+    width: 100%;
+
+    img {
+        margin-bottom: 20px;
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+
+    span {
+        color: #ccc;
+        font-weight: 300;
+    }
+}
+/* End Friend Details Modal */
+
 @media screen and (max-width: $screen-sm-max) {
     .logo {
         margin-top: 5px;

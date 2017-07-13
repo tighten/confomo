@@ -110,7 +110,7 @@ return [
     |
     */
 
-    'log' => 'single',
+    'log' => 'daily',
 
         'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -177,7 +177,6 @@ return [
     */
 
     'aliases' => [
-
         'App'       => Illuminate\Support\Facades\App::class,
         'Artisan'   => Illuminate\Support\Facades\Artisan::class,
         'Auth'      => Illuminate\Support\Facades\Auth::class,
