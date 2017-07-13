@@ -12,7 +12,11 @@ class ConferenceOnlineFriendsController extends Controller
 {
     public function __construct(Request $request)
     {
-        abort_if(! Auth::user()->owns($request->conference), 404);
+        $this->middleware(function ($request, $next) {
+            abort_if(! Auth::user()->owns($request->conference), 404);
+
+            return $next($request);
+        });
     }
 
     public function store(Conference $conference)
