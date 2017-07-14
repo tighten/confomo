@@ -13,7 +13,9 @@ class ChangeCreatedAtToNullableOnPasswordResetsTable extends Migration
      */
     public function up()
     {
-        DB::statement('ALTER TABLE `password_resets` CHANGE `created_at` `created_at` TIMESTAMP NULL;');
+        Schema::table('password_resets', function (Blueprint $table) {
+            $table->timestamp('created_at')->nullable()->change();
+        });
     }
 
     /**
@@ -23,6 +25,8 @@ class ChangeCreatedAtToNullableOnPasswordResetsTable extends Migration
      */
     public function down()
     {
-        DB::statement('ALTER TABLE `password_resets` CHANGE `created_at` `created_at` TIMESTAMP NOT NULL;');
+        Schema::table('password_resets', function (Blueprint $table) {
+            $table->timestamp('created_at')->nullable(false)->change();
+        });
     }
 }
