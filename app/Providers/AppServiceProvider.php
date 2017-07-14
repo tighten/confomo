@@ -14,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (! array_key_exists('timestamp', \Doctrine\DBAL\Types\Type::getTypesMap())) {
+            \Doctrine\DBAL\Types\Type::addType('timestamp', \Doctrine\DBAL\Types\DateTimeType::class);
+        }
     }
 
     /**

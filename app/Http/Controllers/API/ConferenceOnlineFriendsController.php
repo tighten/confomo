@@ -10,15 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ConferenceOnlineFriendsController extends Controller
 {
-    public function __construct(Request $request)
-    {
-        $this->middleware(function ($request, $next) {
-            abort_if(! Auth::user()->owns($request->conference), 404);
-
-            return $next($request);
-        });
-    }
-
     public function store(Conference $conference)
     {
         return $conference->planToMeetOnlineFriend(request('username'));
