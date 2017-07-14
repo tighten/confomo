@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use InvalidArgumentException;
 use Laravel\Socialite\Facades\Socialite;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
