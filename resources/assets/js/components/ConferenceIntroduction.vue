@@ -46,12 +46,14 @@
 <script>
 
     export default {
+        props: ['data-user'],
+
         data: function () {
             return {
                 addIntroductionForm: {
                     errors: [],
                     adding: false,
-                    username: ''
+                    username: this.dataUser ? this.dataUser.username : ''
                 }
             };
         },
