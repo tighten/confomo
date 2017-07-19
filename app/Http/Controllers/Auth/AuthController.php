@@ -47,7 +47,7 @@ class AuthController extends Controller
 
         $user = User::updateOrCreate(['twitter_id' => $twitter->id], [
             'name' => $twitter->name,
-            'username' => $twitter->username,
+            'username' => $twitter->nickname,
         ]);
 
         Auth::login($user, true);
