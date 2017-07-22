@@ -14,7 +14,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\FetchTwitterInfoCommand::class,
-        \App\Console\Commands\MakeTweeters::class,
     ];
 
     /**
