@@ -3,26 +3,26 @@
 namespace App\Jobs;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-use App\Friend;
+use App\Tweeter;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
 class FetchTwitterInfo extends Job
 {
     /**
-     * @var \App\Friend
+     * @var \App\Tweeter
      */
-    private $friend;
+    private $tweeter;
 
     /**
      * Create a new job instance.
      *
-     * @param  \App\Friend $friend
+     * @param  \App\Tweeter $tweeter
      * @return void
      */
-    public function __construct(Friend $friend)
+    public function __construct(Tweeter $tweeter)
     {
-        $this->friend = $friend;
+        $this->tweeter = $tweeter;
     }
 
     /**
@@ -33,38 +33,38 @@ class FetchTwitterInfo extends Job
     public function handle(TwitterOAuth $twitter)
     {
         try {
-            $details = $twitter->get('users/show', ['screen_name' => $this->friend->username]);
+            $details = $twitter->get('users/show', ['screen_name' => $this->tweeter->username]);
 
             if (isset($details->errors)) {
-                // @todo: Handle if it's a non-existent friend?
+                // @todo: Handle if it's a non-existent tweeter?
                 Log::error($details->errors[0]->message);
                 return false;
             }
 
-            $this->friend->name = $details->name;
-            $this->friend->location = $details->location;
-            $this->friend->description = $details->description;
+            $this->tweeter->name = $details->name;
+            $this->tweeter->location = $details->location;
+            $this->tweeter->description = $details->description;
 
             if (array_has($details->entities, 'url')) {
-                $this->friend->url = $details->url;
-                $this->friend->url_display = $details->entities->url->urls[0]->display_url;
+                $this->tweeter->url = $details->url;
+                $this->tweeter->url_display = $details->entities->url->urls[0]->display_url;
             }
 
-            $this->friend->save();
-            Log::info('Synced friend details for ' . $this->friend->username);
+            $this->tweeter->save();
+            Log::info('Synced tweeter details for ' . $this->tweeter->username);
 
             $avatar_url = str_replace('_normal', '', $details->profile_image_url_https);
 
-            if (@file_put_contents(public_path($this->friend->avatar), @file_get_contents($avatar_url))) {
-                Log::info('Synced avatar for ' . $this->friend->username);
+            if (@file_put_contents(public_path($this->tweeter->avatar), @file_get_contents($avatar_url))) {
+                Log::info('Synced avatar for ' . $this->tweeter->username);
                 return true;
             }
         } catch (Exception $e) {
-            Log::error('Failed syncing avatar/details for ' . $this->friend->username . '; exception: ' . $e->getMessage());
+            Log::error('Failed syncing avatar/details for ' . $this->tweeter->username . '; exception: ' . $e->getMessage());
             // No big deal, as we have a default avatar
         }
 
-        Log::error('Failed syncing avatar/details for ' . $this->friend->username);
+        Log::error('Failed syncing avatar for ' . $this->tweeter->username);
         return false;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\FriendWasAdded;
 use App\Jobs\FetchTwitterInfo;
+use App\Tweeter;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class FetchFriendInfo
@@ -28,8 +29,6 @@ class FetchFriendInfo
      */
     public function handle(FriendWasAdded $event)
     {
-        if (! file_exists(public_path($event->friend->avatar))) {
-            $this->dispatch(new FetchTwitterInfo($event->friend));
-        }
+        Tweeter::ensureExists($event->friend->username);
     }
 }

@@ -169,6 +169,10 @@ process.off = noop;
 process.removeListener = noop;
 process.removeAllListeners = noop;
 process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
@@ -15010,9 +15014,9 @@ if (module.hot) {(function () {  module.hot.accept()
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-68f4a44b", module.exports)
+    hotAPI.createRecord("_v-7363e0c8", module.exports)
   } else {
-    hotAPI.update("_v-68f4a44b", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-7363e0c8", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"./FriendsList.vue":23,"vue":14,"vue-hot-reload-api":12}],18:[function(require,module,exports){
@@ -15022,12 +15026,14 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = {
+    props: ['data-user'],
+
     data: function data() {
         return {
             addIntroductionForm: {
                 errors: [],
                 adding: false,
-                username: ''
+                username: this.dataUser ? this.dataUser.username : ''
             }
         };
     },
@@ -15065,9 +15071,9 @@ if (module.hot) {(function () {  module.hot.accept()
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-b588a1f6", module.exports)
+    hotAPI.createRecord("_v-0041a8d6", module.exports)
   } else {
-    hotAPI.update("_v-b588a1f6", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-0041a8d6", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":14,"vue-hot-reload-api":12}],19:[function(require,module,exports){
@@ -15189,9 +15195,9 @@ if (module.hot) {(function () {  module.hot.accept()
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-5c2a69b5", module.exports)
+    hotAPI.createRecord("_v-bd845f78", module.exports)
   } else {
-    hotAPI.update("_v-5c2a69b5", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-bd845f78", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"./Datepicker.vue":20,"vue":14,"vue-hot-reload-api":12}],20:[function(require,module,exports){
@@ -15485,9 +15491,9 @@ if (module.hot) {(function () {  module.hot.accept()
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-914de62a", module.exports)
+    hotAPI.createRecord("_v-14b2783c", module.exports)
   } else {
-    hotAPI.update("_v-914de62a", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-14b2783c", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"../utils/EventListener.js":25,"vue":14,"vue-hot-reload-api":12,"vueify/lib/insert-css":15}],21:[function(require,module,exports){
@@ -15508,9 +15514,9 @@ if (module.hot) {(function () {  module.hot.accept()
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-4c1ad2fe", module.exports)
+    hotAPI.createRecord("_v-ad178362", module.exports)
   } else {
-    hotAPI.update("_v-4c1ad2fe", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-ad178362", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":14,"vue-hot-reload-api":12}],22:[function(require,module,exports){
@@ -15537,15 +15543,15 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<button type=\"button\" class=\"btn btn-primary btn-xs\" @click=\"showDetails(friend)\">Details</button>\n\n<div id=\"{{ friend.username }}\" class=\"hide\">\n    <div class=\"friend-details-modal\">\n        <img v-bind:src=\"friend.avatar_url\" class=\"img-circle\" height=\"160\">\n        <p><span>Name:</span> {{ friend.name }}</p>\n        <span v-show=\"friend.location &amp;&amp; friend.location.length > 0\">\n            <p><span>Location: </span> {{ friend.location }}</p>\n        </span>\n        <span v-show=\"friend.url &amp;&amp; friend.url.length > 0\">\n            <p><span>Url: </span><a href=\"{{ friend.url }}\">{{ friend.url_display }}</a></p>\n        </span>\n        <span v-show=\"friend.description &amp;&amp; friend.description.length > 0\">\n            <p>{{ friend.description }}</p>\n        </span>\n    </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<button type=\"button\" class=\"btn btn-primary btn-xs\" @click=\"showDetails(friend)\">Details</button>\n\n<div id=\"{{ friend.username }}\" class=\"hide\">\n    <div class=\"friend-details-modal\">\n        <img v-bind:src=\"friend.avatar_url\" class=\"img-circle\" height=\"160\">\n        <p><strong>Name:</strong> {{ friend.name }}</p>\n        <span v-show=\"friend.location &amp;&amp; friend.location.length > 0\">\n            <p><strong>Location: </strong> {{ friend.location }}</p>\n        </span>\n        <span v-show=\"friend.url &amp;&amp; friend.url.length > 0\">\n            <p><strong>Url: </strong><a href=\"{{ friend.url }}\">{{ friend.url_display }}</a></p>\n        </span>\n        <span v-show=\"friend.description &amp;&amp; friend.description.length > 0\">\n            <p>{{ friend.description }}</p>\n        </span>\n    </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-486dec65", module.exports)
+    hotAPI.createRecord("_v-713d7374", module.exports)
   } else {
-    hotAPI.update("_v-486dec65", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-713d7374", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":14,"vue-hot-reload-api":12}],23:[function(require,module,exports){
@@ -15652,9 +15658,9 @@ if (module.hot) {(function () {  module.hot.accept()
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-4169e534", module.exports)
+    hotAPI.createRecord("_v-e18437fa", module.exports)
   } else {
-    hotAPI.update("_v-4169e534", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-e18437fa", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"./FriendDetails.vue":22,"vue":14,"vue-hot-reload-api":12}],24:[function(require,module,exports){
