@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use Doctrine\DBAL\Types\DateTimeType as DoctrineDateTimeType;
+use Doctrine\DBAL\Types\Type as DoctrineType;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (! array_key_exists('timestamp', DoctrineType::getTypesMap())) {
+            DoctrineType::addType('timestamp', DoctrineDateTimeType::class);
+        }
     }
 
     /**
