@@ -65,14 +65,12 @@ class AuthController extends Controller
             return redirect('/');
         }
 
-        if ($user = User::where('twitter_id', $twitter->id)->first()) {
-            Auth::login($user, true);
-        } else {
-            Auth::login($user = User::create([
-                'name' => $twitter->name,
-                'twitter_id' => $twitter->id,
-            ]), true);
-        }
+        $user = User::updateOrCreate(['twitter_id' => $twitter->id], [
+            'name' => $twitter->name,
+            'username' => $twitter->nickname,
+        ]);
+
+        Auth::login($user, true);
 
         return redirect('/');
     }

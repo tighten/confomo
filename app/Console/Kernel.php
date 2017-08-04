@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('twitter:fetch-info --sync-all')->daily();
+        $schedule->command('twitter:fetch-info')->daily();
     }
     
     /**
