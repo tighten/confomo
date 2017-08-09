@@ -27,6 +27,6 @@
 
         <br><br>
 
-        <conference-introduction></conference-introduction>
+        <conference-introduction :data-user="{{ auth()->user() }}"></conference-introduction>
     </div>
 @endsection

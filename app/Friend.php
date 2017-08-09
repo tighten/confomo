@@ -6,39 +6,52 @@ use Illuminate\Database\Eloquent\Model;
 
 class Friend extends Model
 {
-    protected $fillable = ['username', 'avatar', 'type', 'met', 'introduction'];
-    protected $appends = ['avatar_url'];
+    protected $fillable = ['username', 'type', 'met', 'introduction'];
+    protected $appends = ['avatar_url', 'name', 'location', 'description', 'url', 'url_display'];
     protected $casts = ['met' => 'boolean', 'introduction' => 'boolean'];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        /**
-         * When deleting a friend, if they are the last record in the database
-         * with the given username, delete the cached avatar from storage.
-         */
-        static::deleted(function ($friend) {
-            if (! static::where('username', $friend->username)->exists()) {
-                if (file_exists($avatar_path = public_path($friend->avatar))) {
-                    @unlink($avatar_path);
-                }
-            }
-        });
-    }
 
     public function getAvatarAttribute()
     {
-        return sprintf('assets/img/cache/twitter_profile_pics/%s', sha1($this->username));
+        return $this->tweeter->avatar;
     }
 
     public function getAvatarUrlAttribute()
     {
-        return asset(sprintf('avatar/%s', $this->username));
+        return $this->tweeter->avatar_url;
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->tweeter->name;
+    }
+
+    public function getLocationAttribute()
+    {
+        return $this->tweeter->location;
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return $this->tweeter->description;
+    }
+
+    public function getUrlAttribute()
+    {
+        return $this->tweeter->url;
+    }
+
+    public function getUrlDisplayAttribute()
+    {
+        return $this->tweeter->url_display;
     }
 
     public function markMet()
     {
         return $this->update(['met' => true]);
+    }
+
+    public function tweeter()
+    {
+        return $this->belongsTo(Tweeter::class, 'username', 'username');
     }
 }

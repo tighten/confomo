@@ -34,3 +34,13 @@ $factory->define(App\Friend::class, function (Faker\Generator $faker) {
         'met' => false,
     ];
 });
+
+$factory->define(App\Tweeter::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'location' => $faker->address,
+        'description' => $faker->sentence,
+        'url' => $faker->url,
+        'url_display' => $faker->url,
+    ];
+});
