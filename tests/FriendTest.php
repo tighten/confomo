@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Support\Facades\Bus;
 
-class FriendTest extends TestCase
+class FriendTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 

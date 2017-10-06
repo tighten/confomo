@@ -13,11 +13,11 @@ class ShiftFailedJobsTable extends Migration
      */
     public function up()
     {
-        Schema::table('failed_jobs', function (Blueprint $table){
+        Schema::table('failed_jobs', function (Blueprint $table) {
             $table->longText('exception')->nullable();
         });
 
-        Schema::table('failed_jobs', function (Blueprint $table){
+        Schema::table('failed_jobs', function (Blueprint $table) {
             $table->longText('exception')->nullable(false)->change();
         });
     }
