@@ -1,19 +1,44 @@
 <?php
 
-return Symfony\CS\Config\Config::create()
-    ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
-    ->fixers([
-        '-psr0',                                        // Ignore PSR-0, which lowercases the namespace
-        'logical_not_operators_with_successor_space',   // Logical NOT operators (!) should have one trailing whitespace.
-        'multiline_array_trailing_comma',               // PHP multi-line arrays should have a trailing comma.
-        'ordered_use',                                  // Ordering use statements (alphabetically).
-        'remove_lines_between_uses',                    // Remove line breaks between use statements.
-        'return',                                       // An empty line feed should precede a return statement.
-        'short_array_syntax',                           // PHP arrays should use the PHP 5.4 short-syntax.
-        'short_scalar_cast',                            // Cast "(boolean)" and "(integer)" should be written as "(bool)" and "(int)". "(double)" and "(real)" as "(float)".
-        'single_array_no_trailing_comma',               // PHP single-line arrays should not have a trailing comma.
-        'trim_array_spaces',                            // Arrays should be formatted like function/method arguments, without leading or trailing single line space.
-        'unalign_double_arrow',                         // Unalign double arrow symbols.
-        'unalign_equals',                               // Unalign equals symbols.
-        'unused_use',                                   // Unused use statements must be removed.
-    ]);
+$finder = PhpCsFixer\Finder::create()
+    ->notPath('bootstrap/cache')
+    ->notPath('node_modules')
+    ->notPath('public')
+    ->notPath('storage')
+    ->notPath('vendor')
+    ->in(__DIR__)
+    ->name('*.php')
+    ->ignoreDotFiles(true)
+    ->ignoreVCS(true);
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@PSR1' => false,
+        '@PSR2' => true,
+
+        // Logical NOT operators (!) should have one trailing whitespace.
+        'not_operator_with_successor_space' => true,
+        // PHP multi-line arrays should have a trailing comma.
+        'trailing_comma_in_multiline_array' => true,
+        // Ordering use statements.
+        'ordered_imports' => true,
+        // Removes extra blank lines and/or blank lines following configuration.
+        'no_extra_blank_lines' => ['use'],
+        // An empty line feed should precede a return statement.
+        'blank_line_before_return' => true,
+        // PHP arrays should be declared using the configured syntax.
+        'array_syntax' => ['syntax' => 'short'],
+        // Cast (boolean) and (integer) should be written as (bool) and (int), (double) and (real) as (float), (binary) as (string).
+        'short_scalar_cast' => true,
+        // PHP single-line arrays should not have trailing comma.
+        'no_trailing_comma_in_singleline_array' => true,
+        // Arrays should be formatted like function/method arguments, without leading or trailing single line space.
+        'trim_array_spaces' => true,
+        // Binary operators should be surrounded by space as configured.
+        'binary_operator_spaces' => ['align_double_arrow' => false, 'align_equals' => false],
+        // Unused use statements must be removed.
+        'no_unused_imports' => true,
+    ])
+    ->setFinder($finder)
+    ->setUsingCache(true)
+;
