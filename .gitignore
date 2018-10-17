@@ -7,3 +7,4 @@ Homestead.yaml
 /public/storage
 Homestead.json
 .env
+.php_cs.cache
