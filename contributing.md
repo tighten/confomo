@@ -40,20 +40,9 @@ $array = ['value1', 'value2', 'value3'];
 
 A [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) configuration file (`.php_cs`) is included in this repository.
 
-You can apply the rules manually, or by adding a a simple `pre-commit` git hook to `.git/hooks/pre-commit` - ensure that the file is executable: `chmod g+x .git/hooks/pre-commit`.
+You can apply the rules manually, or by adding our simple `pre-commit` git hook with the commands below.
 
 ```bash
-#!/bin/bash
-
-echo "Running PHP-CS-Fixer"
-
-while read -r file;
-do
-    file="$(echo -e "${file:1}" | sed -e 's/^[[:space:]]*//')"
-    if [[ $file = *.php ]];
-    then
-        /usr/bin/env php-cs-fixer fix "$file"
-        git add "$file"
-    fi
-done < <(git diff --cached --name-status --diff-filter=ACM)
+chmod +x .githooks/pre-commit
+ln -sf ../../.githooks/pre-commit .git/hooks/pre-commit
 ```
