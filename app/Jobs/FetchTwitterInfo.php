@@ -38,6 +38,7 @@ class FetchTwitterInfo extends Job
             if (isset($details->errors)) {
                 // @todo: Handle if it's a non-existent tweeter?
                 Log::error($details->errors[0]->message);
+
                 return false;
             }
 
@@ -57,6 +58,7 @@ class FetchTwitterInfo extends Job
 
             if (@file_put_contents(public_path($this->tweeter->avatar), @file_get_contents($avatar_url))) {
                 Log::info('Synced avatar for ' . $this->tweeter->username);
+
                 return true;
             }
         } catch (Exception $e) {
@@ -65,6 +67,7 @@ class FetchTwitterInfo extends Job
         }
 
         Log::error('Failed syncing avatar for ' . $this->tweeter->username);
+
         return false;
     }
 }

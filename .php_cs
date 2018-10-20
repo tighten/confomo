@@ -40,5 +40,4 @@ return PhpCsFixer\Config::create()
         'no_unused_imports' => true,
     ])
     ->setFinder($finder)
-    ->setUsingCache(true)
-;
+    ->setUsingCache(true);

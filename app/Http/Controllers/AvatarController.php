@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Friend;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 
 class AvatarController extends Controller
