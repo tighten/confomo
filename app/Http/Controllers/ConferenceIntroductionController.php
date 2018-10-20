@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Conference;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ConferenceIntroductionController extends Controller

@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\FriendWasAdded;
-use App\Jobs\FetchTwitterInfo;
 use App\Tweeter;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

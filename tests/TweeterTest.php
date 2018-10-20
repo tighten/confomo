@@ -7,8 +7,6 @@ use App\Tweeter;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Mockery as m;
 
 class TweeterTest extends TestCase
@@ -25,7 +23,7 @@ class TweeterTest extends TestCase
     }
 
     /** @test */
-    function friend_passes_tweeter_details()
+    public function friend_passes_tweeter_details()
     {
         $user = factory(User::class)->create();
         $conference = factory(Conference::class)->create(['user_id' => $user->id]);
@@ -41,7 +39,7 @@ class TweeterTest extends TestCase
     }
 
     /** @test */
-    function adding_a_friend_adds_new_tweeter_if_doesnt_exist()
+    public function adding_a_friend_adds_new_tweeter_if_doesnt_exist()
     {
         $user = factory(User::class)->create();
         $conference = factory(Conference::class)->create(['user_id' => $user->id]);
@@ -52,7 +50,7 @@ class TweeterTest extends TestCase
     }
 
     /** @test */
-    function adding_a_friend_doesnt_create_tweeter_if_one_exists()
+    public function adding_a_friend_doesnt_create_tweeter_if_one_exists()
     {
         $user = factory(User::class)->create();
         $conference = factory(Conference::class)->create(['user_id' => $user->id]);
@@ -68,7 +66,7 @@ class TweeterTest extends TestCase
     }
 
     /** @test */
-    function fetcher_syncs_friends_data()
+    public function fetcher_syncs_friends_data()
     {
         $fromTwitter = (object) [
             'name' => 'Matt Stauffer',

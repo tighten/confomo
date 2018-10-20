@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Jobs\FetchTwitterInfo;
 use App\Tweeter;
 use Carbon\Carbon;

@@ -2,9 +2,9 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Auth\AuthenticationException;
-use Exception;
 use Bugsnag\BugsnagLaravel\BugsnagExceptionHandler as ExceptionHandler;
+use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
