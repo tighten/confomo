@@ -7,24 +7,24 @@ on:
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
-
     strategy:
-      matrix:
-        os: [Ubuntu, Windows, macOS]
-        php: [7.2, 7.3, 7.4, 8.0]
+        matrix:
+            os: [Ubuntu, Windows, macOS]
+            php: [7.2, 7.3, 7.4, 8.0]
 
-        include:
-        - os: Ubuntu
-        os-version: ubuntu-latest
+            include:
+              - os: Ubuntu
+                os-version: ubuntu-latest
 
-        - os: Windows
-        os-version: windows-latest
+              - os: Windows
+                os-version: windows-latest
 
-        - os: macOS
-        os-version: macos-latest
+              - os: macOS
+                os-version: macos-latest
 
     name: ${{ matrix.os }} - PHP ${{ matrix.php }}
+
+    runs-on: ${{ matrix.os-version }}
 
     steps:
     - name: Checkout code
