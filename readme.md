@@ -1,6 +1,6 @@
 ![ConFOMO logo](https://raw.githubusercontent.com/tightenco/confomo/master/confomo-logo.png)
 
-[![Codeship Status for mattstauffer/confomo](https://codeship.com/projects/5f3d86b0-1335-0134-c5b2-1e1a7920036c/status?branch=master)](https://codeship.com/projects/157478)
+[![Run tests](https://github.com/tighten/takeout/workflows/Run%20tests/badge.svg?branch=main)](https://github.com/tighten/confomo/actions?query=workflow%3A%22Run+Tests%22)
 
 ### Connecting your online community with the real world, one conference at a time.
 
@@ -10,7 +10,7 @@ Updated for Laravel 5.1 and Vue in 2015/2016. @michaeldyrynda did most of the ha
 
 ### Requirements
 
-- PHP >= 7.1.3
+- PHP = 7.2 or 7.3
 - Composer
 - Node and npm
 
