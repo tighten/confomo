@@ -10,7 +10,7 @@ Updated for Laravel 5.1 and Vue in 2015/2016. @michaeldyrynda did most of the ha
 
 ### Requirements
 
-- PHP = 7.2 or 7.3
+- PHP = 7.4
 - Composer
 - Node and npm
 
