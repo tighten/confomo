@@ -21,7 +21,8 @@
         "mockery/mockery": "^1.0.0",
         "phpunit/phpunit": "~6.0",
         "doctrine/dbal": "^2.5",
-        "laravel/browser-kit-testing": "2.*"
+        "laravel/browser-kit-testing": "2.*",
+        "filp/whoops": "~2.0"
     },
     "autoload": {
         "classmap": [
