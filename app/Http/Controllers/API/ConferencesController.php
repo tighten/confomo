@@ -17,7 +17,7 @@ class ConferencesController extends Controller
             'end_date' => 'required|date_format:Y-m-d|after:' . dayBefore($request->start_date),
         ]);
 
-        return Auth::user()->addConference($request->all([
+        return Auth::user()->addConference($request->only([
             'name',
             'start_date',
             'end_date',
