@@ -124,7 +124,7 @@ class ConferenceTest extends BrowserKitTestCase
             'end_date' => '2016-07-26',
         ]);
 
-        $this->assertResponseOk();
+        $this->assertResponseStatus(201);
     }
 
     public function test_conference_cannot_end_before_it_starts()
@@ -152,7 +152,7 @@ class ConferenceTest extends BrowserKitTestCase
             'end_date' => '2016-07-30',
         ]);
 
-        $this->assertResponseOk();
+        $this->assertResponseStatus(201);
     }
 
     public function test_it_identifies_an_upcoming_conference()
